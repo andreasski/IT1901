@@ -1,0 +1,7 @@
+cmd
+cd "lenke til IT1901"
+git add
+git commit -m"beskrivelse"
+git status
+git pull
+gitt push
