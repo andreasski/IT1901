@@ -1,0 +1,15 @@
+#header {
+    -fx-background-color: #003153;
+    -fx-padding: 0.5em 1em;
+}
+
+#lblHeader {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 26px;
+}
+
+#lblPostHeader {
+    -fx-text-fill: #AAAAAA;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
