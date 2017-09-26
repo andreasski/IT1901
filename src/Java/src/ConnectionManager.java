@@ -1,3 +1,8 @@
+/**
+ * ConnectionManager establish a connection to the server and returns it via ConnectionManager.Connect().
+ * @author: Heidi Brække, Magnus Eriksson
+ */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 

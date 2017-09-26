@@ -1,3 +1,9 @@
+/**
+ * Organizer class establish a connection to the database via the ConnectionManager class.
+ * Using queries to get data from the database and returns it to the GUI.
+ * @author: Heidi Brække, Magnus Eriksson
+ */
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -66,7 +72,6 @@ public class Organizer {
             System.err.println("Got an exception3! ");
             System.err.println(e.getMessage());
         } return techs;
-
     }
 
 
@@ -86,27 +91,21 @@ public class Organizer {
 
     }
 
+    /**
+     *
+     * testingtesting
+
     public static void main (String[]args) {
 
         Organizer test = new Organizer();
-
-        //String concid = test.getConcerttId("16.10.2017", "18.00-20.00", "3");
-
         ArrayList<String> dates = test.getDate();
-
         ArrayList<String> concerts = test.getConcerts("15.10.2017");
-
         ArrayList<String> techs = test.getTechnicians("16.10.2017", "18.00-20.00", "3");
-
         System.out.println(dates);
-
         System.out.println(concerts);
-
-        //System.out.println(concid);
-
         System.out.println(techs);
     }
-
+    */
 
 
 }
