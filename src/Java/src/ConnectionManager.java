@@ -1,6 +1,7 @@
 /**
  * ConnectionManager establish a connection to the server and returns it via ConnectionManager.Connect().
  * @author: Heidi Brække, Magnus Eriksson
+ * source: https://alvinalexander.com/java/edu/pj/jdbc/jdbc0003
  */
 
 import java.sql.Connection;
