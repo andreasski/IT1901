@@ -1,4 +1,4 @@
-package arrGUI;
+package GUI;
 
 /**
  * Arr_Controller handles user interaction with the GUI.
@@ -11,6 +11,7 @@ package arrGUI;
 /*
 * TODO
 * - Move the Spacing_lvl1_lvl2 and Spacing_lvl2_lvl3 renaming to the resetContainer method
+* - Put the concert details in an hbox with two labels to get clean text start
 * */
 
 import javafx.fxml.FXML;
@@ -202,6 +203,7 @@ public class Arr_Controller implements Initializable{
     } return "";
   }
 
+  //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     lvl1.setOnMouseClicked(event -> navLanding());

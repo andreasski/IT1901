@@ -1,6 +1,6 @@
 /*--- GENERAL ---*/
 #body {
-    -fx-background-color: #E6E6E6;
+    //-fx-background-color: #E6E6E6;
 }
 
 .margin {
@@ -103,7 +103,7 @@
 }
 
 #concertDetailsWrapper {
-    -fx-background-color: #CFCFCF;
+    -fx-background-color: #DDDDDD;
     -fx-border-width: 1px;
     -fx-border-color: #999999;
     -fx-max-width: 500px;
