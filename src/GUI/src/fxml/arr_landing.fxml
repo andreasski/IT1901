@@ -1,0 +1,36 @@
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane fx:id="body" fx:controller="GUI.Arr_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@/css/arr.css">
+
+    <top>
+        <fx:include source="arr_header.fxml"/>
+    </top>
+
+    <left>
+
+        <VBox>
+            <HBox fx:id="nav">
+                <Label fx:id="lvl1" styleClass="underline" text="Dato"/>
+                <Label fx:id="Spacing_lvl1_lvl2"/>
+                <Label fx:id="lvl2" styleClass="underline" text=""/>
+                <Label fx:id="Spacing_lvl2_lvl3"/>
+                <Label fx:id="lvl3" styleClass="underline" text=""/>
+            </HBox>
+
+            <VBox fx:id="instructionBoxContainer" styleClass="margin">
+                <StackPane styleClass="textContainer">
+                    <Label fx:id="instructionBoxLbl"/>
+                </StackPane>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox fx:id="container" styleClass="margin">
+        </VBox>
+    </center>
+
+</BorderPane>
