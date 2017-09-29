@@ -77,7 +77,7 @@
     -fx-min-width: 500px;
 }
 //ConcertDetails
-.concertDetailsLabel {
+.lblConcertDetails {
     -fx-font-size: 18px;
 }
 

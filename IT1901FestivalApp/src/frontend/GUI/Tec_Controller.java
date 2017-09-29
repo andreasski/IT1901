@@ -8,6 +8,8 @@ package frontend.GUI;
  * @since   26.09.2017
  */
 
+import backend.Organizer;
+import backend.Technician;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -24,17 +26,17 @@ public class Tec_Controller implements Initializable{
 
   //CONSTANTS
   private final String INSTRUCTION_LABEL= "Se gjennom listen for å se oppdragene dine. Listen er kronologisk sortert, så det øverste oppdraget er ditt neste";
-
+  private final double LEFT_ANCHOR_WORK   = 14.0;
+  private final double RIGHT_ANCHOR_WORK  = 50.0;
   @FXML
   private Label instructionBoxLbl;
 
   @FXML
   private VBox container;
 
-  private int id;
+  private int techId;
   private ScrollPane workScrollPane = new ScrollPane();
   private VBox contents = new VBox();
-
 
   /**
    * The method creates fxml content based on external information that is collected with the method getWork(int id)
@@ -44,10 +46,10 @@ public class Tec_Controller implements Initializable{
    */
   public void navLanding(int id) {
     int listIndex = 1;
-    this.id = id;
+    techId = id;
     String date = "";
     instructionBoxLbl.setText(INSTRUCTION_LABEL);
-    List<String> workList = getWork(id);
+    List<String> workList = Technician.getWork(techId);
     Label workHeader = new Label("Arbeid");
     workHeader.setId("headerScrollPane");
     container.getChildren().add(workHeader);
@@ -65,8 +67,8 @@ public class Tec_Controller implements Initializable{
       Label timeLabel = new Label(workArray[2]);
       workContainer.getChildren().addAll(sceneLabel, timeLabel);
       workContainer.getStyleClass().add("listItem" + (listIndex % 2));
-      workContainer.setLeftAnchor(sceneLabel, 14.0);
-      workContainer.setRightAnchor(timeLabel, 50.0);
+      workContainer.setLeftAnchor(sceneLabel, LEFT_ANCHOR_WORK);
+      workContainer.setRightAnchor(timeLabel, RIGHT_ANCHOR_WORK);
       contents.getChildren().add(workContainer);
       listIndex++;
     }
@@ -76,20 +78,9 @@ public class Tec_Controller implements Initializable{
     container.getChildren().add(workScrollPane);
   }
 
-  public List<String> getWork(int id) {
-    Random rng = new Random();
-    List<String> tempList = new ArrayList<>();
-    for (int j = 0; j < 20; j++) {
-      tempList.add((1+rng.nextInt(1)) + "." + (1 +rng.nextInt(1)) + ".201" + rng.nextInt(2)
-          + " Scene" + rng.nextInt(10) + " " + rng.nextInt(23) + ":" + rng.nextInt(59) + "-"
-          + rng.nextInt(23) + ":" + rng.nextInt(59));
-    }
-    return tempList;
-  }
-
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    navLanding(1);
+    navLanding(0);
   }
 }

@@ -14,6 +14,7 @@ package frontend.GUI;
 * - Put the concert details in an hbox with two labels to get clean text start
 * */
 
+import backend.Organizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -24,12 +25,11 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Arr_Controller implements Initializable{
 
-  private Random rng = new Random();
   private VBox contents = new VBox();
   private ScrollPane scrollPane;
   private String dateSave = "00.00.0000";
@@ -43,21 +43,17 @@ public class Arr_Controller implements Initializable{
 
 
   //Constants
-  private final double LEFT_ANCHOR_CONCERTS       = 16;
-  private final double RIGHT_ANCHOR_CONCERTS      = 50;
-  private final String LANDING_INFO_TEXT          = "Klikk på en av datoene for å se oversikten over konserter på denne datoen";
-  private final String CONCERTS_INFO_TEXT         = "Klikk på en av konsertene i listen for å se flere detaljer";
-  private final String CONCERT_DETAILS_INFO_TEXT  = "Les av listen for å se hvilke teknikere som jobber under denne konserten";
-  private final String[] INFO_TEXT_ARRAY          = {LANDING_INFO_TEXT, CONCERTS_INFO_TEXT, CONCERT_DETAILS_INFO_TEXT};
-  private final String[] SUB_HEADER_TEXT_ARRAY    = {"Dato", "Konserter", "Konsert detaljer"};
-
-  public ArrayList<Integer> getContent(int n) {
-    ArrayList<Integer> dbDates = new ArrayList<>();
-    for (int i = 0; i < n; i++) {
-      dbDates.add(rng.nextInt(30) + 1);
-    } return dbDates;
-  }
-
+  private final double LEFT_ANCHOR_CONCERTS         = 16;
+  private final double RIGHT_ANCHOR_CONCERTS        = 50;
+  private final double LEFT_ANCHOR_DETAILS          = 16;
+  private final double TOP_ANCHOR_DETAILS           = 16;
+  private final double BOTTOM_ANCHOR_DETAILS        = 16;
+  private final double RIGHT_ANCHOR_TECHNICIAN_LIST = 16;
+  private final String LANDING_INFO_TEXT            = "Klikk på en av datoene for å se oversikten over konserter på denne datoen";
+  private final String CONCERTS_INFO_TEXT           = "Klikk på en av konsertene i listen for å se flere detaljer";
+  private final String CONCERT_DETAILS_INFO_TEXT    = "Les av listen for å se hvilke teknikere som jobber under denne konserten";
+  private final String[] INFO_TEXT_ARRAY            = {LANDING_INFO_TEXT, CONCERTS_INFO_TEXT, CONCERT_DETAILS_INFO_TEXT};
+  private final String[] SUB_HEADER_TEXT_ARRAY      = {"Dato", "Konserter", "Konsert detaljer"};
 
   /**
    * Resets the container VBox to the empty version of the page.
@@ -87,65 +83,49 @@ public class Arr_Controller implements Initializable{
     resetContainer(0);
     Spacing_lvl1_lvl2.setText("");
     Spacing_lvl2_lvl3.setText("");
-    ArrayList<Integer> dates = getContent(50);
+    List<String> dates = Organizer.getDate();
     for (int i = 0; i < dates.size(); i++) {
-      Label lbl = new Label("" + dates.get(i) + ".09.2017");
+      Label lbl = new Label(dates.get(i));
       lbl.getStyleClass().add("lblListItem");
-      StackPane dateButton= new StackPane();
-      dateButton.getStyleClass().add("listItem" + i % 2);
-      dateButton.getChildren().add(lbl);
-      dateButton.setOnMouseClicked(event -> navConcerts(lbl.getText()));
-      contents.getChildren().add(dateButton);
+      StackPane btnDate= new StackPane();
+      btnDate.getStyleClass().add("listItem" + i % 2);
+      btnDate.getChildren().add(lbl);
+      btnDate.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(lbl.getText()), lbl.getText()));
+      contents.getChildren().add(btnDate);
     }
     scrollPane.setContent(contents);
     container.getChildren().add(scrollPane);
   }
+
   /**
    * Loads data for "concerts" from an external source, using an external class Arr_connector
    * The data is stored in the ArrayList<String> dates variable with the method getConcerts(String date)
    * The method then adds the data in fxml form to the container
    */
-  public void navConcerts(String date) {
-    dateSave = date;
+  public void navConcerts(List<String> concerts, String date) {
     resetContainer(1);
     Spacing_lvl1_lvl2.setText(" > ");
     Spacing_lvl2_lvl3.setText("");
-    ArrayList<String> testData = new ArrayList<>();
-
-    for (int i = 0; i < 50; i++) {
-      int day = rng.nextInt(5);
-      String fullDate = day + ".09.2017";
-      String fullStrObject = fullDate + " Scene" + rng.nextInt(10) + " Band" + rng.nextInt(5) + " " + rng.nextInt(16) + ":00-" + rng.nextInt(23) + ":00";
-      testData.add(fullStrObject);
-    }
-
-    String scene = "";
+    String stage = "";
     int concertIndex = 0;
-
-    for (int i = 0; i < testData.size(); i++) {
-      String[] tmpArray = testData.get(i).split(" ");
-      AnchorPane concertButton = new AnchorPane();
-
-      if (date.equals(tmpArray[0])) {
-        if (!(scene.equals(tmpArray[1]))) {
-          scene = tmpArray[1];
-          Label sceneHeader = new Label(scene);
-          sceneHeader.getStyleClass().add("concertsSceneHeader");
-          contents.getChildren().add(sceneHeader);
-          concertIndex = 1;
-        }
-        Label bandLabel = new Label(tmpArray[2]);
-        Label timeLabel = new Label(tmpArray[3]);
-        concertButton.getChildren().addAll(bandLabel, timeLabel);
-        concertButton.setLeftAnchor(bandLabel, LEFT_ANCHOR_CONCERTS);
-        concertButton.setRightAnchor(timeLabel, RIGHT_ANCHOR_CONCERTS);
-        concertButton.getStyleClass().add("listItem" + concertIndex++ % 2);
-        concertButton.setOnMouseClicked(event -> {
-          navConcertDetails("01.01.2000", "Band1", "18:00-20:00");
-
-        });
+    for (int i = 0; i < concerts.size(); i++) {
+      String[] tempArray = concerts.get(i).split(" ");
+      AnchorPane btnConcert = new AnchorPane();
+      if (stage.equals(tempArray[1])) {
+        stage = tempArray[1];
+        Label sceneHeader = new Label(stage);
+        sceneHeader.getStyleClass().add("concertsSceneHeader");
+        contents.getChildren().add(sceneHeader);
+        concertIndex = 1;
       }
-      contents.getChildren().add(concertButton);
+      Label lblBand = new Label(tempArray[2]);
+      Label lblTime = new Label(tempArray[3]);
+      btnConcert.getChildren().addAll(lblBand, lblTime);
+      btnConcert.setLeftAnchor(lblBand, LEFT_ANCHOR_CONCERTS);
+      btnConcert.setRightAnchor(lblTime, RIGHT_ANCHOR_CONCERTS);
+      btnConcert.getStyleClass().add("listItem" + concertIndex++ % 2);
+      btnConcert.setOnMouseClicked(event -> { navConcertDetails(date, lblBand.getText(), lblTime.getText());});
+      contents.getChildren().add(btnConcert);
     }
     scrollPane.setContent(contents);
     container.getChildren().add(scrollPane);
@@ -160,57 +140,41 @@ public class Arr_Controller implements Initializable{
     resetContainer(2);
     Spacing_lvl1_lvl2.setText(" > ");
     Spacing_lvl2_lvl3.setText(" > ");
-    String[] technicianArray = getTechnicians(date, band, time).split("\\.");
-    AnchorPane wrapper = new AnchorPane();
+    List<String> technicians = Organizer.getTechnicians(date, band, time);
+    AnchorPane concertDetailsWrapper = new AnchorPane();
     VBox detailsWrapper = new VBox();
-
-    Label dateLabel = new Label("Dato: " + date);
-    dateLabel.getStyleClass().add("concertDetailsLabel");
-    Label bandLabel = new Label("Band: " + band);
-    bandLabel.getStyleClass().add("concertDetailsLabel");
-    Label timeLabel = new Label("Klokka: " + time);
-    timeLabel.getStyleClass().add("concertDetailsLabel");
-
-    detailsWrapper.getChildren().addAll(dateLabel, bandLabel, timeLabel);
+    Label lblDate = new Label("Dato: " + date);
+    Label lblBand = new Label("Band: " + band);
+    Label lblTime = new Label("Klokka: " + time);
+    lblDate.getStyleClass().add("lblConcertDetails");
+    lblBand.getStyleClass().add("lblConcertDetails");
+    lblTime.getStyleClass().add("lblConcertDetails");
+    detailsWrapper.getChildren().addAll(lblDate, lblBand, lblTime);
     ScrollPane technichiansScrollPane = new ScrollPane();
     technichiansScrollPane.setId("technichiansScrollPane");
-
-    for (int i = 0; i < technicianArray.length; i++) {
-      Label technichianLabel = new Label(technicianArray[i]);
+    for (int i = 0; i < technicians.size(); i++) {
+      Label technichianLabel = new Label(technicians.get(i));
       technichianLabel.getStyleClass().add("technicianListItem" + i % 2);
       contents.getChildren().add(technichianLabel);
     }
-
     Label technicianHeader = new Label("Teknikere");
     technicianHeader.setId("technicianHeader");
     technichiansScrollPane.setContent(contents);
     VBox technichiansScrollPaneWrapper= new VBox(technicianHeader, technichiansScrollPane);
-
-    wrapper.getChildren().addAll(detailsWrapper, technichiansScrollPaneWrapper);
-    wrapper.setId("concertDetailsWrapper");
-    wrapper.setLeftAnchor(detailsWrapper, LEFT_ANCHOR_CONCERTS);
-    wrapper.setRightAnchor(technichiansScrollPaneWrapper, 0.0);
-    wrapper.setTopAnchor(detailsWrapper, 14.0);
-    wrapper.setBottomAnchor(detailsWrapper, 14.0);
-
-    container.getChildren().add(wrapper);
-  }
-
-  public String getTechnicians(String date, String band, String time) {
-    String[] testData = {"01.01.2000 Scene1 Band1 18:00-20:00 tech1.tech2.tech11.tech32", "01.01.2001 Scene2 Band3 16:00-20:00 tech1.tech2.tech22.tech23", "01.01.2001 Scene2 Band3 16:00-20:30 tech5.tech3.tech01.tech0"};
-    for (int i = 0; i < testData.length; i++) {
-      String[] concertArray = testData[i].split(" ");
-      if (date.equals(concertArray[0]) && band.equals(concertArray[2]) && time.equals(concertArray[3])) {
-        return concertArray[4];
-      }
-    } return "";
+    concertDetailsWrapper.getChildren().addAll(detailsWrapper, technichiansScrollPaneWrapper);
+    concertDetailsWrapper.setId("concertDetailsWrapper");
+    concertDetailsWrapper.setLeftAnchor(detailsWrapper, LEFT_ANCHOR_DETAILS);
+    concertDetailsWrapper.setRightAnchor(technichiansScrollPaneWrapper, RIGHT_ANCHOR_TECHNICIAN_LIST);
+    concertDetailsWrapper.setTopAnchor(detailsWrapper, TOP_ANCHOR_DETAILS);
+    concertDetailsWrapper.setBottomAnchor(detailsWrapper, BOTTOM_ANCHOR_DETAILS);
+    container.getChildren().add(concertDetailsWrapper);
   }
 
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     lvl1.setOnMouseClicked(event -> navLanding());
-    lvl2.setOnMouseClicked(event -> navConcerts(dateSave));
+    lvl2.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(dateSave), dateSave));
     navLanding();
   }
 }
