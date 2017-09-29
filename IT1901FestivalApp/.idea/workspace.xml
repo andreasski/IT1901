@@ -66,18 +66,18 @@
       <file leaf-file-name="Arr_Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="187">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tec_Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Tec_Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Tec_Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="12" column="77" lean-forward="false" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="77" />
+            <state relative-caret-position="323">
+              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,7 +103,7 @@
           </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
+              <caret line="5" column="132" lean-forward="false" selection-start-line="5" selection-start-column="103" selection-end-line="5" selection-end-column="132" />
               <folding />
             </state>
           </provider>
@@ -135,11 +135,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Organizer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Organizer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1717">
+            <state relative-caret-position="861">
               <caret line="102" column="5" lean-forward="false" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IT1901FestivalApp.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IT1901FestivalApp.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -150,16 +160,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Arr_Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -240,15 +240,15 @@
         <option value="$PROJECT_DIR$/src/css/arr.css" />
         <option value="$PROJECT_DIR$/src/backend/Query1.java" />
         <option value="$PROJECT_DIR$/src/frontend/fxml/arr_header.fxml" />
-        <option value="$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java" />
-        <option value="$PROJECT_DIR$/src/frontend/GUI/Tec_Main.java" />
         <option value="$PROJECT_DIR$/src/frontend/GUI/Arr_Controller.java" />
         <option value="$PROJECT_DIR$/src/frontend/GUI/Tec_Controller.java" />
-        <option value="$PROJECT_DIR$/src/frontend/fxml/arr_landing.fxml" />
         <option value="$PROJECT_DIR$/src/frontend/fxml/tec_landing.fxml" />
         <option value="$PROJECT_DIR$/src/frontend/fxml/tec_header.fxml" />
         <option value="$PROJECT_DIR$/src/backend/ConnectionManager.java" />
         <option value="$PROJECT_DIR$/src/backend/Organizer.java" />
+        <option value="$PROJECT_DIR$/src/frontend/fxml/arr_landing.fxml" />
+        <option value="$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java" />
+        <option value="$PROJECT_DIR$/src/frontend/GUI/Tec_Main.java" />
       </list>
     </option>
   </component>
@@ -256,8 +256,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1379" />
-    <option name="height" value="723" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -277,54 +277,32 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="IT1901FestivalApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IT1901FestivalApp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="IT1901FestivalApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IT1901FestivalApp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="IT1901FestivalApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IT1901FestivalApp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="fxml" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="IT1901FestivalApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IT1901FestivalApp" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -344,7 +322,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="ToolWindowCoverage.ShowToolbar" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUI" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -363,7 +341,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Organizer">
+  <component name="RunManager" selected="Application.Tec_Main">
     <configuration name="Arr_Main" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -380,7 +358,7 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="GUI" />
+      <module name="IT1901FestivalApp" />
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -396,7 +374,7 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="GUI" />
+      <module name="IT1901FestivalApp" />
       <envs />
     </configuration>
     <configuration name="Tec_Main" type="Application" factoryName="Application">
@@ -410,7 +388,7 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="GUI" />
+      <module name="IT1901FestivalApp" />
       <envs />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -557,7 +535,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32873806" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -602,17 +580,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/GUI/Arr_Main.java" />
     <entry file="file://$PROJECT_DIR$/src/GUI/Arr_Controller.java" />
     <entry file="file://$PROJECT_DIR$/src/css/arr.css" />
     <entry file="file://$PROJECT_DIR$/src/fxml/arr_landing.fxml" />
-    <entry file="file://$PROJECT_DIR$/GUI.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/GUI.iml" />
     <entry file="file://$PROJECT_DIR$/src/GUI/Arr_Main.java" />
     <entry file="file://$PROJECT_DIR$/src/css/arr.css" />
     <entry file="file://$PROJECT_DIR$/src/fxml/arr_landing.fxml" />
@@ -693,13 +664,7 @@
     <entry file="file://$PROJECT_DIR$/src/fxml/tec_landing.fxml" />
     <entry file="file://$PROJECT_DIR$/src/GUI/Arr_Controller.java" />
     <entry file="file://$PROJECT_DIR$/src/css/tec.css" />
-    <entry file="file://$PROJECT_DIR$/GUI.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="31" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/GUI.iml" />
     <entry file="file://$PROJECT_DIR$/src/css/arr.css" />
     <entry file="file://$PROJECT_DIR$/src/backend/Query1.java" />
     <entry file="file://$PROJECT_DIR$/src/frontend/css/arr.css">
@@ -721,25 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/arr_landing.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Tec_Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="77" lean-forward="false" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="77" />
           <folding />
         </state>
       </provider>
@@ -785,18 +731,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java">
+    <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="861">
+          <caret line="102" column="5" lean-forward="false" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
+    <entry file="file://$PROJECT_DIR$/IT1901FestivalApp.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1717">
-          <caret line="102" column="5" lean-forward="false" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
+        <state relative-caret-position="204">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/arr_landing.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="132" lean-forward="false" selection-start-line="5" selection-start-column="103" selection-end-line="5" selection-end-column="132" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Tec_Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>

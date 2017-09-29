@@ -13,7 +13,6 @@ public class Arr_Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/arr_landing.fxml"));
         primaryStage.setTitle("FestivalArrangør  | Arrangør");
         Scene scene = new Scene(root, 800, 600);
-        scene.getStylesheets().addAll("css/arr.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

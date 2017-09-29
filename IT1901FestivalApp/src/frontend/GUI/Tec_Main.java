@@ -13,7 +13,6 @@ public class Tec_Main extends Application {
     Parent root = FXMLLoader.load(getClass().getResource("../fxml/tec_landing.fxml"));
     primaryStage.setTitle("FestivalArrangør  | Tekniker");
     Scene scene = new Scene(root, 800, 600);
-    scene.getStylesheets().add("./css/tec.css");
     primaryStage.setScene(scene);
     primaryStage.show();
   }
