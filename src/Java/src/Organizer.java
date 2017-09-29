@@ -91,9 +91,7 @@ public class Organizer {
 
     }
 
-    /**
-     *
-     * testingtesting
+    /*
 
     public static void main (String[]args) {
 
@@ -105,7 +103,7 @@ public class Organizer {
         System.out.println(concerts);
         System.out.println(techs);
     }
-    */
+   */
 
 
 }
