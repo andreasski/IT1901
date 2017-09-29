@@ -1,4 +1,6 @@
-package Java.src;
+package backend;
+
+import backend.ConnectionManager;
 
 import java.sql.*;
 import java.util.ArrayList;

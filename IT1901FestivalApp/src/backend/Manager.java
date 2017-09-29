@@ -18,10 +18,11 @@ public class Manager {
     }
 
     /*
-    @param: String what to change, String change to
+    @param: String what to change(popularity, salesalbum, salesconcert), int change value
      */
 
-    public void setKeyInformation(){
+    public void setKeyInformation(String whatToChange, int value){
+
 
     }
 
