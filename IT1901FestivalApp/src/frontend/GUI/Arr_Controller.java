@@ -8,12 +8,6 @@ package frontend.GUI;
  * @since   24.09.2017
  */
 
-/*
-* TODO
-* - Move the Spacing_lvl1_lvl2 and Spacing_lvl2_lvl3 renaming to the resetContainer method
-* - Put the concert details in an hbox with two labels to get clean text start
-* */
-
 import backend.Organizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +18,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -39,8 +32,6 @@ public class Arr_Controller implements Initializable{
 
   @FXML
   private Label lvl1, lvl2, lvl3, Spacing_lvl1_lvl2, Spacing_lvl2_lvl3, instructionBoxLbl;
-
-
 
   //Constants
   private final double LEFT_ANCHOR_CONCERTS         = 16;
@@ -111,15 +102,15 @@ public class Arr_Controller implements Initializable{
     for (int i = 0; i < concerts.size(); i++) {
       String[] tempArray = concerts.get(i).split(" ");
       AnchorPane btnConcert = new AnchorPane();
-      if (stage.equals(tempArray[1])) {
-        stage = tempArray[1];
+      if (stage.equals(tempArray[0])) {
+        stage = tempArray[0];
         Label sceneHeader = new Label(stage);
         sceneHeader.getStyleClass().add("concertsSceneHeader");
         contents.getChildren().add(sceneHeader);
         concertIndex = 1;
       }
-      Label lblBand = new Label(tempArray[2]);
-      Label lblTime = new Label(tempArray[3]);
+      Label lblBand = new Label(tempArray[1]);
+      Label lblTime = new Label(tempArray[2]);
       btnConcert.getChildren().addAll(lblBand, lblTime);
       btnConcert.setLeftAnchor(lblBand, LEFT_ANCHOR_CONCERTS);
       btnConcert.setRightAnchor(lblTime, RIGHT_ANCHOR_CONCERTS);
