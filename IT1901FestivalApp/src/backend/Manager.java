@@ -66,6 +66,25 @@ public class Manager {
 
     }
 
+    public ArrayList<String> getTechNeeds(int bandId){
+        ArrayList<String> needs = new ArrayList<>();
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            rs = stm.executeQuery("SELECT * FROM `techicalneed` WHERE bandid " + bandId);
+
+            while (rs.next()){
+                String need = rs.getString("technicalneed.name");
+                needs.add(need);
+            }
+        }
+        catch (Exception e){
+            System.err.println("Got an exception2! ");
+            System.err.println(e.getMessage());
+        }
+        return needs;
+    }
+
     public void setBandId(int index){
         this.bandId = bandList.get(index);
     }
