@@ -84,8 +84,9 @@ public class Manager {
                 String name = rs.getString("name");
                 int popularity = rs.getInt("popularity");
                 int album = rs.getInt("salesalbum");
-                int concert = rs.getInt("salesconcert");
-                out = name + popularity + album + concert;
+                int concert = rs.getInt("salesconcerts");
+                //out = name + popularity + album + concert;
+                out = String.format("%s %d %d %d", name, popularity, album, concert);
             }
         }
         catch (Exception e){
@@ -184,7 +185,7 @@ public class Manager {
 
         System.out.println("Done thing!");
 
-        System.out.println(mg.getKeyInformation());
+        System.out.println("KEYINFO: " + mg.getKeyInformation());
 
         for (int i = 0; i < mg.bandNames.size(); i++)
         {
