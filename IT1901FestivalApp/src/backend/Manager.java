@@ -84,7 +84,7 @@ public class Manager {
                 String name = rs.getString("name");
                 int popularity = rs.getInt("popularity");
                 int album = rs.getInt("salesalbum");
-                int concert = rs.getInt("salesconcert");
+                int concert = rs.getInt("salesconcerts");
                 out = name + popularity + album + concert;
             }
         }
