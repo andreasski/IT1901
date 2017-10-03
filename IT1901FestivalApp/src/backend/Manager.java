@@ -57,7 +57,7 @@ public class Manager {
     *
     * Sets a new technical need to the current active band.
     */
-    public void setTechNeeds(String need){
+    public void addTechNeed(String need){
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -74,22 +74,44 @@ public class Manager {
     @param: String what to change, String change to
      */
 
-    public void setKeyInformation(){
+    public void setKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
 
+            String str = String.format("UPDATE band SET name = '%s', popularity = %d, salesalbum = %d, salesconcerts = %d WHERE idBand = %d", name, popularity, salesalbum, salesconcert, bandId);
+            System.out.println(str);
+            stm.executeUpdate(str);
+
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void editKeyInformation(){
+    public void addKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
 
+            String str = String.format("INSERT INTO band(name, popularity, salesalbum, salesconcerts, managerid) VALUES ('%s', %d, %d, %d, %d)", name, popularity, salesalbum, salesconcert, userId);
+            System.out.println(str);
+            stm.executeUpdate(str);
+
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-    public ArrayList<String> getTechNeeds(int bandId){
+    public ArrayList<String> getTechNeeds(){
         ArrayList<String> needs = new ArrayList<>();
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stm.executeQuery("SELECT * FROM `techicalneed` WHERE bandid " + bandId);
+            rs = stm.executeQuery("SELECT * FROM `techicalneed` WHERE bandid = " + bandId);
 
             while (rs.next()){
-                String need = rs.getString("technicalneed.name");
+                String need = rs.getString("need");
                 needs.add(need);
             }
         }
@@ -133,13 +155,25 @@ public class Manager {
 
         String ss = "kuler";
 
-        mg.setTechNeeds(ss);
+        mg.addTechNeed(ss);
+
+        mg.addKeyInformation("Best Band 2", 23, 93, 21);
+        mg.setKeyInformation("Good Band 3", 43, 87, 12);
+
         System.out.println("Done thing!");
+
 
 
         for (int i = 0; i < mg.bandNames.size(); i++)
         {
             System.out.println(mg.bandNames.get(i));
+        }
+
+        ArrayList<String> sl = mg.getTechNeeds();
+
+        for (int i = 0; i < sl.size(); i++)
+        {
+            System.out.println(sl.get(i));
         }
     }
 
