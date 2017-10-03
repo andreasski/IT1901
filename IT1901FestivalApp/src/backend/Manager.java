@@ -81,10 +81,10 @@ public class Manager {
             ResultSet rs;
             rs = stm.executeQuery("SELECT * FROM band WHERE idBand = " + bandId);
             while (rs.next()){
-                String name = rs.getString("band.name");
-                int popularity = rs.getInt("band.popularity");
-                int album = rs.getInt("band.salesalbum");
-                int concert = rs.getInt("band.salesconcert");
+                String name = rs.getString("name");
+                int popularity = rs.getInt("popularity");
+                int album = rs.getInt("salesalbum");
+                int concert = rs.getInt("salesconcert");
                 out = name + popularity + album + concert;
             }
         }
@@ -184,7 +184,7 @@ public class Manager {
 
         System.out.println("Done thing!");
 
-
+        System.out.println(mg.getKeyInformation());
 
         for (int i = 0; i < mg.bandNames.size(); i++)
         {
