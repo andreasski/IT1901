@@ -74,6 +74,27 @@ public class Manager {
     @param: String what to change, String change to
      */
 
+    public String getKeyInformation(){
+        String out = "";
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            rs = stm.executeQuery("SELECT * FROM band WHERE idBand = " + bandId);
+            while (rs.next()){
+                String name = rs.getString("band.name");
+                int popularity = rs.getInt("band.popularity");
+                int album = rs.getInt("band.salesalbum");
+                int concert = rs.getInt("band.salesconcert");
+                out = name + popularity + album + concert;
+            }
+        }
+        catch (Exception e){
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return out;
+    }
+
     public void setKeyInformation(){
 
     }
@@ -110,6 +131,7 @@ public class Manager {
 
     public void setBandId(int index){
         this.bandId = bandList.get(index);
+ 
     }
     /* MÅ:
     ArrayList<Integer> getBands
