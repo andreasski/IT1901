@@ -186,8 +186,6 @@ public class Manager {
 
         System.out.println(mg.getKeyInformation());
 
-
-
         for (int i = 0; i < mg.bandNames.size(); i++)
         {
             System.out.println(mg.bandNames.get(i));
