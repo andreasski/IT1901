@@ -66,30 +66,67 @@
       <file leaf-file-name="Manager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/backend/Manager.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-1124">
               <caret line="95" column="5" lean-forward="false" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
+=======
+<<<<<<< HEAD
+            <state relative-caret-position="-852">
+              <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+              <folding />
+=======
+            <state relative-caret-position="1215">
+              <caret line="82" column="5" lean-forward="false" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
+>>>>>>> 829849cfe1dcdbb0a4c6caed1e0cdfd7a920d040
               <folding>
                 <element signature="e#4626#4627#0" expanded="true" />
                 <element signature="e#4657#4658#0" expanded="true" />
                 <element signature="e#4814#4815#0" expanded="true" />
                 <element signature="e#4846#4847#0" expanded="true" />
               </folding>
+>>>>>>> 910a93f270af0aab947392209c4cbc86b13e0b21
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Arr_Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java">
+<<<<<<< HEAD
+      <file leaf-file-name="Bookingansvarlig.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/backend/Bookingansvarlig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="273">
+              <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="Arr_Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+=======
+      <file leaf-file-name="Manager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/backend/Manager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-30">
+              <caret line="36" column="5" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+>>>>>>> 829849cfe1dcdbb0a4c6caed1e0cdfd7a920d040
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+=======
+      <file leaf-file-name="managerplan" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/backend/managerplan">
+=======
+>>>>>>> 829849cfe1dcdbb0a4c6caed1e0cdfd7a920d040
       <file leaf-file-name="Organizer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
+>>>>>>> 910a93f270af0aab947392209c4cbc86b13e0b21
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="383">
               <caret line="45" column="12" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="46" selection-end-column="47" />
@@ -303,7 +340,11 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.Arr_Main">
+=======
+  <component name="RunManager" selected="Application.Bookingansvarlig">
+>>>>>>> 829849cfe1dcdbb0a4c6caed1e0cdfd7a920d040
     <configuration name="Arr_Main" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -324,6 +365,20 @@
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
+    </configuration>
+    <configuration name="Bookingansvarlig" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="Bookingansvarlig" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="IT1901FestivalApp" />
+      <envs />
     </configuration>
     <configuration name="Organizer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -459,14 +514,16 @@
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Application.Arr_Main" />
       <item index="1" class="java.lang.String" itemvalue="Application.Tec_Main" />
       <item index="2" class="java.lang.String" itemvalue="Application.Organizer" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Bookingansvarlig" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.Organizer" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.Bookingansvarlig" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Organizer" />
       </list>
     </recent_temporary>
   </component>
@@ -502,7 +559,11 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32721713" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16081081" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> 910a93f270af0aab947392209c4cbc86b13e0b21
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -532,7 +593,6 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997879" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32874617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -692,6 +752,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-90">
           <caret line="26" column="32" lean-forward="false" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -702,7 +763,13 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/backend/Bookingansvarlig.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java">
+<<<<<<< HEAD
+=======
+>>>>>>> 829849cfe1dcdbb0a4c6caed1e0cdfd7a920d040
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
@@ -710,7 +777,12 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Arr_Main.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/backend/Bookingansvarlig.java">
+>>>>>>> 910a93f270af0aab947392209c4cbc86b13e0b21
+>>>>>>> 829849cfe1dcdbb0a4c6caed1e0cdfd7a920d040
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
@@ -726,6 +798,21 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-852">
+          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/Bookingansvarlig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <folding />
+=======
     <entry file="file://$PROJECT_DIR$/src/backend/Manager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1124">
@@ -736,6 +823,7 @@
             <element signature="e#4814#4815#0" expanded="true" />
             <element signature="e#4846#4847#0" expanded="true" />
           </folding>
+>>>>>>> 910a93f270af0aab947392209c4cbc86b13e0b21
         </state>
       </provider>
     </entry>
