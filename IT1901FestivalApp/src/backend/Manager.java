@@ -11,13 +11,15 @@ public class Manager {
 
 
     private int userId = 1;
-    private int bandId = 1;
+    private int bandId;
+    private ArrayList<Integer> bandList;
+    private ArrayList<String> bandNames;
 
 
-    public Manager(int userId, int bandId) {
+    public Manager(int userId) {
 
         this.userId = userId;
-        this.bandId = bandId;
+        //hente ut bandList og bandNames
         try {
             ConnectionManager.connect();
 
@@ -64,9 +66,20 @@ public class Manager {
 
     }
 
+    public void setBandId(int index){
+        this.bandId = bandList.get(index);
+    }
+
+    public ArrayList<Integer> getBands(){
+        return bandList;
+    }
+
+    public ArrayList<String> getBandNames(){
+        return bandNames;
+    }
 
     public  static  void main(String [] args){
-        Manager mg = new Manager(1, 1);
+        Manager mg = new Manager(1);
 
         String ss = "banansplitt";
 
