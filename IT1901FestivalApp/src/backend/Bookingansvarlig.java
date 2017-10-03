@@ -8,6 +8,7 @@ public class Bookingansvarlig {
 
     ArrayList<String> bands = new ArrayList<>();
     ArrayList<String> info = new ArrayList<>();
+    ArrayList<String> needs = new ArrayList<>();
 
     public ArrayList<String> searchBands(String band){
 
@@ -19,8 +20,7 @@ public class Bookingansvarlig {
             while (rs.next()) {
                 String name = rs.getString("name");
                 bands.add(name);
-            }
-        } catch (Exception e) {
+            } } catch (Exception e) {
             System.err.println("Got an exception1! ");
             System.err.println(e.getMessage());
         }
@@ -28,9 +28,13 @@ public class Bookingansvarlig {
     }
     public String getInfoBand(String band){
 
+
+
+    public ArrayList<String> getTechnicalNeeds( String band){
         try {
             Statement stmt = new ConnectionManager().connect().createStatement();
             ResultSet rs;
+
 
             rs = stmt.executeQuery(SELECT popularity, salesalbum, salesconcerts FROM band where band.name = "bølgeband");
             while (rs.next()) {
@@ -42,5 +46,17 @@ public class Bookingansvarlig {
             System.err.println(e.getMessage());
         }
         return info;
+    }
+
+            rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, band WHERE band.name = \""+band+"\" AND band.idBand = techicalneed.bandid");
+            while (rs.next()) {
+                String need = rs.getString("techicalneed.need");
+                needs.add(need);
+            } } catch (Exception e) {
+            System.err.println("Got an exception2! ");
+            System.err.println(e.getMessage());
+        }
+        return needs;
+
     }
 }
