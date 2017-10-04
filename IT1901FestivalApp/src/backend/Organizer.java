@@ -11,10 +11,25 @@ import java.util.List;
 
 
 public class Organizer {
+
+    /*
+    void init
+    *
+    * Initiates the required variables and such.
+    */
+    public static void init(){
+        ConnectionManager.connect();
+    }
+
+    /*
+    List<String> getDate
+    *
+    * Gets the dates from the database.
+    */
     public static List<String> getDate(){
         List<String> dates = new ArrayList<>();
         try{
-        Statement stmt = new ConnectionManager().connect().createStatement();
+        Statement stmt = ConnectionManager.conn.createStatement();
         ResultSet rs;
         rs = stmt.executeQuery("SELECT date FROM bookingoffer");
         while ( rs.next() ) {
@@ -27,10 +42,16 @@ public class Organizer {
         } return dates;
     }
 
+    /*
+    List<String> getConcerts
+    * @param: String date
+    *
+    * Gets the concerts on the data.
+    */
     public static List<String> getConcerts(String date){
         List<String> concerts = new ArrayList<>();
         try{
-            Statement stmt = new ConnectionManager().connect().createStatement();
+            Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
             rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = \"" + date + "\" ORDER BY bookingoffer.time");
@@ -39,7 +60,7 @@ public class Organizer {
                 String bandname = rs.getString("band.name");
                 String stagename = rs.getString("stage.name");
                 String time = rs.getString("bookingoffer.time");
-                String concert = stagename + " " + bandname  + " " + time ;
+                String concert = stagename + ";" + bandname  + ";" + time ;
                 concerts.add(concert);
             }
         } catch (Exception e){
@@ -48,11 +69,19 @@ public class Organizer {
         } return concerts;
     }
 
+    /*
+    List<String> getTechnicians
+    * @param: String date
+    * @param: String time
+    * @param: String bandId
+    *
+    * Gets the technicans.
+    */
     public static List<String> getTechnicians(String date, String time, String bandId){
         List<String> techs = new ArrayList<>();
         String concertid = getConcertId(date, time, bandId);
         try {
-            Statement stmt = new ConnectionManager().connect().createStatement();
+            Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
             rs = stmt.executeQuery("SELECT person.name FROM person, concerttechnician WHERE concerttechnician.concertid = \"" + concertid + "\" AND concerttechnician.technicianid = person.idPerson");
 
@@ -67,11 +96,18 @@ public class Organizer {
         } return techs;
     }
 
-
+    /*
+    List<String> getTechnicians
+    * @param: String date
+    * @param: String time
+    * @param: String bandId
+    *
+    * Gets the concert that corresponds with the information.
+    */
     public static String getConcertId(String date, String time, String bandId) {
         String concId = "";
         try {
-            Statement stmt = new ConnectionManager().connect().createStatement();
+            Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
             rs = stmt.executeQuery(" SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = \"" + date + "\" AND bookingoffer.time = \"" + time + "\" AND bookingoffer.bandid = \"" + bandId + "\"");
             while ( rs.next() ){

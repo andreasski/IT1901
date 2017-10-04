@@ -8,14 +8,34 @@ import java.util.ArrayList;
 
 public class Bookingansvarlig {
 
-    ArrayList<String> bands = new ArrayList<>();
-    ArrayList<String> needs = new ArrayList<>();
-    String info = "";
+    ArrayList<String> bands;
+    ArrayList<String> needs;
+    String info;
 
+    /*
+    Bookingansvarlig
+    *
+    * Initializes the object.
+    */
+    public  Bookingansvarlig()
+    {
+        ConnectionManager.connect();
+
+        bands = new ArrayList<String>();
+        needs = new ArrayList<String>();
+        info = "";
+    }
+
+    /*
+    ArrayList<String> searchBands
+    * @param: String band
+    *
+    * Searches for the following band.
+    */
     public ArrayList<String> searchBands(String band){
 
         try {
-            Statement stmt = new ConnectionManager().connect().createStatement();
+            Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
             rs = stmt.executeQuery("SELECT name FROM band WHERE name LIKE '%"+band+"%'");
@@ -29,9 +49,15 @@ public class Bookingansvarlig {
         return bands;
     }
 
+    /*
+    ArrayList<String> getTechnicalNeeds
+    * @param: String band
+    *
+    * Gets the technical need for the following band.
+    */
     public ArrayList<String> getTechnicalNeeds( String band){
         try {
-            Statement stmt = new ConnectionManager().connect().createStatement();
+            Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
             rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, band WHERE band.name = \""+band+"\" AND band.idBand = techicalneed.bandid");
@@ -45,9 +71,16 @@ public class Bookingansvarlig {
         return needs;
 
     }
+
+    /*
+    String getInfoBand
+    * @param: String band
+    *
+    * Gets the information about the following band.
+    */
     public String getInfoBand( String band) {
         try {
-            Statement stmt = new ConnectionManager().connect().createStatement();
+            Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
             rs = stmt.executeQuery("SELECT popularity, salesalbum, salesconcerts FROM band where band.name = \"" +band+ "\"");

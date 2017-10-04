@@ -39,7 +39,7 @@ public class Arr_Controller implements Initializable{
   private final double LEFT_ANCHOR_DETAILS          = 16;
   private final double TOP_ANCHOR_DETAILS           = 16;
   private final double BOTTOM_ANCHOR_DETAILS        = 16;
-  private final double RIGHT_ANCHOR_TECHNICIAN_LIST = 16;
+  private final double RIGHT_ANCHOR_TECHNICIAN_LIST = 0;
   private final String LANDING_INFO_TEXT            = "Klikk på en av datoene for å se oversikten over konserter på denne datoen";
   private final String CONCERTS_INFO_TEXT           = "Klikk på en av konsertene i listen for å se flere detaljer";
   private final String CONCERT_DETAILS_INFO_TEXT    = "Les av listen for å se hvilke teknikere som jobber under denne konserten";
@@ -76,13 +76,10 @@ public class Arr_Controller implements Initializable{
     Spacing_lvl2_lvl3.setText("");
     List<String> dates = Organizer.getDate();
     for (int i = 0; i < dates.size(); i++) {
-      Label lbl = new Label(dates.get(i));
-      lbl.getStyleClass().add("lblListItem");
-      StackPane btnDate= new StackPane();
-      btnDate.getStyleClass().add("listItem" + i % 2);
-      btnDate.getChildren().add(lbl);
-      btnDate.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(lbl.getText()), lbl.getText()));
-      contents.getChildren().add(btnDate);
+      Label lblDate = new Label(dates.get(i));
+      lblDate.getStyleClass().add("listItem" + i % 2);
+      lblDate.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(lblDate.getText()), lblDate.getText()));
+      contents.getChildren().add(lblDate);
     }
     scrollPane.setContent(contents);
     container.getChildren().add(scrollPane);
@@ -94,13 +91,14 @@ public class Arr_Controller implements Initializable{
    * The method then adds the data in fxml form to the container
    */
   public void navConcerts(List<String> concerts, String date) {
+    dateSave = date;
     resetContainer(1);
     Spacing_lvl1_lvl2.setText(" > ");
     Spacing_lvl2_lvl3.setText("");
     String stage = "";
     int concertIndex = 0;
     for (int i = 0; i < concerts.size(); i++) {
-      String[] tempArray = concerts.get(i).split(" ");
+      String[] tempArray = concerts.get(i).split(";");
       AnchorPane btnConcert = new AnchorPane();
       if (stage.equals(tempArray[0])) {
         stage = tempArray[0];
@@ -115,7 +113,7 @@ public class Arr_Controller implements Initializable{
       btnConcert.setLeftAnchor(lblBand, LEFT_ANCHOR_CONCERTS);
       btnConcert.setRightAnchor(lblTime, RIGHT_ANCHOR_CONCERTS);
       btnConcert.getStyleClass().add("listItem" + concertIndex++ % 2);
-      btnConcert.setOnMouseClicked(event -> { navConcertDetails(date, lblBand.getText(), lblTime.getText());});
+      btnConcert.setOnMouseClicked(event -> { navConcertDetails(dateSave, lblBand.getText(), lblTime.getText());});
       contents.getChildren().add(btnConcert);
     }
     scrollPane.setContent(contents);
@@ -164,6 +162,7 @@ public class Arr_Controller implements Initializable{
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    Organizer.init();
     lvl1.setOnMouseClicked(event -> navLanding());
     lvl2.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(dateSave), dateSave));
     navLanding();
