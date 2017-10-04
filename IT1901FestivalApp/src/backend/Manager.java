@@ -32,15 +32,7 @@ public class Manager {
         try {
             ConnectionManager.connect();
 
-            Statement stm = ConnectionManager.conn.createStatement();
-            ResultSet rs;
-
-            rs = stm.executeQuery("SELECT * FROM band WHERE band.managerid = " + userId);
-            while (rs.next())
-            {
-                bandList.add(rs.getInt("idBand"));
-                bandNames.add(rs.getString("name"));
-            }
+            updateBandList();
 
             setBandId(0);
 
@@ -51,11 +43,12 @@ public class Manager {
 
 
     }
+
     /* MÅ:
-    void setTechNeeds
+    void addTechNeeds
     * @param: String need
     *
-    * Sets a new technical need to the current active band.
+    * Adds a new technical need to the current active band.
     */
     public void addTechNeed(String need){
         try {
@@ -70,10 +63,11 @@ public class Manager {
         }
     }
 
-    /*
-    @param: String what to change, String change to
-     */
-
+    /* MÅ:
+    void getKeyInformation
+    *
+    * Gets the key information of the current band.
+    */
     public String getKeyInformation(){
         String out = "";
         try {
@@ -95,13 +89,21 @@ public class Manager {
         return out;
     }
 
+    /* MÅ:
+    void setKeyInformation
+    * @param: String name
+    * @param: int popularity
+    * @param: int salesalbum
+    * @param: int salesconcert
+    *
+    * Modifies the current band with the following key information.
+    */
     public void setKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
             String str = String.format("UPDATE band SET name = '%s', popularity = %d, salesalbum = %d, salesconcerts = %d WHERE idBand = %d", name, popularity, salesalbum, salesconcert, bandId);
-            System.out.println(str);
             stm.executeUpdate(str);
 
         }
@@ -110,20 +112,36 @@ public class Manager {
         }
     }
 
+    /* MÅ:
+    void addKeyInformation
+    * @param: String name
+    * @param: int popularity
+    * @param: int salesalbum
+    * @param: int salesconcert
+    *
+    * Adds a new band with the set key information.
+    */
     public void addKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
             String str = String.format("INSERT INTO band(name, popularity, salesalbum, salesconcerts, managerid) VALUES ('%s', %d, %d, %d, %d)", name, popularity, salesalbum, salesconcert, userId);
-            System.out.println(str);
             stm.executeUpdate(str);
 
+
+            updateBandList();
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+
+    /* MÅ:
+    void getTechNeeds
+    *
+    * Gets the techical needs of the current active band.
+    */
     public ArrayList<String> getTechNeeds(){
         ArrayList<String> needs = new ArrayList<>();
         try {
@@ -143,18 +161,17 @@ public class Manager {
         return needs;
     }
 
-
     /* MÅ:
     void setBandId
     * @param: int index
     *
     * Sets the current active band to the one in the index of bandlist.
     */
-
     public void setBandId(int index){
         this.bandId = bandList.get(index);
  
     }
+
     /* MÅ:
     ArrayList<Integer> getBands
     *
@@ -163,6 +180,7 @@ public class Manager {
     public ArrayList<Integer> getBands(){
         return bandList;
     }
+
     /* MÅ:
     ArrayList<String> getBandNames
     *
@@ -170,6 +188,31 @@ public class Manager {
     */
     public ArrayList<String> getBandNames(){
         return bandNames;
+    }
+
+    /* MÅ:
+    void updateBandList
+    *
+    * Updates the bandlist with current data.
+    */
+    public void updateBandList(){
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            bandList.clear();
+            bandNames.clear();
+
+            rs = stm.executeQuery("SELECT * FROM band WHERE band.managerid = " + userId);
+            while (rs.next())
+            {
+                bandList.add(rs.getInt("idBand"));
+                bandNames.add(rs.getString("name"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public  static  void main(String [] args){
