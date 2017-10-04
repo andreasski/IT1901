@@ -17,8 +17,6 @@ public class Arr_Main extends Application {
         primaryStage.show();
     }
 
-
-
     public static void main(String[] args) {
         launch(args);
     }
