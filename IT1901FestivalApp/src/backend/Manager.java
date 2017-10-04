@@ -101,9 +101,12 @@ public class Manager {
     */
     public boolean setKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
 
-        if (exists(name))
+        if (!bandNames.get(bandList.indexOf(bandId)).equals(name))
         {
-            return false;
+            if (exists(name))
+            {
+                return false;
+            }
         }
 
         try {
@@ -246,7 +249,7 @@ public class Manager {
             rs = stm.executeQuery(str);
             while (rs.next())
             {
-                if (bandName == rs.getString("name"))
+                if (bandName.equals(rs.getString("name")))
                 {
                     res = true;
                 }
@@ -266,8 +269,25 @@ public class Manager {
 
         mg.addTechNeed(ss);
 
-        mg.addKeyInformation("Best Band 2", 23, 93, 21);
-        mg.setKeyInformation("Good Band 3", 43, 87, 12);
+        boolean res1 = mg.addKeyInformation("Best Band 2", 23, 93, 21);
+        boolean res2 = mg.setKeyInformation("Good Band 3", 43, 87, 12);
+
+        if (!mg.addKeyInformation("Best Band 2", 23, 93, 21))
+        {
+            System.out.println("Bandname already exists!");
+        }
+        else
+        {
+            System.out.println("added band!");
+        }
+        if (!mg.setKeyInformation("Good Band 3", 43, 87, 12))
+        {
+            System.out.println("Bandname already exists!");
+        }
+        else
+        {
+            System.out.println("set band!");
+        }
 
         System.out.println("Done thing!");
 
@@ -277,6 +297,7 @@ public class Manager {
         {
             System.out.println(mg.bandNames.get(i));
         }
+
 
         ArrayList<String> sl = mg.getTechNeeds();
 
