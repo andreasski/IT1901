@@ -42,6 +42,7 @@
 //Dates
 #scrollPane {
     -fx-max-width: 500px;
+    -fx-min-height: 0px;
 }
 
 .lblListItem {
@@ -52,12 +53,14 @@
     -fx-background-color: #E6E6E6;
     -fx-padding: 0.15em;
     -fx-min-width: 500px;
+    -fx-alignment: center;
 }
 
 .listItem0{
     -fx-background-color: #D9D9D9;
     -fx-padding: 0.15em;
     -fx-min-width: 500px;
+    -fx-alignment: center;
 }
 
 #headerScrollPane{

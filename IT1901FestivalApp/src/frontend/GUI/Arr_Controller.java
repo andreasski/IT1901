@@ -76,13 +76,13 @@ public class Arr_Controller implements Initializable{
     Spacing_lvl2_lvl3.setText("");
     List<String> dates = Organizer.getDate();
     for (int i = 0; i < dates.size(); i++) {
-      Label lbl = new Label(dates.get(i));
-      lbl.getStyleClass().add("lblListItem");
-      StackPane btnDate= new StackPane();
-      btnDate.getStyleClass().add("listItem" + i % 2);
-      btnDate.getChildren().add(lbl);
-      btnDate.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(lbl.getText()), lbl.getText()));
-      contents.getChildren().add(btnDate);
+      Label lblDate = new Label(dates.get(i));
+      lblDate.getStyleClass().add("lblListItem");
+      lblDate.getStyleClass().add("listItem" + i % 2);
+      lblDate.setOnMouseClicked(event ->{
+          navConcerts(Organizer.getConcerts(lblDate.getText()), lblDate.getText());
+      });
+      contents.getChildren().add(lblDate);
     }
     scrollPane.setContent(contents);
     container.getChildren().add(scrollPane);
@@ -94,6 +94,7 @@ public class Arr_Controller implements Initializable{
    * The method then adds the data in fxml form to the container
    */
   public void navConcerts(List<String> concerts, String date) {
+    dateSave = date;
     resetContainer(1);
     Spacing_lvl1_lvl2.setText(" > ");
     Spacing_lvl2_lvl3.setText("");
