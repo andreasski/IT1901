@@ -17,7 +17,7 @@ public class Organizer {
     *
     * Initiates the required variables and such.
     */
-    public void init(){
+    public static void init(){
         ConnectionManager.connect();
     }
 

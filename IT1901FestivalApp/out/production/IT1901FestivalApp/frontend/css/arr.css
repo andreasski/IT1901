@@ -45,15 +45,12 @@
     -fx-min-height: 0px;
 }
 
-.lblListItem {
-    -fx-font-size: 16px;
-}
-
 .listItem1{
     -fx-background-color: #E6E6E6;
     -fx-padding: 0.15em;
     -fx-min-width: 500px;
     -fx-alignment: center;
+    -fx-font-size: 16px;
 }
 
 .listItem0{
@@ -61,6 +58,7 @@
     -fx-padding: 0.15em;
     -fx-min-width: 500px;
     -fx-alignment: center;
+    -fx-font-size: 16px;
 }
 
 #headerScrollPane{
@@ -112,5 +110,9 @@
     -fx-max-width: 500px;
     -fx-max-height: 400px;
     -fx-padding: 0;
+}
+
+#technichiansScrollPane {
+
 }
 /*--- CONTENTS ---*/
