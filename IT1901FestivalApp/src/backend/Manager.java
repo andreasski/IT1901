@@ -97,9 +97,15 @@ public class Manager {
     * @param: int salesalbum
     * @param: int salesconcert
     *
-    * Modifies the current band with the following key information.
+    * Modifies the current band with the following key information. Returns true if set succesfully.
     */
-    public void setKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
+    public boolean setKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
+
+        if (exists(name))
+        {
+            return false;
+        }
+
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -111,6 +117,8 @@ public class Manager {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        return true;
     }
 
     /* MÅ:
@@ -120,9 +128,15 @@ public class Manager {
     * @param: int salesalbum
     * @param: int salesconcert
     *
-    * Adds a new band with the set key information.
+    * Adds a new band with the set key information. Returns true if added succesfully.
     */
-    public void addKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
+    public boolean addKeyInformation(String name, int popularity, int salesalbum, int salesconcert){
+
+        if (exists(name))
+        {
+            return false;
+        }
+
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -136,6 +150,8 @@ public class Manager {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        return true;
     }
 
     /* MÅ:
@@ -217,6 +233,30 @@ public class Manager {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public boolean exists(String bandName){
+        boolean res = false;
+
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            String str = ("SELECT * FROM band");
+            rs = stm.executeQuery(str);
+            while (rs.next())
+            {
+                if (bandName == rs.getString("name"))
+                {
+                    res = true;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return res;
     }
 
     public  static  void main(String [] args){

@@ -60,7 +60,7 @@ public class Organizer {
                 String bandname = rs.getString("band.name");
                 String stagename = rs.getString("stage.name");
                 String time = rs.getString("bookingoffer.time");
-                String concert = stagename + "|" + bandname  + "|" + time ;
+                String concert = stagename + ";" + bandname  + ";" + time ;
                 concerts.add(concert);
             }
         } catch (Exception e){
