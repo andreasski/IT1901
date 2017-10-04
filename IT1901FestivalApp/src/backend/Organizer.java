@@ -83,18 +83,5 @@ public class Organizer {
         } return concId;
 
     }
-
-    public static void main (String[]args) {
-
-        Organizer test = new Organizer();
-        List<String> dates = test.getDate();
-        List<String> concerts = test.getConcerts("15.10.2017");
-        List<String> techs = test.getTechnicians("16.10.2017", "18.00-20.00", "3");
-        System.out.println(dates);
-        System.out.println(concerts);
-        System.out.println(techs);
-    }
-
-
 }
 
