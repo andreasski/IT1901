@@ -54,8 +54,8 @@ public class Manager {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-
-            stm.executeUpdate("Insert Into  techicalneed(bandid, need) Values ('" + bandId + "', '" + need + "')");
+            String str = String.format("Insert Into  techicalneed(bandid, need) Values ('%d', '%s')", bandId, need);
+            stm.executeUpdate(str);
 
         }
         catch (Exception e) {
@@ -73,7 +73,8 @@ public class Manager {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stm.executeQuery("SELECT * FROM band WHERE idBand = " + bandId);
+            String str = String.format("SELECT * FROM band WHERE idBand = %d", bandId);
+            rs = stm.executeQuery(str);
             while (rs.next()){
                 String name = rs.getString("name");
                 int popularity = rs.getInt("popularity");
@@ -147,7 +148,9 @@ public class Manager {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stm.executeQuery("SELECT * FROM `techicalneed` WHERE bandid = " + bandId);
+
+            String str = String.format("SELECT * FROM `techicalneed` WHERE bandid = %d", bandId);
+            rs = stm.executeQuery(str);
 
             while (rs.next()){
                 String need = rs.getString("need");
@@ -203,7 +206,8 @@ public class Manager {
             bandList.clear();
             bandNames.clear();
 
-            rs = stm.executeQuery("SELECT * FROM band WHERE band.managerid = " + userId);
+            String str = String.format("SELECT * FROM band WHERE band.managerid = %d", userId);
+            rs = stm.executeQuery(str);
             while (rs.next())
             {
                 bandList.add(rs.getInt("idBand"));

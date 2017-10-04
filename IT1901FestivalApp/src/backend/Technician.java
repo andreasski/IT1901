@@ -6,6 +6,13 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Technician {
+
+    /*
+    ArrayList<String> getWork
+    * @param: int techId
+    *
+    * Gets the work for the technican with the following techId.
+    */
     public static ArrayList<String> getWork(int techId) {
         ArrayList<String> work = new ArrayList<>();
         try {
