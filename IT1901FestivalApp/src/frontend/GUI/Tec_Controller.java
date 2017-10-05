@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 public class Tec_Controller implements Initializable{
 
   //CONSTANTS
-  private final String INSTRUCTION_LABEL= "Se gjennom listen for å se oppdragene dine. Listen er kronologisk sortert, så det øverste oppdraget er ditt neste";
+  private final String INSTRUCTION_LABEL  = "Se gjennom listen for å se oppdragene dine. Listen er kronologisk sortert, så det øverste oppdraget er ditt neste";
   private final double LEFT_ANCHOR_WORK   = 14.0;
   private final double RIGHT_ANCHOR_WORK  = 50.0;
   @FXML
@@ -81,7 +81,6 @@ public class Tec_Controller implements Initializable{
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    Technician.init();
     navLanding(0);
   }
 }
