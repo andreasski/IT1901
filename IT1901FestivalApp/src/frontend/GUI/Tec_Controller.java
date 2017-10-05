@@ -29,13 +29,14 @@ public class Tec_Controller implements Initializable{
   private final double LEFT_ANCHOR_WORK   = 10.0;
   private final double RIGHT_ANCHOR_WORK  = 50.0;
 
-  @FXML
-  private VBox aside;
+
 
   @FXML
   private VBox container;
 
-  private Label instructionBoxLbl;
+  @FXML
+  private VBox aside;
+
   private int techId;
   private ScrollPane workScrollPane = new ScrollPane();
   private VBox contents = new VBox();
@@ -50,7 +51,7 @@ public class Tec_Controller implements Initializable{
     int listIndex = 1;
     techId = id;
     String date = "";
-    instructionBoxLbl = new Label(INSTRUCTION_LABEL);
+    Label instructionBoxLbl = new Label(INSTRUCTION_LABEL);
     instructionBoxLbl.setId("instructionBoxLabel");
     instructionBoxLbl.getStyleClass().add("textContainer");
     List<String> workList = Technician.getWork(techId);
@@ -86,6 +87,7 @@ public class Tec_Controller implements Initializable{
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    Technician.init();
     navLanding(2);
   }
 }

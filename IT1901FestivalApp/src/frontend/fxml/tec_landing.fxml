@@ -6,11 +6,10 @@
     </top>
 
     <left>
-        <VBox fx:id="aside" styleClass="margin"></VBox>
+        <VBox fx:id="aside" styleClass="margin"/>
     </left>
 
     <center>
-        <VBox fx:id="container" styleClass="margin">
-        </VBox>
+        <VBox fx:id="container" styleClass="margin"/>
     </center>
 </BorderPane>
