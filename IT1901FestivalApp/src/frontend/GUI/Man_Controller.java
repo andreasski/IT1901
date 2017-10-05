@@ -24,20 +24,13 @@ import java.util.ResourceBundle;
 
 public class Man_Controller implements Initializable{
 
+  private backend.Manager manager;
 
-  //CONSTANTS
-  private final String INSTRUCTION_LABEL= "Se gjennom listen for å se oppdragene dine. Listen er kronologisk sortert, så det øverste oppdraget er ditt neste";
-  private final double LEFT_ANCHOR_WORK   = 14.0;
-  private final double RIGHT_ANCHOR_WORK  = 50.0;
   @FXML
   private Label instructionBoxLbl;
 
   @FXML
   private VBox container;
-
-  private int techId;
-  private ScrollPane workScrollPane = new ScrollPane();
-  private VBox contents = new VBox();
 
   /**
    * The method creates fxml content based on external information that is collected with the method getWork(int id)
@@ -45,15 +38,13 @@ public class Man_Controller implements Initializable{
    * and is used to get the correct data for the user in getWork(int id)
    */
   public void navLanding() {
-
+    List<String> bands = new ArrayList<>();
   }
 
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    System.out.println("HENLO");
-    backend.Manager manager = new backend.Manager(1);
-
+    manager = new backend.Manager(1);
     navLanding();
   }
 }
