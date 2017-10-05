@@ -32,13 +32,29 @@ public class Man_Controller implements Initializable{
   @FXML
   private VBox container;
 
+  VBox contents = new VBox();
+
   /**
    * The method creates fxml content based on external information that is collected with the method getWork(int id)
    * getWork(int id) is from an external class Tec_connector. The id is passed when logging in(running navLanding)
    * and is used to get the correct data for the user in getWork(int id)
    */
   public void navLanding() {
-    List<String> bands = new ArrayList<>();
+    List<String> bands = new ArrayList<>(/*manager.getBandNames()*/);
+    bands.add("hennllo1");
+    bands.add("hennllo2");
+    bands.add("hennllo3");
+    bands.add("hennllo4");
+    bands.add("hennllo5");
+    bands.add("hennllo6");
+    bands.add("hennllo7");
+    bands.add("hennllo8");
+    bands.add("hennllo9");
+    for (String band : bands) {
+      Label lblBand = new Label(band);
+      lblBand.getStyleClass().add("lblBand");
+      contents.getChildren().add(lblBand);
+    } container.getChildren().add(contents);
   }
 
   //Method runs when fxml is loaded

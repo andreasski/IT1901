@@ -16,11 +16,8 @@
 /*--- GENERAL ---*/
 
 /*--- INSTRUCTION_BOX ---*/
-#instructionBoxContainer {
+#instructionBoxLabel {
     -fx-max-width: 250px;
-}
-
-#instructionBoxLbl {
     -fx-wrap-text: true;
 }
 /*--- INSTRUCTION_BOX ---*/

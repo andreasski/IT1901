@@ -26,14 +26,16 @@ public class Tec_Controller implements Initializable{
 
   //CONSTANTS
   private final String INSTRUCTION_LABEL  = "Se gjennom listen for å se oppdragene dine. Listen er kronologisk sortert, så det øverste oppdraget er ditt neste";
-  private final double LEFT_ANCHOR_WORK   = 14.0;
+  private final double LEFT_ANCHOR_WORK   = 10.0;
   private final double RIGHT_ANCHOR_WORK  = 50.0;
+
   @FXML
-  private Label instructionBoxLbl;
+  private VBox aside;
 
   @FXML
   private VBox container;
 
+  private Label instructionBoxLbl;
   private int techId;
   private ScrollPane workScrollPane = new ScrollPane();
   private VBox contents = new VBox();
@@ -48,10 +50,13 @@ public class Tec_Controller implements Initializable{
     int listIndex = 1;
     techId = id;
     String date = "";
-    instructionBoxLbl.setText(INSTRUCTION_LABEL);
+    instructionBoxLbl = new Label(INSTRUCTION_LABEL);
+    instructionBoxLbl.setId("instructionBoxLabel");
+    instructionBoxLbl.getStyleClass().add("textContainer");
     List<String> workList = Technician.getWork(techId);
     Label workHeader = new Label("Arbeid");
     workHeader.setId("headerScrollPane");
+    aside.getChildren().add(instructionBoxLbl);
     container.getChildren().add(workHeader);
     for (int i = 0; i < workList.size(); i++) {
       AnchorPane workContainer = new AnchorPane();
@@ -81,6 +86,6 @@ public class Tec_Controller implements Initializable{
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    navLanding(0);
+    navLanding(2);
   }
 }

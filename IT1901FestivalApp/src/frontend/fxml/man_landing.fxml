@@ -9,12 +9,14 @@
     </top>
 
     <left>
-        <VBox>
+        <VBox fx:id="aside">
             <VBox fx:id="instructionBoxContainer" styleClass="margin">
                 <StackPane styleClass="textContainer">
                     <Label fx:id="instructionBoxLbl"/>
                 </StackPane>
+                <VBox fx:id="bandContainer"></VBox>
             </VBox>
+
         </VBox>
     </left>
 
