@@ -1,7 +1,7 @@
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
 <BorderPane fx:id="body" fx:controller="frontend.GUI.Man_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/man.css">
 
     <top>
@@ -9,18 +9,18 @@
     </top>
 
     <left>
-        <VBox>
-            <VBox fx:id="instructionBoxContainer" styleClass="margin">
-                <StackPane styleClass="textContainer">
-                    <Label fx:id="instructionBoxLbl"/>
-                </StackPane>
+        <VBox fx:id="aside">
+            <VBox fx:id="instructionBoxContainer" styleClass="margin"/>
+            <VBox styleClass="margin">
+                <Label text="Band" fx:id="headerScrollPaneAside"/>
+                <ScrollPane fx:id="bandsScrollPane"/>
             </VBox>
+
         </VBox>
     </left>
 
     <center>
-        <VBox fx:id="container" styleClass="margin">
-        </VBox>
+        <VBox fx:id="container" styleClass="margin"/>
     </center>
 
 </BorderPane>

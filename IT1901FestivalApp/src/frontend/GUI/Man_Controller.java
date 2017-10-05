@@ -12,9 +12,12 @@ import backend.Organizer;
 import backend.Technician;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,15 +27,21 @@ import java.util.ResourceBundle;
 
 public class Man_Controller implements Initializable{
 
-  private backend.Manager manager;
+  //CONSTANTS
+  private final String INSTRUCTION_LABEL = "Velg et av bandene i listen. Du kan så legge til eller fjerne tekniske behov.";
+
 
   @FXML
-  private Label instructionBoxLbl;
+  private VBox instructionBoxContainer;
+
+  @FXML
+  private ScrollPane bandsScrollPane;
 
   @FXML
   private VBox container;
 
-  VBox contents = new VBox();
+  private backend.Manager manager;
+  private VBox contents = new VBox();
 
   /**
    * The method creates fxml content based on external information that is collected with the method getWork(int id)
@@ -40,21 +49,52 @@ public class Man_Controller implements Initializable{
    * and is used to get the correct data for the user in getWork(int id)
    */
   public void navLanding() {
-    List<String> bands = new ArrayList<>(/*manager.getBandNames()*/);
-    bands.add("hennllo1");
-    bands.add("hennllo2");
-    bands.add("hennllo3");
-    bands.add("hennllo4");
-    bands.add("hennllo5");
-    bands.add("hennllo6");
-    bands.add("hennllo7");
-    bands.add("hennllo8");
-    bands.add("hennllo9");
-    for (String band : bands) {
-      Label lblBand = new Label(band);
-      lblBand.getStyleClass().add("lblBand");
-      contents.getChildren().add(lblBand);
-    } container.getChildren().add(contents);
+    List<String> bands = new ArrayList<>(manager.getBandNames());
+    bands.addAll(manager.getBandNames());
+    for (int i = 0; i < 10; i++) {bands.add("Test Band " + i);}
+    VBox bandContainer = new VBox();
+    bandContainer.setId("bandContainer");
+    for (int i = 1; i < bands.size(); i++) {
+      Label lblBand = new Label(bands.get(i));
+      lblBand.getStyleClass().add("listItemAside" + i % 2);
+      lblBand.setOnMouseClicked(event -> getTechnicalDetails(lblBand.getText()));
+      bandContainer.getChildren().add(lblBand);
+    }
+    Label instructionBoxLbl = new Label(INSTRUCTION_LABEL);
+    instructionBoxLbl.setId("instructionBoxLabel");
+    instructionBoxLbl.getStyleClass().add("textContainer");
+    instructionBoxContainer.getChildren().add(instructionBoxLbl);
+    bandsScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    bandsScrollPane.setContent(bandContainer);
+  }
+
+  public void getTechnicalDetails (String bandName) {
+    container.getChildren().clear();
+    contents.getChildren().clear();
+    Label lblSubHeader = new Label("Tekniske behov");
+    lblSubHeader.setId("headerScrollPane");
+    HBox userInputContainer = new HBox();
+    TextField inpTechNeed = new TextField();
+    inpTechNeed.setId("inpTechNeed");
+    Button btnTechNeed = new Button("Legg til");
+    btnTechNeed.setId("btnTechNeed");
+    btnTechNeed.setOnAction(event -> {
+      manager.addTechNeed(inpTechNeed.getText(), bandName);
+      getTechnicalDetails(bandName);
+    });
+    userInputContainer.getChildren().addAll(inpTechNeed, btnTechNeed);
+    ScrollPane scrollPane = new ScrollPane();
+    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    scrollPane.setId("scrollPane");
+    container.getChildren().addAll(lblSubHeader, userInputContainer);
+    List<String> techNeeds = manager.getTechNeeds(bandName);
+    for (int i = 0; i < techNeeds.size(); i++) {
+      Label lblTechNeed = new Label(techNeeds.get(i));
+      lblTechNeed.getStyleClass().add("listItem" + i % 2);
+      contents.getChildren().add(lblTechNeed);
+    }
+    scrollPane.setContent(contents);
+    container.getChildren().add(scrollPane);
   }
 
   //Method runs when fxml is loaded

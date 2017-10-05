@@ -13,20 +13,16 @@
     -fx-border-width: 1px;
     -fx-border-color: #CCCCCC;
 }
+
+.spacing {
+    -fx-min-height: 14px;
+}
 /*--- GENERAL ---*/
 
-/*--- INSTRUCTION_BOX ---*/
+
 #instructionBoxLabel {
-    -fx-max-width: 50px;
+    -fx-max-width: 250px;
     -fx-wrap-text: true;
-}
-/*--- INSTRUCTION_BOX ---*/
-
-/*--- CONTENTS ---*/
-
-//Dates
-#scrollPane {
-    -fx-max-width: 500px;
 }
 
 .listItem1{
@@ -41,6 +37,31 @@
     -fx-min-width: 500px;
 }
 
+.listItemAside1{
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 0.15em 1em;
+    -fx-min-width: 250px;
+}
+
+.listItemAside0{
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 0.15em 1em;
+    -fx-min-width: 250px;
+}
+
+#headerScrollPaneAside{
+    -fx-border-width: 1px;
+    -fx-border-color: #999999;
+    -fx-font-size: 20px;
+    -fx-min-width: 250px;
+    -fx-background-color: #CCCCCC;
+    -fx-alignment: center;
+}
+
+#bandsScrollPane {
+    -fx-min-height: 0px;
+}
+
 #headerScrollPane{
     -fx-border-width: 1px;
     -fx-border-color: #999999;
@@ -50,17 +71,14 @@
     -fx-alignment: center;
 }
 
-.workDateHeader {
-    -fx-background-color: #CFCFCF;
-    -fx-font-size: 18px;
-    -fx-padding: 0.2em 0 0.2em 1em;
-    -fx-min-width: 500px;
+#inpTechNeed {
+    -fx-min-width: 440px;
 }
 
-#bandContainer {
-    -fx-margin-top: 16px;
-    -fx-background-color: red;
-    -fx-min-width: 100px;
-    -fx-min-height: 1001px;
+#btnTechNeed {
+    -fx-min-width: 60px;
 }
-/*--- CONTENTS ---*/
+
+#scrollPane {
+    -fx-min-height: 0px;
+}
