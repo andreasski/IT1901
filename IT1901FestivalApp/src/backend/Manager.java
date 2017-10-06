@@ -7,6 +7,12 @@ public class Manager {
     private int userId;
     private Map<String, Integer> bands;
 
+    /**
+     Manager
+     * @param: int userId
+     *
+     * Initializes the manager with the specified user id.
+     */
     public Manager(int userId) {
         this.userId = userId;
         bands = new HashMap<>();
@@ -19,7 +25,7 @@ public class Manager {
         }
     }
 
-    /** MÅ:
+    /**
     void addTechNeeds
     * @param: String need
     *
@@ -35,9 +41,19 @@ public class Manager {
             System.out.println(e.getMessage());
         }
     }
+    public void removeTechNeed(String need) {
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str = String.format("DELETE FROM techicalneed WHERE techicalneed.need = '%s'", need);
+            stm.executeUpdate(str);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
-    /** MÅ:
+    /**
     void getTechNeeds
     *
     * Gets the techical needs of the current active band.
@@ -63,7 +79,7 @@ public class Manager {
     }
 
 
-    /** MÅ:
+    /**
     ArrayList<String> getBandNames
     *
     * Gets a list of the band names of this manager.
@@ -74,7 +90,7 @@ public class Manager {
         return bandNames;
     }
 
-    /** MÅ:
+    /**
     void updateBandList
     *
     * Updates the bandlist with current data.
@@ -93,4 +109,5 @@ public class Manager {
             System.out.println(e.getMessage());
         }
     }
+
 }
