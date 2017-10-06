@@ -58,7 +58,6 @@ public class Man_Controller implements Initializable{
     btnBookingOffers.setOnMouseClicked(event -> getBookingOffers());
     List<String> bands = new ArrayList<>(manager.getBandNames());
     bands.addAll(manager.getBandNames());
-    for (int i = 0; i < 10; i++) {bands.add("Test Band " + i);}
     VBox bandContainer = new VBox();
     bandContainer.setId("bandContainer");
     for (int i = 1; i < bands.size(); i++) {
