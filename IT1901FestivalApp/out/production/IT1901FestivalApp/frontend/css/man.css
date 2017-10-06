@@ -40,13 +40,15 @@
 .listItemAside1{
     -fx-background-color: #E6E6E6;
     -fx-padding: 0.15em 1em;
-    -fx-min-width: 250px;
+    -fx-min-width: 248px;
+    -fx-max-width: 248px;
 }
 
 .listItemAside0{
     -fx-background-color: #D9D9D9;
     -fx-padding: 0.15em 1em;
-    -fx-min-width: 250px;
+    -fx-min-width: 248px;
+    -fx-max-width: 248px;
 }
 
 #headerScrollPaneAside{

@@ -10,6 +10,8 @@ package frontend.GUI;
 
 import backend.Organizer;
 import backend.Technician;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -76,6 +78,12 @@ public class Man_Controller implements Initializable{
     HBox userInputContainer = new HBox();
     TextField inpTechNeed = new TextField();
     inpTechNeed.setId("inpTechNeed");
+    inpTechNeed.setOnAction(new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent args) {
+        manager.addTechNeed(inpTechNeed.getText(), bandName);
+        getTechnicalDetails(bandName);
+      }
+    });
     Button btnTechNeed = new Button("Legg til");
     btnTechNeed.setId("btnTechNeed");
     btnTechNeed.setOnAction(event -> {
