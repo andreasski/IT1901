@@ -31,7 +31,7 @@ public class Organizer {
         try{
         Statement stmt = ConnectionManager.conn.createStatement();
         ResultSet rs;
-        rs = stmt.executeQuery("SELECT date FROM bookingoffer");
+        rs = stmt.executeQuery("SELECT date FROM bookingoffer WHERE bookingoffer.accepted > 0");
         while ( rs.next() ) {
             String name = rs.getString("date");
             dates.add(name);
@@ -54,7 +54,7 @@ public class Organizer {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' ORDER BY bookingoffer.time");
+            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.accepted > 0 ORDER BY bookingoffer.time");
 
             while ( rs.next() ) {
                 String bandname = rs.getString("band.name");
@@ -109,7 +109,7 @@ public class Organizer {
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.time = '" + time + "' AND band.name = '" + bandName + "';");
+            rs = stmt.executeQuery("SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.time = '" + time + "' AND band.name = '" + bandName + "' AND bookingoffer.accepted > 0;");
             while ( rs.next() ){
                 concId = rs.getString("concertid");
             }
