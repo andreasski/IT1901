@@ -46,7 +46,7 @@ public class Manager {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            String str = String.format("DELETE FROM techicalneed WHERE techicalneed.need = '%s' AND technicalneed.bandid = %d", need, bands.get(bandname));
+            String str = String.format("DELETE FROM techicalneed WHERE techicalneed.need = '%s' AND techicalneed.bandid = %d", need, bands.get(bandname));
             stm.executeUpdate(str);
         } catch (Exception e) {
             System.out.println(e.getMessage());
