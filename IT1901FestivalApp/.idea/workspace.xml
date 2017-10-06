@@ -12,7 +12,7 @@
     <SUITE FILE_PATH="coverage/IT1901FestivalApp$Man_Main.coverage" NAME="Man_Main Coverage Results" MODIFIED="1507238701480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4617369">
+    <splitter split-orientation="horizontal" split-proportion="0.39122957">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Bookingansvarlig.java" pinned="false" current-in-tab="false">
@@ -28,8 +28,8 @@
           <file leaf-file-name="Organizer.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1605">
-                  <caret line="111" column="13" lean-forward="true" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+                <state relative-caret-position="210">
+                  <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
@@ -42,8 +42,8 @@
           <file leaf-file-name="Bookres_Controller.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="173">
-                  <caret line="114" column="47" lean-forward="true" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
+                <state relative-caret-position="330">
+                  <caret line="124" column="92" lean-forward="false" selection-start-line="124" selection-start-column="92" selection-end-line="124" selection-end-column="92" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#1506#1514#0" expanded="true" />
@@ -113,9 +113,9 @@
         <option value="$PROJECT_DIR$/src/frontend/GUI/Man_Controller.java" />
         <option value="$PROJECT_DIR$/src/frontend/css/man.css" />
         <option value="$PROJECT_DIR$/src/frontend/fxml/bookres_landing.fxml" />
-        <option value="$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java" />
         <option value="$PROJECT_DIR$/src/backend/Bookingansvarlig.java" />
         <option value="$PROJECT_DIR$/src/backend/Organizer.java" />
+        <option value="$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java" />
       </list>
     </option>
   </component>
@@ -207,7 +207,21 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Bookres_main">
+    <configuration name="Bookres_main" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="frontend.GUI.Bookres_Main" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="IT1901FestivalApp" />
+      <envs />
+    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module />
       <option name="HTML_USED" value="false" />
@@ -558,17 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/bookres_landing.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -588,17 +591,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="114" column="47" lean-forward="true" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1506#1514#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/Technician.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5">
@@ -612,9 +604,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1605">
-          <caret line="111" column="13" lean-forward="true" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+        <state relative-caret-position="210">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/bookres_landing.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="124" column="92" lean-forward="false" selection-start-line="124" selection-start-column="92" selection-end-line="124" selection-end-column="92" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1506#1514#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -53,7 +53,8 @@ public class Bookres_Controller implements Initializable {
     private ArrayList<String> searchResults = new ArrayList<String>();
     private String bandInfo = new String();
 
-    private ScrollPane searchScrollPane, techNeedScrollPane;
+    private ScrollPane searchScrollPane;
+    private ScrollPane bandScrollPane = new ScrollPane();
     private AnchorPane anchorPane;
 
     @FXML private VBox container;
@@ -105,32 +106,37 @@ public class Bookres_Controller implements Initializable {
 
         container.getChildren().add(contents);
         showTechNeeds(bandName);
+        showPrevConcert(bandName);
 
 
     }
 
     public void showTechNeeds(String band){
-        container.getChildren().clear();
         ArrayList<String> techNeeds = BookingRes.getTechnicalNeeds(band);
         for(int i=0; i<techNeeds.size(); i++) {
             Label lblTechNeed = new Label(techNeeds.get(i));
             lblTechNeed.getStyleClass().add("ListItem" + i % 2);
             contents.getChildren().add(lblTechNeed);
         }
-        techNeedScrollPane = new ScrollPane();
-        techNeedScrollPane.setContent(contents);
-        container.getChildren().add(techNeedScrollPane);
-    }
 
+        bandScrollPane.setContent(contents);
+        container.getChildren().add(bandScrollPane);
+    }
+    // Denne må endres. bookingansvarlig klassen returnerer kun en streng og ikke en liste. 
     public void showPrevConcert(String BandName){
         ArrayList<String> prevConcert = BookingRes.getPreviousConcerts(BandName);
-
+        for(int i=0; i<prevConcert.size(); i++) {
+            Label lblPrevConc = new Label(prevConcert.get(i));
+            lblPrevConc.getStyleClass().add("ListItem" + i % 2);
+            contents.getChildren().add(lblPrevConc);
+        }
+        bandScrollPane.setContent(contents);
+        container.getChildren().add(bandScrollPane);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         BookingRes = new Bookingansvarlig();
         searchBand();
-        //showSearchResult("Band");
     }
 }
