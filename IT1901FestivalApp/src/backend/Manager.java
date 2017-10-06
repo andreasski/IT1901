@@ -41,11 +41,11 @@ public class Manager {
             System.out.println(e.getMessage());
         }
     }
-    public void removeTechNeed(String need) {
+    public void removeTechNeed(String need, String bandname) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            String str = String.format("DELETE FROM techicalneed WHERE techicalneed.need = '%s'", need);
+            String str = String.format("DELETE FROM techicalneed WHERE techicalneed.need = '%s' AND technicalneed.bandid = %d", need, bands.get(bandname));
             stm.executeUpdate(str);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -80,14 +80,42 @@ public class Manager {
 
 
     /**
-    ArrayList<String> getBandNames
-    *
-    * Gets a list of the band names of this manager.
-    */
+     ArrayList<String> getBandNames
+     *
+     * Gets a list of the band names of this manager.
+     */
     public List<String> getBandNames() {
         List<String> bandNames = new ArrayList<>(bands.keySet());
         Collections.sort(bandNames);
         return bandNames;
+    }
+
+    /**
+     ArrayList<String> getBandNames
+     *
+     * Gets a list of the band names of this manager.
+     */
+    public List<String> getOffers() {
+        List<String> ls = new ArrayList<String>();
+
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            String str = String.format("SELECT bookingoffer.idbookingoffer, band.name AS bname, concert.name AS cname, stage.name AS sname, bookingoffer.date, bookingoffer.time, bookingoffer.accepted FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert on concert.idconcert = bookingoffer.concertid INNER JOIN stage on stage.idstage = concert.stageid WHERE band.managerid = %d",
+                    userId);
+            rs = stm.executeQuery(str);
+
+            while (rs.next()) {
+                String strm = String.format("%d|%s|%s|%s|%s|%s|%d", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
+                ls.add(strm);
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception2! ");
+            System.err.println(e.getMessage());
+        }
+
+        return ls;
     }
 
     /**
@@ -108,6 +136,11 @@ public class Manager {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public  static  void main(String[] args)
+    {
+        Manager mg = new Manager(1);
     }
 
 }
