@@ -31,7 +31,7 @@ public class Organizer {
         try{
         Statement stmt = ConnectionManager.conn.createStatement();
         ResultSet rs;
-        rs = stmt.executeQuery("SELECT date FROM bookingoffer");
+        rs = stmt.executeQuery("SELECT date FROM bookingoffer WHERE bookingoffer.accepted > 1");
         while ( rs.next() ) {
             String name = rs.getString("date");
             dates.add(name);
@@ -54,7 +54,7 @@ public class Organizer {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = \"" + date + "\" ORDER BY bookingoffer.time");
+            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.accepted > 1 ORDER BY bookingoffer.time");
 
             while ( rs.next() ) {
                 String bandname = rs.getString("band.name");
@@ -77,13 +77,13 @@ public class Organizer {
     *
     * Gets the technicans.
     */
-    public static List<String> getTechnicians(String date, String time, String bandId){
+    public static List<String> getTechnicians(String date, String bandName, String time){
         List<String> techs = new ArrayList<>();
-        String concertid = getConcertId(date, time, bandId);
+        String concertid = getConcertId(date, time, bandName);
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT person.name FROM person, concerttechnician WHERE concerttechnician.concertid = \"" + concertid + "\" AND concerttechnician.technicianid = person.idPerson");
+            rs = stmt.executeQuery("SELECT person.name FROM person, concerttechnician WHERE concerttechnician.concertid = '" + concertid + "' AND concerttechnician.technicianid = person.idPerson");
 
             while ( rs.next() ){
                 String person = rs.getString("name");
@@ -104,12 +104,12 @@ public class Organizer {
     *
     * Gets the concert that corresponds with the information.
     */
-    public static String getConcertId(String date, String time, String bandId) {
+    public static String getConcertId(String date, String time, String bandName) {
         String concId = "";
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery(" SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = \"" + date + "\" AND bookingoffer.time = \"" + time + "\" AND bookingoffer.bandid = \"" + bandId + "\"");
+            rs = stmt.executeQuery("SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.time = '" + time + "' AND band.name = '" + bandName + "' AND bookingoffer.accepted > 1;");
             while ( rs.next() ){
                 concId = rs.getString("concertid");
             }
