@@ -4,7 +4,10 @@ import java.sql.*;
 import java.util.*;
 
 public class Manager {
+
+    //The user id of the manager.
     private int userId;
+    //Map of the bands and their id.
     private Map<String, Integer> bands;
 
     /**
@@ -129,7 +132,7 @@ public class Manager {
     }
 
     /**
-     void removeTechNeed
+     void updateOffer
      * @param: int offerId
      * @param: int state
      *
@@ -147,7 +150,7 @@ public class Manager {
     }
 
     /**
-    void updateBandList
+    void setBands
     *
     * Updates the bandlist with current data.
     */

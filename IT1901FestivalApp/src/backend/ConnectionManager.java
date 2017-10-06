@@ -12,7 +12,11 @@ public class ConnectionManager {
 
     public static Connection conn;
 
-
+    /*
+    Connection connect
+    *
+    * Connects to the database.
+    */
     public static Connection connect(){
         try {
             String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/johngu_dbkonsert";
