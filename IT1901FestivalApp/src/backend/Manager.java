@@ -41,7 +41,7 @@ public class Manager {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void removeTechNeed(String need, String bandname) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
@@ -108,7 +108,7 @@ public class Manager {
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
-                String strm = String.format("%d|%s|%s|%s|%s|%s|%d", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
+                String strm = String.format("%s|%s|%s|%s|%s|%s|%s", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
                 ls.add(strm);
             }
         } catch (Exception e) {
@@ -117,6 +117,16 @@ public class Manager {
         }
 
         return ls;
+    }
+    public void updateOffer(int offerId, int state) {
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str = String.format("UPDATE bookingoffer SET bookingoffer.accepted = %d WHERE bookingoffer.idbookingoffer = %d", state, offerId);
+            stm.executeUpdate(str);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -142,6 +152,17 @@ public class Manager {
     public  static  void main(String[] args)
     {
         Manager mg = new Manager(1);
+
+        mg.updateOffer(1, 1);
+
+        List<String> ls = mg.getOffers();
+        Iterator<String> its = ls.iterator();
+        while (its.hasNext())
+        {
+            System.out.println(its.next());
+        }
+
+        //System.out.println(mg.getOffers());
     }
 
 }
