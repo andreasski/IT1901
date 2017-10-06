@@ -41,6 +41,7 @@ public class Manager {
             System.out.println(e.getMessage());
         }
     }
+
     public void removeTechNeed(String need) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
