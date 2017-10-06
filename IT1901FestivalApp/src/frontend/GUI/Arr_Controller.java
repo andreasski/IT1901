@@ -162,7 +162,7 @@ public class Arr_Controller implements Initializable{
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    //Organizer.init();
+    Organizer.init();
     lvl1.setOnMouseClicked(event -> navLanding());
     lvl2.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(dateSave), dateSave));
     navLanding();
