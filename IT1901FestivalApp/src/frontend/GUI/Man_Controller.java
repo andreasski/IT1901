@@ -100,7 +100,7 @@ public class Man_Controller implements Initializable{
       Label lblTechNeed = new Label(techNeeds.get(i));
       lblTechNeed.getStyleClass().add("listItem" + i % 2);
       lblTechNeed.setOnMouseClicked(event -> {
-        manager.removeTechNeed(lblTechNeed.getText());
+        manager.removeTechNeed(lblTechNeed.getText(), bandName);
         getTechnicalDetails(bandName);
       });
       contents.getChildren().add(lblTechNeed);
