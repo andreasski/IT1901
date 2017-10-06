@@ -109,7 +109,7 @@ public class Organizer {
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery(" SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = " + date + " AND bookingoffer.time = " + time + "AND band.name = " + bandName+";");
+            rs = stmt.executeQuery("SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.time = '" + time + "' AND band.name = '" + bandName + "';");
             while ( rs.next() ){
                 concId = rs.getString("concertid");
             }
