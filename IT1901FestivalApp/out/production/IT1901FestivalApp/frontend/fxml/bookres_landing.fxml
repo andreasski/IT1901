@@ -3,7 +3,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<BorderPane fx:id="body" fx:controller="frontend.GUI.Arr_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/bookres.css">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<BorderPane fx:id="body" fx:controller="frontend.GUI.Bookres_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/bookres.css">
 
     <top>
         <fx:include source="bookres_header.fxml"/>
@@ -13,7 +15,7 @@
 
         <VBox>
             <HBox fx:id="nav">
-                <Label fx:id="lvl1" styleClass="underline" text="Dato"/>
+                <Label fx:id="lvl1" styleClass="underline" text="Søk"/>
                 <Label fx:id="Spacing_lvl1_lvl2"/>
                 <Label fx:id="lvl2" styleClass="underline" text=""/>
                 <Label fx:id="Spacing_lvl2_lvl3"/>
@@ -29,8 +31,15 @@
     </left>
 
     <center>
-        <VBox fx:id="container" styleClass="margin">
+        <VBox>
+            <HBox fx:id="search">
+                <TextField fx:id="searchField"/>
+                <Button fx:id="btnSearch" text="Søk"/>
+            </HBox>
+
+            <VBox fx:id="container" styleClass="margin"/>
         </VBox>
+
     </center>
 
 </BorderPane>
