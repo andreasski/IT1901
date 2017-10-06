@@ -83,4 +83,35 @@
 
 #scrollPane {
     -fx-min-height: 0px;
+    -fx-max-width: 500px;
+}
+
+#instructionBoxContainer {
+    -fx-padding: 0 0 1em 0;
+}
+
+#bandsContainer {
+    -fx-padding: 1em 0 0 0;
+}
+
+#btnBookingOffers {
+    -fx-min-width: 250px;
+}
+
+.concertOffer0 {
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 1em 0 0 0;
+    -fx-min-width: 500px;
+    -fx-max-width: 500px;
+}
+
+.concertOffer1 {
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 1em 0 0 0;
+    -fx-min-width: 500px;
+    -fx-max-width: 500px;
+}
+
+.btnOffer {
+    -fx-min-width: 250px;
 }

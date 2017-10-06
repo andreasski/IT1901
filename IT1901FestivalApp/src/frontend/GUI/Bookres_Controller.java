@@ -122,7 +122,7 @@ public class Bookres_Controller implements Initializable {
         bandScrollPane.setContent(contents);
         container.getChildren().add(bandScrollPane);
     }
-    // Denne må endres. bookingansvarlig klassen returnerer kun en streng og ikke en liste. 
+    // Denne må endres. bookingansvarlig klassen returnerer kun en streng og ikke en liste.
     public void showPrevConcert(String BandName){
         ArrayList<String> prevConcert = BookingRes.getPreviousConcerts(BandName);
         for(int i=0; i<prevConcert.size(); i++) {
