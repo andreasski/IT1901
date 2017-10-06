@@ -54,7 +54,7 @@ public class Organizer {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = " + date + " ORDER BY bookingoffer.time");
+            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' ORDER BY bookingoffer.time");
 
             while ( rs.next() ) {
                 String bandname = rs.getString("band.name");
