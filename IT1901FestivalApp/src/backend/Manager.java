@@ -28,8 +28,9 @@ public class Manager {
     /**
     void addTechNeeds
     * @param: String need
+     * @param: String bandName
     *
-    * Adds a new technical need to the current active band.
+    * Adds a new technical need to band specified.
     */
     public void addTechNeed(String need, String bandName) {
         try {
@@ -42,6 +43,13 @@ public class Manager {
         }
     }
 
+    /**
+     void removeTechNeed
+     * @param: String need
+     * @param: String bandname
+     *
+     * Removes a new technical need for band specified.
+     */
     public void removeTechNeed(String need, String bandname) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
@@ -56,8 +64,9 @@ public class Manager {
 
     /**
     void getTechNeeds
-    *
-    * Gets the techical needs of the current active band.
+    * @param: String bandname
+     *
+    * Gets the techical needs of the specified band.
     */
     public List<String> getTechNeeds(String bandName) {
         List<String> needs = new ArrayList<>();
@@ -92,9 +101,9 @@ public class Manager {
     }
 
     /**
-     ArrayList<String> getBandNames
+     List<String> getOffers
      *
-     * Gets a list of the band names of this manager.
+     * Gets a list of bookingoffers of this manager's bands.
      */
     public List<String> getOffers() {
         List<String> ls = new ArrayList<String>();
@@ -108,7 +117,7 @@ public class Manager {
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
-                String strm = String.format("%s|%s|%s|%s|%s|%s|%s", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
+                String strm = String.format("%s;%s;%s;%s;%s;%s;%s", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
                 ls.add(strm);
             }
         } catch (Exception e) {
@@ -118,6 +127,14 @@ public class Manager {
 
         return ls;
     }
+
+    /**
+     void removeTechNeed
+     * @param: int offerId
+     * @param: int state
+     *
+     * Sets if a bookingoffer is accepted or rejected.
+     */
     public void updateOffer(int offerId, int state) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
