@@ -83,7 +83,7 @@ public class Organizer {
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT person.name FROM person, concerttechnician WHERE concerttechnician.concertid = " + concertid + " AND concerttechnician.technicianid = person.idPerson");
+            rs = stmt.executeQuery("SELECT person.name FROM person, concerttechnician WHERE concerttechnician.concertid = '" + concertid + "' AND concerttechnician.technicianid = person.idPerson");
 
             while ( rs.next() ){
                 String person = rs.getString("name");
