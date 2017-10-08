@@ -10,7 +10,6 @@ public class Bookingansvarlig {
 
     ArrayList<String> bands;
     ArrayList<String> needs;
-    String info;
 
     /*
     Bookingansvarlig
@@ -23,7 +22,6 @@ public class Bookingansvarlig {
 
         bands = new ArrayList<String>();
         needs = new ArrayList<String>();
-        info = "";
     }
 
     /*
@@ -79,19 +77,18 @@ public class Bookingansvarlig {
     * Gets the information about the following band.
     */
     public String getInfoBand( String band) {
+        String info = "";
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-
             rs = stmt.executeQuery("SELECT popularity, salesalbum, salesconcerts FROM band where band.name = \"" +band+ "\"");
+
+
             while (rs.next()) {
                 int pop = rs.getInt("popularity");
                 int sale = rs.getInt("salesalbum");
                 int conc = rs.getInt("salesconcerts");
-                String pops = Integer.toString(pop);
-                String sales =Integer.toString(sale);
-                String concs =Integer.toString(conc);
-                info += ("Popularitet: " +pops + " Albumsalg: " +sales + " Konsert salgstall: "+concs);
+                info = (pop + ";" + sale + ";" + conc);
             }
         } catch (Exception e) {
             System.err.println("Got an exception2! ");

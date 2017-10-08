@@ -17,8 +17,7 @@ import javafx.scene.layout.*;
 import backend.Bookingansvarlig;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * egenhjelp:
@@ -49,22 +48,20 @@ import java.util.ResourceBundle;
 public class Bookres_Controller implements Initializable {
 
     private backend.Bookingansvarlig BookingRes;
-    private VBox contents = new VBox();
-    private ArrayList<String> searchResults = new ArrayList<String>();
-    private String bandInfo = new String();
-
+    private VBox searchContents = new VBox();
+    private VBox techContents = new VBox();
+    private VBox concContents = new VBox();
+    private List<String> searchResults = new ArrayList<>();
     private ScrollPane searchScrollPane;
-    private ScrollPane bandScrollPane = new ScrollPane();
-    private AnchorPane anchorPane;
+    private ScrollPane techNeedsScrollPane = new ScrollPane();
+    private ScrollPane concertsScrollPane = new ScrollPane();
+    private HBox info_techContainer = new HBox();
 
     @FXML private VBox container;
 
     @FXML private TextField searchField;
 
     @FXML private Button btnSearch;
-
-    @FXML
-    private Label lvl1, lvl2, techNeed, prevConc, genInfo;
 
 
     public void searchBand() {
@@ -73,65 +70,110 @@ public class Bookres_Controller implements Initializable {
     }
 
     public void showSearchResult(String bandName) {
-        contents.getChildren().clear();
+        searchContents.getChildren().clear();
         container.getChildren().clear();
         searchResults.clear();
         searchResults = BookingRes.searchBands(bandName);
 
         if (searchResults.size() == 0){
-            contents.getChildren().add(new Label("Ingen treff på bandnavn"));
+            searchContents.getChildren().add(new Label("Ingen treff på bandnavn"));
         }
         else{
             for (int i=0; i< searchResults.size();i++){
                 Label lblResult = new Label(searchResults.get(i));
                 lblResult.getStyleClass().add("listItem" + i % 2);
                 lblResult.setOnMouseClicked(event -> bandInfo(lblResult.getText())); //eventhandler: ved trykk gå til neste nivå; bandInfo
-                contents.getChildren().add(lblResult);
+                searchContents.getChildren().add(lblResult);
             }
         }
         searchScrollPane = new ScrollPane();
-        searchScrollPane.setContent(contents);
+        searchScrollPane.setContent(searchContents);
         container.getChildren().add(searchScrollPane);
     }
 
 
-    public void bandInfo(String bandName){
+    public void bandInfo(String band){
         //Header General info:
-        contents.getChildren().clear();
+
         container.getChildren().clear();
-        bandInfo = "";
-        bandInfo = BookingRes.getInfoBand(bandName);
-        genInfo = new Label(bandInfo);
-        contents.getChildren().add(genInfo);
+        info_techContainer.getChildren().clear();
+        String[] bandInfo = BookingRes.getInfoBand(band).split(";");
+        AnchorPane bandInfoContainer = new AnchorPane();
+        bandInfoContainer.setId("bandDetails");
 
-        container.getChildren().add(contents);
-        showTechNeeds(bandName);
-        showPrevConcert(bandName);
+        Label bandName = new Label("Band: " + band);
+        Label streamingPop = new Label("Streaming popularitet: " + bandInfo[0]);
+        Label albumSales = new Label("Album salg: " + bandInfo[1]);
+        Label concertSales = new Label("Konsert billett salg: " + bandInfo[2]);
 
+        bandInfoContainer.getChildren().addAll(bandName, streamingPop, albumSales, concertSales);
+
+        bandInfoContainer.setTopAnchor(bandName, 0.0);
+        bandInfoContainer.setLeftAnchor(bandName, 0.0);
+        bandInfoContainer.setTopAnchor(streamingPop, 14.0);
+        bandInfoContainer.setLeftAnchor(streamingPop, 0.0);
+        bandInfoContainer.setTopAnchor(albumSales, 28.0);
+        bandInfoContainer.setLeftAnchor(albumSales, 0.0);
+        bandInfoContainer.setTopAnchor(concertSales, 42.0);
+        bandInfoContainer.setLeftAnchor(concertSales, 0.0);
+        info_techContainer.getChildren().add(bandInfoContainer);
+
+        showTechNeeds(band);
+        container.getChildren().add(info_techContainer);
+        showPrevConcert(band);
 
     }
 
     public void showTechNeeds(String band){
+        techContents.getChildren().clear();
         ArrayList<String> techNeeds = BookingRes.getTechnicalNeeds(band);
-        for(int i=0; i<techNeeds.size(); i++) {
+        VBox techNeedsContainer = new VBox();
+        Label techNeedHeader = new Label("Tekniske behov");
+        techNeedHeader.setId("headerScrollPaneAside");
+        for (int i = 0; i < techNeeds.size(); i++) {
             Label lblTechNeed = new Label(techNeeds.get(i));
-            lblTechNeed.getStyleClass().add("ListItem" + i % 2);
-            contents.getChildren().add(lblTechNeed);
+            lblTechNeed.getStyleClass().add("listItemAside" + ((i + 1) % 2));
+            techContents.getChildren().add(lblTechNeed);
         }
 
-        bandScrollPane.setContent(contents);
-        container.getChildren().add(bandScrollPane);
+        techNeedsScrollPane.setContent(techContents);
+        techNeedsScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        techNeedsScrollPane.setId("techNeedsScrollPane");
+        techNeedsContainer.getChildren().addAll(techNeedHeader, techNeedsScrollPane);
+        info_techContainer.getChildren().add(techNeedsContainer);
     }
     // Denne må endres. bookingansvarlig klassen returnerer kun en streng og ikke en liste.
     public void showPrevConcert(String BandName){
+        concContents.getChildren().clear();
         ArrayList<String> prevConcert = BookingRes.getPreviousConcerts(BandName);
-        for(int i=0; i<prevConcert.size(); i++) {
-            Label lblPrevConc = new Label(prevConcert.get(i));
-            lblPrevConc.getStyleClass().add("ListItem" + i % 2);
-            contents.getChildren().add(lblPrevConc);
+        Label concertsHeader = new Label("Konserter");
+        concertsHeader.setId("headerScrollPane");
+        for(int i=0; i < prevConcert.size(); i++) {
+            AnchorPane concertContainer = new AnchorPane();
+            String[] concertDetails = prevConcert.get(i).split(";");
+            Label concertName = new Label(concertDetails[0]);
+            Label stageName = new Label("Scene: " + concertDetails[1]);
+            Label date = new Label("Dato: " + concertDetails[2]);
+            Label audience = new Label("Publikum: " + concertDetails[3]);
+
+            concertContainer.getChildren().addAll(concertName, stageName, date, audience);
+            concertContainer.getStyleClass().add("concertOffer" + ((i + 1) % 2));
+
+            concertContainer.setTopAnchor(concertName, 0.0);
+            concertContainer.setLeftAnchor(concertName, 0.0);
+            concertContainer.setTopAnchor(stageName, 14.0);
+            concertContainer.setLeftAnchor(stageName, 0.0);
+            concertContainer.setTopAnchor(date, 0.0);
+            concertContainer.setRightAnchor(date, 14.0);
+            concertContainer.setTopAnchor(audience, 28.0);
+            concertContainer.setLeftAnchor(audience, 0.0);
+
+            concContents.getChildren().add(concertContainer);
         }
-        bandScrollPane.setContent(contents);
-        container.getChildren().add(bandScrollPane);
+        concertsScrollPane.setContent(concContents);
+        concertsScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        concertsScrollPane.setId("concertsScrollPane");
+        container.getChildren().addAll(concertsHeader, concertsScrollPane);
     }
 
     @Override
