@@ -113,6 +113,6 @@
 }
 
 #technichiansScrollPane {
-
+    -fx-min-height: 0;
 }
 /*--- CONTENTS ---*/

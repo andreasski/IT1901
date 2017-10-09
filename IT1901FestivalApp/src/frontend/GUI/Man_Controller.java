@@ -176,6 +176,7 @@ public class Man_Controller implements Initializable{
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     manager = new backend.Manager(1);
+    getNumOffers();
     navLanding();
   }
 }
