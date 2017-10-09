@@ -110,10 +110,10 @@ public class Bookingansvarlig {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT concert.name AS cname, stage.name AS sname, bookingoffer.date, concert.sales FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE accepted > 1 AND band.name = 'Bølgeband'", band);
+            String str = String.format("SELECT concert.name AS cname, stage.name AS sname, bookingoffer.date, concert.sales, concert.price, concert.expenses, concert.earnings FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE accepted > 1 AND band.name = 'Bølgeband'", band);
             rs = stmt.executeQuery(str);
             while (rs.next()) {
-                String scon = String.format("%s;%s;%s;%s", rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("sales"));
+                String scon = String.format("%s;%s;%s;%s;%s;%s;%s", rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("sales"), rs.getString("price"), rs.getString("expenses"), rs.getString("earnings"));
 
                 info.add(scon);
             }
@@ -128,7 +128,9 @@ public class Bookingansvarlig {
     public static void main(String[] args){
         Bookingansvarlig test = new Bookingansvarlig();
         String infoting = test.getInfoBand("bølgeband");
+        ArrayList<String> infoconc = test.getPreviousConcerts("bølgeband");
         System.out.println(infoting);
+        System.out.println(infoconc);
 
 
 
