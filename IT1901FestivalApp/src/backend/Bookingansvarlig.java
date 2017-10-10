@@ -31,7 +31,7 @@ public class Bookingansvarlig {
     * Searches for the following band.
     */
     public ArrayList<String> searchBands(String band){
-
+        bands.clear();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -54,6 +54,7 @@ public class Bookingansvarlig {
     * Gets the technical need for the following band.
     */
     public ArrayList<String> getTechnicalNeeds( String band){
+        needs.clear();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;

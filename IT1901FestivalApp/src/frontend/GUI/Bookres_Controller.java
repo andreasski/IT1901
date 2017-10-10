@@ -129,7 +129,10 @@ public class Bookres_Controller implements Initializable {
             Label stageName = new Label("Scene: " + concertDetails[1]);
             Label date = new Label("Dato: " + concertDetails[2]);
             Label audience = new Label("Publikum: " + concertDetails[3]);
-            concertContainer.getChildren().addAll(concertName, stageName, date, audience);
+            Label ticPrice = new Label("Billett pris: " + concertDetails[4] + ",-");
+            Label expenses = new Label("Utgifter: " + concertDetails[5] + ",-");
+            Label revenue = new Label("Overskudd: " + (Integer.parseInt(concertDetails[4]) * Integer.parseInt(concertDetails[3])) + ",-");
+            concertContainer.getChildren().addAll(concertName, stageName, date, audience, ticPrice, expenses, revenue);
             concertContainer.getStyleClass().add("concertOffer" + ((i + 1) % 2));
             concertContainer.setTopAnchor(concertName, 0.0);
             concertContainer.setLeftAnchor(concertName, 0.0);
@@ -139,6 +142,12 @@ public class Bookres_Controller implements Initializable {
             concertContainer.setRightAnchor(date, 14.0);
             concertContainer.setTopAnchor(audience, 28.0);
             concertContainer.setLeftAnchor(audience, 0.0);
+            concertContainer.setTopAnchor(ticPrice, 42.0);
+            concertContainer.setLeftAnchor(ticPrice, 0.0);
+            concertContainer.setTopAnchor(expenses, 56.0);
+            concertContainer.setLeftAnchor(expenses, 0.0);
+            concertContainer.setTopAnchor(revenue, 70.0);
+            concertContainer.setLeftAnchor(revenue, 0.0);
             concContents.getChildren().add(concertContainer);
         }
         concertsScrollPane.setContent(concContents);
