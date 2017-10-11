@@ -54,7 +54,7 @@ public class Organizer {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.accepted > 1 ORDER BY bookingoffer.time");
+            rs = stmt.executeQuery("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND bookingoffer.date = '" + date + "' AND bookingoffer.accepted > 1 ORDER BY bookingoffer.time, stage.name");
 
             while ( rs.next() ) {
                 String bandname = rs.getString("band.name");
@@ -79,7 +79,7 @@ public class Organizer {
     */
     public static List<String> getTechnicians(String date, String bandName, String time){
         List<String> techs = new ArrayList<>();
-        String concertid = getConcertId(date, time, bandName);
+        String concertid = getConcertId(date, bandName, time);
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -104,7 +104,7 @@ public class Organizer {
     *
     * Gets the concert that corresponds with the information.
     */
-    public static String getConcertId(String date, String time, String bandName) {
+    public static String getConcertId(String date, String bandName, String time) {
         String concId = "";
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
