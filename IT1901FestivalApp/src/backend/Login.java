@@ -62,7 +62,7 @@ public class Login {
                 }
             }
 
-            rs2 = stmt.executeQuery("Insert Into person (name, password) VALUES ('"+name+"', '"+password+"'); SELECT person.idPerson FROM person WHERE person.idPerson = (select max(person.idPerson) from person);");
+            rs2 = stmt.executeQuery("Insert Into person (name, password) VALUES ('" + name + "', '" + password + "'); SELECT person.idPerson FROM person WHERE person.idPerson = (select max(person.idPerson) from person);");
 
             personId = rs2.getString("person.idPerson");
 
@@ -71,12 +71,12 @@ public class Login {
             while (it.hasNext()) {
 
                 roleId.add(it.next());
-                stmt.executeQuery("INSERT INTO roleperson (personid, roleid) VALUES ('"+personId+"', '"+it.next()+"')");
+                stmt.executeQuery("INSERT INTO roleperson (personid, roleid) VALUES ('" + personId + "', '" + it.next() + "')");
 
             }
 
         } catch (Exception e) {
-            System.err.println("Got an exception1!");
+            System.err.println("Got an exception2!");
             System.err.println(e.getMessage());
         }
     }
