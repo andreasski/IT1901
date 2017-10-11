@@ -29,8 +29,6 @@ public class Tec_Controller implements Initializable{
   private final double LEFT_ANCHOR_WORK   = 10.0;
   private final double RIGHT_ANCHOR_WORK  = 50.0;
 
-
-
   @FXML
   private VBox container;
 

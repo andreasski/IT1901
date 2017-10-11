@@ -77,7 +77,7 @@ public class Arr_Controller implements Initializable{
     List<String> dates = Organizer.getDate();
     for (int i = 0; i < dates.size(); i++) {
       Label lblDate = new Label(dates.get(i));
-      lblDate.getStyleClass().add("listItem" + i % 2);
+      lblDate.getStyleClass().add("listItem" + ((i + 1) % 2));
       lblDate.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(lblDate.getText()), lblDate.getText()));
       contents.getChildren().add(lblDate);
     }
@@ -100,7 +100,7 @@ public class Arr_Controller implements Initializable{
     for (int i = 0; i < concerts.size(); i++) {
       String[] tempArray = concerts.get(i).split(";");
       AnchorPane btnConcert = new AnchorPane();
-      if (stage.equals(tempArray[0])) {
+      if (!stage.equals(tempArray[0])) {
         stage = tempArray[0];
         Label sceneHeader = new Label(stage);
         sceneHeader.getStyleClass().add("concertsSceneHeader");
@@ -112,7 +112,7 @@ public class Arr_Controller implements Initializable{
       btnConcert.getChildren().addAll(lblBand, lblTime);
       btnConcert.setLeftAnchor(lblBand, LEFT_ANCHOR_CONCERTS);
       btnConcert.setRightAnchor(lblTime, RIGHT_ANCHOR_CONCERTS);
-      btnConcert.getStyleClass().add("listItem" + concertIndex++ % 2);
+      btnConcert.getStyleClass().add("listItem" + ++concertIndex % 2);
       btnConcert.setOnMouseClicked(event -> { navConcertDetails(dateSave, lblBand.getText(), lblTime.getText());});
       contents.getChildren().add(btnConcert);
     }
@@ -143,7 +143,7 @@ public class Arr_Controller implements Initializable{
     technichiansScrollPane.setId("technichiansScrollPane");
     for (int i = 0; i < technicians.size(); i++) {
       Label technichianLabel = new Label(technicians.get(i));
-      technichianLabel.getStyleClass().add("technicianListItem" + i % 2);
+      technichianLabel.getStyleClass().add("technicianListItem" + ((i + 1) % 2));
       contents.getChildren().add(technichianLabel);
     }
     Label technicianHeader = new Label("Teknikere");

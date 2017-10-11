@@ -1,36 +1,32 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<BorderPane fx:id="body" fx:controller="frontend.GUI.Arr_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/bookres.css">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<BorderPane fx:id="body" fx:controller="frontend.GUI.Bookres_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/bookres.css">
 
     <top>
         <fx:include source="bookres_header.fxml"/>
     </top>
 
     <left>
-
-        <VBox>
-            <HBox fx:id="nav">
-                <Label fx:id="lvl1" styleClass="underline" text="Dato"/>
-                <Label fx:id="Spacing_lvl1_lvl2"/>
-                <Label fx:id="lvl2" styleClass="underline" text=""/>
-                <Label fx:id="Spacing_lvl2_lvl3"/>
-                <Label fx:id="lvl3" styleClass="underline" text=""/>
-            </HBox>
-
-            <VBox fx:id="instructionBoxContainer" styleClass="margin">
-                <StackPane styleClass="textContainer">
-                    <Label fx:id="instructionBoxLbl"/>
-                </StackPane>
-            </VBox>
+        <VBox styleClass="margin">
+            <Label fx:id="instructionBoxLabel" styleClass="textContainer" text="Søk etter et band i databasen for å se informasjon om dette bandet, i tillegg til en oversikt over tidligere konserter og tekniske behov."/>
         </VBox>
     </left>
 
     <center>
-        <VBox fx:id="container" styleClass="margin">
+        <VBox styleClass="margin">
+            <Label fx:id="headerScrollPane" text="Søk etter band"/>
+            <HBox>
+                <TextField fx:id="searchField"/>
+                <Button fx:id="btnSearch" text="Søk"/>
+            </HBox>
+
+            <VBox fx:id="container"/>
         </VBox>
+
     </center>
 
 </BorderPane>

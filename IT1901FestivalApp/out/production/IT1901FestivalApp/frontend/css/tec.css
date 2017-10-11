@@ -27,6 +27,7 @@
 //Dates
 #scrollPane {
     -fx-max-width: 500px;
+    -fx-min-height: 0;
 }
 
 .listItem1{

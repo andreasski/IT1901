@@ -42,6 +42,9 @@ public class Man_Controller implements Initializable{
   @FXML
   private VBox container;
 
+  @FXML
+  private Button btnBookingOffers;
+
   private backend.Manager manager;
   private VBox contents = new VBox();
 
@@ -51,9 +54,13 @@ public class Man_Controller implements Initializable{
    * and is used to get the correct data for the user in getWork(int id)
    */
   public void navLanding() {
+    getNumOffers();
+    btnBookingOffers.setOnMouseClicked(event -> {
+      getBookingOffers();
+      getNumOffers();
+    });
     List<String> bands = new ArrayList<>(manager.getBandNames());
     bands.addAll(manager.getBandNames());
-    for (int i = 0; i < 10; i++) {bands.add("Test Band " + i);}
     VBox bandContainer = new VBox();
     bandContainer.setId("bandContainer");
     for (int i = 1; i < bands.size(); i++) {
@@ -98,7 +105,7 @@ public class Man_Controller implements Initializable{
     List<String> techNeeds = manager.getTechNeeds(bandName);
     for (int i = 0; i < techNeeds.size(); i++) {
       Label lblTechNeed = new Label(techNeeds.get(i));
-      lblTechNeed.getStyleClass().add("listItem" + i % 2);
+      lblTechNeed.getStyleClass().add("listItem" + ((i + 1) % 2));
       lblTechNeed.setOnMouseClicked(event -> {
         manager.removeTechNeed(lblTechNeed.getText(), bandName);
         getTechnicalDetails(bandName);
@@ -109,10 +116,70 @@ public class Man_Controller implements Initializable{
     container.getChildren().add(scrollPane);
   }
 
+  public void getBookingOffers() {
+    container.getChildren().clear();
+    contents.getChildren().clear();
+    Label lblBookingOffer = new Label("Booking tilbud");
+    lblBookingOffer.setId("headerScrollPane");
+    container.getChildren().add(lblBookingOffer);
+    List<String> offers = manager.getOffers();
+    for (int i = 0; i < offers.size(); i++) {
+      AnchorPane offerContainer = new AnchorPane();
+      offerContainer.getStyleClass().add("concertOffer" + ((i + 1) % 2));
+      String[] offerDetails = offers.get(i).split(";");
+      offerContainer.setId(offerDetails[0]);
+      Label bandName = new Label("Band: " + offerDetails[1]);
+      Label concertName = new Label(offerDetails[2]);
+      Label stageName = new Label("Scene : " + offerDetails[3]);
+      Label concertDate = new Label("Dato: " + offerDetails[4]);
+      Label concertTime = new Label("Klokken: " + offerDetails[5]);
+      Button btnAccept = new Button("Godkjenn");
+      Button btnDecline = new Button("Avvis");
+      btnAccept.getStyleClass().add("btnOffer");
+      btnDecline.getStyleClass().add("btnOffer");
+      btnAccept.setOnMouseClicked(event -> {
+        manager.updateOffer(Integer.parseInt(offerContainer.getId()), 2);
+        getNumOffers();
+        getBookingOffers();
+      });
+      btnAccept.setOnMouseClicked(event -> {
+        manager.updateOffer(Integer.parseInt(offerContainer.getId()), -1);
+        getNumOffers();
+        getBookingOffers();
+      });
+      offerContainer.getChildren().addAll(bandName, concertName, stageName, concertDate, concertTime, btnAccept, btnDecline);
+      offerContainer.setLeftAnchor(bandName, 14.0);
+      offerContainer.setTopAnchor(bandName, 18.0);
+      offerContainer.setLeftAnchor(concertName, 14.0);
+      offerContainer.setTopAnchor(concertName, 0.0);
+      offerContainer.setTopAnchor(stageName, 18.0);
+      offerContainer.setRightAnchor(stageName, 14.0);
+      offerContainer.setRightAnchor(concertDate, 200.0);
+      offerContainer.setTopAnchor(concertDate, 0.0);
+      offerContainer.setRightAnchor(concertTime, 14.0);
+      offerContainer.setTopAnchor(concertTime, 0.0);
+      offerContainer.setTopAnchor(btnAccept, 42.0);
+      offerContainer.setLeftAnchor(btnAccept, 0.0);
+      offerContainer.setTopAnchor(btnDecline, 42.0);
+      offerContainer.setRightAnchor(btnDecline, 0.0);
+      contents.getChildren().add(offerContainer);
+    }
+    ScrollPane scrollPane = new ScrollPane();
+    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    scrollPane.setId("scrollPane");
+    scrollPane.setContent(contents);
+    container.getChildren().add(scrollPane);
+  }
+
+  public void getNumOffers() {
+    btnBookingOffers.setText("Nye booking tilbud: " + manager.getOffers().size());
+  }
+
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     manager = new backend.Manager(1);
+    getNumOffers();
     navLanding();
   }
 }
