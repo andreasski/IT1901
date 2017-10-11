@@ -15,11 +15,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Bookres_Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bookres_Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="661">
-              <caret line="133" column="137" lean-forward="false" selection-start-line="133" selection-start-column="137" selection-end-line="133" selection-end-column="137" />
+            <state relative-caret-position="508">
+              <caret line="124" column="51" lean-forward="true" selection-start-line="124" selection-start-column="51" selection-end-line="124" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Man_Controller.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Man_Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -29,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+              <caret line="24" column="1" lean-forward="false" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -75,12 +85,12 @@
         <option value="$PROJECT_DIR$/src/frontend/css/man.css" />
         <option value="$PROJECT_DIR$/src/frontend/css/bookres.css" />
         <option value="$PROJECT_DIR$/src/frontend/GUI/Tec_Controller.java" />
-        <option value="$PROJECT_DIR$/src/frontend/GUI/Man_Controller.java" />
         <option value="$PROJECT_DIR$/src/frontend/css/arr.css" />
         <option value="$PROJECT_DIR$/src/frontend/css/tec.css" />
         <option value="$PROJECT_DIR$/src/frontend/GUI/Arr_Controller.java" />
         <option value="$PROJECT_DIR$/src/backend/Bookingansvarlig.java" />
         <option value="$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java" />
+        <option value="$PROJECT_DIR$/src/frontend/GUI/Man_Controller.java" />
       </list>
     </option>
   </component>
@@ -105,6 +115,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,16 +156,16 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -168,7 +179,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Bookres_Main">
+  <component name="RunManager" selected="Application.Man_Main">
     <configuration name="Arr_Main" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="frontend.GUI.Arr_Main" />
@@ -629,18 +640,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Man_Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="168" column="3" lean-forward="true" selection-start-line="168" selection-start-column="3" selection-end-line="168" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+          <caret line="24" column="1" lean-forward="false" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -657,8 +660,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="661">
-          <caret line="133" column="137" lean-forward="false" selection-start-line="133" selection-start-column="137" selection-end-line="133" selection-end-column="137" />
+        <state relative-caret-position="508">
+          <caret line="124" column="51" lean-forward="true" selection-start-line="124" selection-start-column="51" selection-end-line="124" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Man_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding />
         </state>
       </provider>

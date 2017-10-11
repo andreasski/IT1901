@@ -55,7 +55,10 @@ public class Man_Controller implements Initializable{
    */
   public void navLanding() {
     getNumOffers();
-    btnBookingOffers.setOnMouseClicked(event -> getBookingOffers());
+    btnBookingOffers.setOnMouseClicked(event -> {
+      getBookingOffers();
+      getNumOffers();
+    });
     List<String> bands = new ArrayList<>(manager.getBandNames());
     bands.addAll(manager.getBandNames());
     VBox bandContainer = new VBox();
