@@ -15,11 +15,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Bookres_Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bookres_Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="161" column="21" lean-forward="true" selection-start-line="161" selection-start-column="21" selection-end-line="161" selection-end-column="21" />
+            <state relative-caret-position="238">
+              <caret line="88" column="24" lean-forward="true" selection-start-line="88" selection-start-column="24" selection-end-line="88" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/backend/Login.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1343">
+              <caret line="85" column="2" lean-forward="false" selection-start-line="85" selection-start-column="2" selection-end-line="85" selection-end-column="2" />
+              <folding>
+                <element signature="e#0#2631#0" expanded="true" />
+                <marker date="1507900133956" expanded="false" signature="267:278" ph=" { " />
+                <marker date="1507900133956" expanded="false" signature="306:312" ph=" }" />
+                <marker date="1507900133956" expanded="false" signature="345:356" ph=" { " />
+                <marker date="1507900133956" expanded="false" signature="372:378" ph=" }" />
+                <marker date="1507900133956" expanded="false" signature="420:431" ph=" { " />
+                <marker date="1507900133956" expanded="false" signature="445:451" ph=" }" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tec_Controller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Tec_Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="884">
+              <caret line="64" column="30" lean-forward="false" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Organizer.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="31" column="22" lean-forward="false" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -81,6 +119,7 @@
         <option value="$PROJECT_DIR$/src/backend/Bookingansvarlig.java" />
         <option value="$PROJECT_DIR$/src/frontend/GUI/Man_Controller.java" />
         <option value="$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java" />
+        <option value="$PROJECT_DIR$/src/backend/Login.java" />
       </list>
     </option>
   </component>
@@ -105,7 +144,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -146,8 +185,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -169,7 +208,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Bookres_Main">
+  <component name="RunManager" selected="Application.Arr_Main">
     <configuration name="Arr_Main" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="frontend.GUI.Arr_Main" />
@@ -401,7 +440,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Desktop/NTNU/3. semester/TDT4120/Ov3/PipeSorting.java" />
     <entry file="file://C:/GitHub/IT1901/src/GUI/arrGUI/Arr_Main.java" />
     <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -458,33 +496,33 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/fxml/bookres_header.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/arr_header.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/arr_header.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/man_header.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/man_header.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="102" lean-forward="false" selection-start-line="4" selection-start-column="102" selection-end-line="4" selection-end-column="102" />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Tec_Main.java">
@@ -509,20 +547,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/fxml/arr_landing.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="30" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-470">
-          <caret line="56" column="295" lean-forward="false" selection-start-line="56" selection-start-column="295" selection-end-line="56" selection-end-column="295" />
-        </state>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Man_Main.java">
@@ -563,40 +594,33 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/fxml/tec_header.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/man_landing.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/man_landing.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="43" lean-forward="false" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="43" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/tec_landing.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/fxml/tec_landing.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="127" lean-forward="false" selection-start-line="2" selection-start-column="124" selection-end-line="2" selection-end-column="127" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Tec_Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="64" column="30" lean-forward="false" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
-        </state>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/css/arr.css">
@@ -621,13 +645,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/fxml/bookres_landing.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="15" lean-forward="false" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Main.java">
@@ -658,8 +682,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Bookres_Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="161" column="21" lean-forward="true" selection-start-line="161" selection-start-column="21" selection-end-line="161" selection-end-column="21" />
+        <state relative-caret-position="238">
+          <caret line="88" column="24" lean-forward="true" selection-start-line="88" selection-start-column="24" selection-end-line="88" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="85" column="2" lean-forward="false" selection-start-line="85" selection-start-column="2" selection-end-line="85" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#2631#0" expanded="true" />
+            <marker date="1507900133956" expanded="false" signature="267:278" ph=" { " />
+            <marker date="1507900133956" expanded="false" signature="306:312" ph=" }" />
+            <marker date="1507900133956" expanded="false" signature="345:356" ph=" { " />
+            <marker date="1507900133956" expanded="false" signature="372:378" ph=" }" />
+            <marker date="1507900133956" expanded="false" signature="420:431" ph=" { " />
+            <marker date="1507900133956" expanded="false" signature="445:451" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/frontend/GUI/Tec_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="64" column="30" lean-forward="false" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/Organizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="31" column="22" lean-forward="false" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="22" />
           <folding />
         </state>
       </provider>
