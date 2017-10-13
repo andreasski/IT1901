@@ -1,0 +1,15 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane fx:id="body" fx:controller="frontend.GUI.Login_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/login.css">
+    <top>
+        <fx:include source="login_header.fxml"/>
+    </top>
+
+    <left>
+        <VBox fx:id="aside" styleClass="margin"/>
+    </left>
+
+    <center>
+        <VBox fx:id="container" styleClass="margin"/>
+    </center>
+</BorderPane>
