@@ -1,7 +1,5 @@
-/*package backend;
+package backend;
 
-
-import jdk.nashorn.internal.ir.Statement;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -83,4 +81,3 @@ public class Login {
         }
     }
 }
-*/
