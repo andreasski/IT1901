@@ -31,7 +31,7 @@ public class Organizer {
         try{
         Statement stmt = ConnectionManager.conn.createStatement();
         ResultSet rs;
-        rs = stmt.executeQuery("SELECT date FROM bookingoffer WHERE bookingoffer.accepted > 1");
+        rs = stmt.executeQuery("SELECT date FROM bookingoffer WHERE bookingoffer.accepted > 1 ORDER BY bookingoffer.date");
         while ( rs.next() ) {
             String name = rs.getString("date");
             dates.add(name);
