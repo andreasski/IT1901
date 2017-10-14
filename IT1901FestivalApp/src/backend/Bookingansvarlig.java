@@ -2,6 +2,7 @@ package backend;
 
 import backend.ConnectionManager;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Bookingansvarlig {
 
     ArrayList<String> bands;
     ArrayList<String> needs;
+    ArrayList<String> genres;
 
     /*
     Bookingansvarlig
@@ -22,6 +24,7 @@ public class Bookingansvarlig {
 
         bands = new ArrayList<String>();
         needs = new ArrayList<String>();
+        genres = new ArrayList<String>();
     }
 
     /*
@@ -115,7 +118,6 @@ public class Bookingansvarlig {
             rs = stmt.executeQuery(str);
             while (rs.next()) {
                 String scon = String.format("%s;%s;%s;%s;%s;%s;%s", rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("sales"), rs.getString("price"), rs.getString("expenses"), rs.getString("earnings"));
-
                 info.add(scon);
             }
         } catch (Exception e) {
@@ -126,10 +128,35 @@ public class Bookingansvarlig {
 
     }
 
+     /*
+    String getGenre
+    *
+    * Gets a list of the different genres.
+    */
+
+    public ArrayList<String> getGenre() {
+
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            rs = stmt.executeQuery("SELECT name FROM genre");
+
+            while (rs.next()) {
+                String genre = rs.getString("name");
+                genres.add(genre);
+            } } catch (Exception e) {
+            System.err.println("Got an exception7! ");
+            System.err.println(e.getMessage());
+        }
+        return genres;
+    }
+
     public static void main(String[] args){
         Bookingansvarlig test = new Bookingansvarlig();
         String infoting = test.getInfoBand("bølgeband");
         ArrayList<String> infoconc = test.getPreviousConcerts("bølgeband");
+        ArrayList<String> sjangere = test.getGenre();
+        System.out.println(sjangere);
         System.out.println(infoting);
         System.out.println(infoconc);
 
