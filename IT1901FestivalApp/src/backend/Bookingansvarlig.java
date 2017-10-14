@@ -12,6 +12,7 @@ public class Bookingansvarlig {
     ArrayList<String> bands;
     ArrayList<String> needs;
     ArrayList<String> genres;
+    ArrayList<String> pubscenes;
 
     /*
     Bookingansvarlig
@@ -25,6 +26,8 @@ public class Bookingansvarlig {
         bands = new ArrayList<String>();
         needs = new ArrayList<String>();
         genres = new ArrayList<String>();
+        pubscenes = new ArrayList<>();
+
     }
 
     /*
@@ -151,11 +154,43 @@ public class Bookingansvarlig {
         return genres;
     }
 
+
+    /*
+    String getGenre
+    * @param: String genre
+    *
+    * Gets an overview over audience and stage info from previous concerts.
+    */
+
+    public ArrayList<String> getPubScene(String genre) {
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            rs = stmt.executeQuery("SELECT DISTINCT stage.name, stage.capacity, concert.sales FROM genre INNER JOIN genreband ON genreband.genreid = genre.idGenre INNER JOIN band ON band.idBand = genreband.bandid INNER JOIN bookingoffer ON bookingoffer.bandid = band.idBand INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE genre.name = \""+genre+"\" AND bookingoffer.accepted > 1");
+
+            while (rs.next()) {
+                String stage = rs.getString("name");
+                String capacity = rs.getString("capacity");
+                String sales = rs.getString("sales");
+                String pubscene = ("Stage: " +stage+ " Capacity: " +capacity+ " Sales: " +sales);
+                pubscenes.add(pubscene);
+            } } catch (Exception e) {
+            System.err.println("Got an exception8! ");
+            System.err.println(e.getMessage());
+        }
+        return pubscenes;
+    }
+
+
+
+
     public static void main(String[] args){
         Bookingansvarlig test = new Bookingansvarlig();
         String infoting = test.getInfoBand("bølgeband");
         ArrayList<String> infoconc = test.getPreviousConcerts("bølgeband");
         ArrayList<String> sjangere = test.getGenre();
+        ArrayList<String> pubscene = test.getPubScene("pop");
+        System.out.println(pubscene);
         System.out.println(sjangere);
         System.out.println(infoting);
         System.out.println(infoconc);
