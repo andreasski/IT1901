@@ -3,11 +3,11 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class BookingBoss {
 
@@ -139,6 +139,143 @@ public class BookingBoss {
         }
     }
 
+    public List<String> getOffers() {
+        List<String> ls = new ArrayList<String>();
+
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            String str = String.format("SELECT bookingoffer.idbookingoffer, band.name AS bname, concert.name AS cname, stage.name AS sname, bookingoffer.date, bookingoffer.time, bookingoffer.accepted FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert on concert.idconcert = bookingoffer.concertid INNER JOIN stage on stage.idstage = concert.stageid WHERE bookingoffer.accepted = 0");
+            rs = stm.executeQuery(str);
+
+            while (rs.next()) {
+                String strm = String.format("%s;%s;%s;%s;%s;%s;%s", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
+                ls.add(strm);
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception2! ");
+            System.err.println(e.getMessage());
+        }
+
+        return ls;
+    }
+
+    public void updateOffer(int offerId, int state) {
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str = String.format("UPDATE bookingoffer SET bookingoffer.accepted = %d WHERE bookingoffer.idbookingoffer = %d", state, offerId);
+            stm.executeUpdate(str);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<String> getConcertDates(String startDate, String endDate) {
+        List<String> ls = new ArrayList<String>();
+
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            String str = String.format("SELECT bookingoffer.idbookingoffer, bookingoffer.date, bookingoffer.accepted FROM bookingoffer WHERE bookingoffer.accepted > -1 ORDER BY bookingoffer.date");
+            rs = stm.executeQuery(str);
+
+            while (rs.next()) {
+                String strm = String.format("%s;%s;%s", rs.getString("idbookingoffer"), rs.getString("date"), rs.getString("accepted"));
+                ls.add(strm);
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception2! ");
+            System.err.println(e.getMessage());
+        }
+
+        List<String> lst = new ArrayList<String>();
+
+        String[] spls = startDate.split("\\.");
+        String[] sple = endDate.split("\\.");
+
+        int ys = Integer.parseInt(spls[0]);
+        int ms = Integer.parseInt(spls[1]);
+        int ds = Integer.parseInt(spls[2]);
+
+        int ye = Integer.parseInt(sple[0]);
+        int me = Integer.parseInt(sple[1]);
+        int de = Integer.parseInt(sple[2]);
+
+        LocalDate sdate = LocalDate.of(ys, ms, ds);
+        LocalDate edate = LocalDate.of(ye, me, de);
+
+        int booked = 0;
+        int sent = 0;
+        long free = ChronoUnit.DAYS.between(sdate, edate);
+        System.out.println(sdate.toString() + " - " + edate.toString() + " - " + free);
+        lst.add("%d;%d;%d");
+
+        Iterator<String> its = ls.iterator();
+        HashMap<String, Integer> bookedm = new HashMap<String, Integer>();
+        HashMap<String, Integer> sentm = new HashMap<String, Integer>();
+        while (its.hasNext())
+        {
+            String[] bsp = its.next().split(";");
+            String[] dsp = bsp[1].split("\\.");
+            LocalDate bdat = LocalDate.of(Integer.parseInt(dsp[0]), Integer.parseInt(dsp[1]), Integer.parseInt(dsp[2]));
+
+            int acc = Integer.parseInt(bsp[2]);
+            if (acc == 2)
+            {
+                if (bookedm.containsKey(bdat.toString()))
+                {
+                    bookedm.put(bdat.toString(), bookedm.get(bdat.toString()) + 1);
+                }
+                else
+                {
+                    bookedm.put(bdat.toString(), 1);
+                }
+            }
+            else
+            {
+                if (sentm.containsKey(bdat.toString()))
+                {
+                    sentm.put(bdat.toString(), sentm.get(bdat.toString()) + 1);
+                }
+                else
+                {
+                    sentm.put(bdat.toString(), 1);
+                }
+            }
+        }
+
+        LocalDate cdate = LocalDate.of(ys, ms, ds);
+        for (int i = 0; i < free +1; i++)
+        {
+            int boo = 0;
+            int sen = 0;
+
+            if (bookedm.containsKey(cdate.toString()))
+            {
+                boo = bookedm.get(cdate.toString());
+            }
+            if (sentm.containsKey(cdate.toString()))
+            {
+                sen = sentm.get(cdate.toString());
+            }
+
+
+            booked += boo;
+            sent += sen;
+            String str = String.format("%s;%d;%d", cdate.toString(), boo, sen);
+            lst.add(str);
+            cdate = cdate.plusDays(1);
+        }
+
+        lst.set(0, String.format(lst.get(0), booked, sent, free));
+
+
+        return lst;
+    }
+
     public static void main(String[] args)
     {
         LocalDateTime lt = LocalDateTime.now();
@@ -162,6 +299,21 @@ public class BookingBoss {
         System.out.println("ticket price 4: " + bb.generateTicketPrice(4));
         System.out.println("ticket price 5: " + bb.generateTicketPrice(5));
         System.out.println("ticket price 6: " + bb.generateTicketPrice(6));
-        System.out.println("ticket price 2: " + bb.generateTicketPrice(2));
+
+        System.out.println();
+
+
+        bb.updateOffer(2, 1);
+        its = bb.getOffers().iterator();
+        while (its.hasNext())
+        {
+            System.out.println(its.next());
+        }
+
+        its = bb.getConcertDates("2017.10.05", "2017.10.30").iterator();
+        while (its.hasNext())
+        {
+            System.out.println(its.next());
+        }
     }
 }
