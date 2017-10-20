@@ -162,7 +162,7 @@ public class Bookingansvarlig {
     * Gets an overview over audience and stage info from previous concerts.
     */
 
-    public ArrayList<String> getPubScene(String genre) {
+    public String getPubScene(String genre) {
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -172,15 +172,14 @@ public class Bookingansvarlig {
                 String stage = rs.getString("name");
                 String capacity = rs.getString("capacity");
                 String sales = rs.getString("sales");
-                String pubscene = ("Stage: " +stage+ " Capacity: " +capacity+ " Sales: " +sales);
+                String pubscene = (stage +" "+ capacity +" "+ sales);
                 pubscenes.add(pubscene);
             } } catch (Exception e) {
             System.err.println("Got an exception8! ");
             System.err.println(e.getMessage());
         }
-        return pubscenes;
+        return toString(pubscenes);
     }
-
 
     public void addBookingOffer(int bandId, int concertId, String date, String time, int expence){
         try {
@@ -193,12 +192,22 @@ public class Bookingansvarlig {
         }
     }
 
+    private String toString(ArrayList<String> liste) {
+        String listString = "";
+        for (String s :liste)
+        {
+            listString += s + "\n";
+        }
+        return listString;
+    }
+
+
     public static void main(String[] args){
         Bookingansvarlig test = new Bookingansvarlig();
         String infoting = test.getInfoBand("bølgeband");
         ArrayList<String> infoconc = test.getPreviousConcerts("bølgeband");
         ArrayList<String> sjangere = test.getGenre();
-        ArrayList<String> pubscene = test.getPubScene("pop");
+        String pubscene = test.getPubScene("pop");
         System.out.println(pubscene);
         System.out.println(sjangere);
         System.out.println(infoting);
