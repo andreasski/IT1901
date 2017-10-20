@@ -181,6 +181,17 @@ public class Bookingansvarlig {
         return toString(pubscenes);
     }
 
+    public void addBookingOffer(int bandId, int concertId, String date, String time, int expence){
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str = String.format("Insert Into bookingoffer(bandid, concertid, date, time, expence) Values ('%d', '%d', %s, %s, %d)", bandId, concertId, date, time, expence);
+            stm.executeUpdate(str);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private String toString(ArrayList<String> liste) {
         String listString = "";
         for (String s :liste)
@@ -201,9 +212,6 @@ public class Bookingansvarlig {
         System.out.println(sjangere);
         System.out.println(infoting);
         System.out.println(infoconc);
-
-
-
     }
 
 
