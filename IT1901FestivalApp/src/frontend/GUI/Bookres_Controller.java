@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import backend.Bookingansvarlig;
+import backend.Bookres;
 import java.net.URL;
 import java.util.*;
 import javafx.scene.layout.VBox;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class Bookres_Controller implements Initializable {
 
-    private backend.Bookingansvarlig BookingRes;
+    private backend.Bookres BookingRes;
     private VBox searchContents = new VBox();
     private VBox techContents = new VBox();
     private VBox concContents = new VBox();
@@ -212,7 +212,7 @@ public class Bookres_Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BookingRes = new Bookingansvarlig();
+        BookingRes = new Bookres();
         genreScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         navSearch();
     }
