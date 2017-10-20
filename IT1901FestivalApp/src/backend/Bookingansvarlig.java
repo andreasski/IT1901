@@ -9,25 +9,52 @@ import java.util.ArrayList;
 
 public class Bookingansvarlig {
 
+    ArrayList<String> band;
     ArrayList<String> bands;
     ArrayList<String> needs;
     ArrayList<String> genres;
     ArrayList<String> pubscenes;
+    ArrayList<String> concerts;
 
     /*
     Bookingansvarlig
     *
     * Initializes the object.
     */
-    public  Bookingansvarlig()
-    {
+    public Bookingansvarlig() {
         ConnectionManager.connect();
 
+        band = new ArrayList<>();
         bands = new ArrayList<String>();
         needs = new ArrayList<String>();
         genres = new ArrayList<String>();
         pubscenes = new ArrayList<>();
+        concerts = new ArrayList<>();
 
+
+    }
+
+     /*
+    ArrayList<String> searchBands
+    *
+    * returns bands
+    */
+
+
+    public ArrayList<String> getBands() {
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT name FROM band");
+            while (rs.next()) {
+                String name = rs.getString("name");
+                band.add(name);
+            } } catch (Exception e) {
+            System.err.println("Got an exception, getBand! ");
+            System.err.println(e.getMessage());
+        }
+        return band;
     }
 
     /*
@@ -36,17 +63,18 @@ public class Bookingansvarlig {
     *
     * Searches for the following band.
     */
-    public ArrayList<String> searchBands(String band){
+    public ArrayList<String> searchBands(String band) {
         bands.clear();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT name FROM band WHERE name LIKE '%"+band+"%'");
+            rs = stmt.executeQuery("SELECT name FROM band WHERE name LIKE '%" + band + "%'");
             while (rs.next()) {
                 String name = rs.getString("name");
                 bands.add(name);
-            } } catch (Exception e) {
+            }
+        } catch (Exception e) {
             System.err.println("Got an exception1! ");
             System.err.println(e.getMessage());
         }
@@ -59,17 +87,18 @@ public class Bookingansvarlig {
     *
     * Gets the technical need for the following band.
     */
-    public ArrayList<String> getTechnicalNeeds( String band){
+    public ArrayList<String> getTechnicalNeeds(String band) {
         needs.clear();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, band WHERE band.name = \""+band+"\" AND band.idBand = techicalneed.bandid");
+            rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, band WHERE band.name = \"" + band + "\" AND band.idBand = techicalneed.bandid");
             while (rs.next()) {
                 String need = rs.getString("techicalneed.need");
                 needs.add(need);
-            } } catch (Exception e) {
+            }
+        } catch (Exception e) {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
         }
@@ -83,12 +112,12 @@ public class Bookingansvarlig {
     *
     * Gets the information about the following band.
     */
-    public String getInfoBand( String band) {
+    public String getInfoBand(String band) {
         String info = "";
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT popularity, salesalbum, salesconcerts FROM band where band.name = \"" +band+ "\"");
+            rs = stmt.executeQuery("SELECT popularity, salesalbum, salesconcerts FROM band where band.name = \"" + band + "\"");
 
 
             while (rs.next()) {
@@ -110,8 +139,7 @@ public class Bookingansvarlig {
     *
     * Gets a list of the previous concerts of a band.
     */
-    public ArrayList<String> getPreviousConcerts(String band)
-    {
+    public ArrayList<String> getPreviousConcerts(String band) {
         ArrayList<String> info = new ArrayList<String>();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
@@ -147,7 +175,8 @@ public class Bookingansvarlig {
             while (rs.next()) {
                 String genre = rs.getString("name");
                 genres.add(genre);
-            } } catch (Exception e) {
+            }
+        } catch (Exception e) {
             System.err.println("Got an exception7! ");
             System.err.println(e.getMessage());
         }
@@ -162,26 +191,64 @@ public class Bookingansvarlig {
     * Gets an overview over audience and stage info from previous concerts.
     */
 
-    public ArrayList<String> getPubScene(String genre) {
+    public String getPubScene(String genre) {
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT DISTINCT stage.name, stage.capacity, concert.sales FROM genre INNER JOIN genreband ON genreband.genreid = genre.idGenre INNER JOIN band ON band.idBand = genreband.bandid INNER JOIN bookingoffer ON bookingoffer.bandid = band.idBand INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE genre.name = \""+genre+"\" AND bookingoffer.accepted > 1");
+            rs = stmt.executeQuery("SELECT DISTINCT stage.name, stage.capacity, concert.sales FROM genre INNER JOIN genreband ON genreband.genreid = genre.idGenre INNER JOIN band ON band.idBand = genreband.bandid INNER JOIN bookingoffer ON bookingoffer.bandid = band.idBand INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE genre.name = \"" + genre + "\" AND bookingoffer.accepted > 1");
 
             while (rs.next()) {
                 String stage = rs.getString("name");
                 String capacity = rs.getString("capacity");
                 String sales = rs.getString("sales");
-                String pubscene = ("Stage: " +stage+ " Capacity: " +capacity+ " Sales: " +sales);
+                String pubscene = (stage + " " + capacity + " " + sales);
                 pubscenes.add(pubscene);
-            } } catch (Exception e) {
+            }
+        } catch (Exception e) {
             System.err.println("Got an exception8! ");
             System.err.println(e.getMessage());
         }
-        return pubscenes;
+        return toString(pubscenes);
     }
 
+    public void addBookingOffer(int bandId, int concertId, String date, String time, int expence) {
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str = String.format("Insert Into bookingoffer(bandid, concertid, date, time, expense) Values ('%d', '%d', '%s', '%s', %d)", bandId, concertId, date, time, expence);
+            stm.executeUpdate(str);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    public ArrayList<String> getConcerts() {
+
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            rs = stm.executeQuery("SELECT idconcert, name FROM concert");
+            while (rs.next()) {
+                String idconcert = rs.getString("idconcert");
+                String name = rs.getString("name");
+                String out = idconcert +":"+ name;
+                concerts.add(out);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return concerts;
+    }
+
+    private String toString(ArrayList<String> liste) {
+        String listString = "";
+        for (String s :liste)
+        {
+            listString += s + "\n";
+        }
+        return listString;
+    }
 
 
     public static void main(String[] args){
@@ -189,17 +256,17 @@ public class Bookingansvarlig {
         String infoting = test.getInfoBand("bølgeband");
         ArrayList<String> infoconc = test.getPreviousConcerts("bølgeband");
         ArrayList<String> sjangere = test.getGenre();
-        ArrayList<String> pubscene = test.getPubScene("pop");
+        String pubscene = test.getPubScene("pop");
+        ArrayList<String> concerts = test.getConcerts();
+        System.out.println(concerts);
+        ArrayList<String> band = test.getBands();
+        System.out.println(band);
+        test.addBookingOffer(1,1,"2017.10.30", "18.00-20.00", 140000);
         System.out.println(pubscene);
         System.out.println(sjangere);
         System.out.println(infoting);
         System.out.println(infoconc);
-
-
-
     }
 
-
-
-
+    
 }
