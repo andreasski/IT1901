@@ -22,13 +22,13 @@ public class Login {
         return roleId;
     }
 
-    public void checkLogin(String name, String password) {
+    public boolean checkLogin(String name, String password) {
 
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT person.idPerson, personSELECT person.idPerson, person.name, person.password, role.idrole FROM person, role, roleperson WHERE person.idPerson = roleperson.personid AND roleperson.roleid = role.idrole");
+            rs = stmt.executeQuery("SELECT person.idPerson, person.name, person.password, role.idrole FROM person, role, roleperson WHERE person.idPerson = roleperson.personid AND roleperson.roleid = role.idrole");
 
             while (rs.next()) {
 
@@ -38,15 +38,17 @@ public class Login {
                 if (dbName.equals(name) && dbPassword.equals(password)) {
                     personId = rs.getString("person.idPerson");
                     roleId.add(rs.getString("role.idrole"));
+                    return true;
                 }
             }
         } catch (Exception e) {
             System.err.println("Got an exception1! ");
             System.err.println(e.getMessage());
         }
+        return false;
     }
 
-    public void register(String name, String password, ArrayList<String> idRole) {
+    public boolean register(String name, String password, ArrayList<String> idRole) {
 
         try{
             Statement stmt = ConnectionManager.conn.createStatement();
@@ -58,11 +60,12 @@ public class Login {
                 String dbName = rs1.getString("person.name");
 
                 if (name.equals(dbName)) {
-                    throw new Exception("Name is taken!");
+                    return false;
                 }
             }
 
-            rs2 = stmt.executeQuery("Insert Into person (name, password) VALUES ('" + name + "', '" + password + "'); SELECT person.idPerson FROM person WHERE person.idPerson = (select max(person.idPerson) from person);");
+            stmt.executeUpdate("Insert Into person (name, password) VALUES ('\" + name + \"', '\" + password + \"');");
+            rs2 = stmt.executeQuery("SELECT person.idPerson FROM person WHERE person.idPerson = (select max(person.idPerson) from person);");
 
             personId = rs2.getString("person.idPerson");
 
@@ -71,7 +74,7 @@ public class Login {
             while (it.hasNext()) {
 
                 roleId.add(it.next());
-                stmt.executeQuery("INSERT INTO roleperson (personid, roleid) VALUES ('" + personId + "', '" + it.next() + "')");
+                stmt.executeUpdate("INSERT INTO roleperson (personid, roleid) VALUES ('" + personId + "', '" + it.next() + "')");
 
             }
 
@@ -79,5 +82,6 @@ public class Login {
             System.err.println("Got an exception2!");
             System.err.println(e.getMessage());
         }
+        return true;
     }
 }

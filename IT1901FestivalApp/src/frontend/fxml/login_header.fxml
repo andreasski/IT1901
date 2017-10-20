@@ -5,6 +5,6 @@
 <StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/header.css">
     <HBox fx:id="header">
         <Label fx:id="lblHeader" text="FestivalArrangør  |"/>
-        <Label fx:id="lblPostHeader" text=" Login"/>
+        <Label fx:id="lblPostHeader" text=" Logg inn"/>
     </HBox>
 </StackPane>
