@@ -204,6 +204,18 @@ public class Bookingansvarlig {
         return toString(pubscenes);
     }
 
+    public void addBookingOffer(int bandId, int concertId, String date, String time, int expence){
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str = String.format("Insert Into bookingoffer(bandid, concertid, date, time, expense) Values ('%d', '%d', '%s', '%s', %d)", bandId, concertId, date, time, expence);
+            System.out.println("hey");
+            stm.executeUpdate(str);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private String toString(ArrayList<String> liste) {
         String listString = "";
         for (String s :liste)
@@ -220,18 +232,17 @@ public class Bookingansvarlig {
         ArrayList<String> infoconc = test.getPreviousConcerts("bølgeband");
         ArrayList<String> sjangere = test.getGenre();
         String pubscene = test.getPubScene("pop");
+<<<<<<< HEAD
         ArrayList<String> band = test.getBands();
         System.out.println(band);
+=======
+        test.addBookingOffer(1,1,"2017.10.30", "18.00-20.00", 140000);
+>>>>>>> 2d248aecd14eefd00b7651f6f7f1dc51635909e1
         System.out.println(pubscene);
         System.out.println(sjangere);
         System.out.println(infoting);
         System.out.println(infoconc);
-
-
-
     }
-
-
 
 
 }
