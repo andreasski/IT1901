@@ -182,7 +182,16 @@ public class Bookingansvarlig {
     }
 
 
-
+    public void addBookingOffer(int bandId, int concertId, String date, String time, int expence){
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str = String.format("Insert Into bookingoffer(bandid, concertid, date, time, expence) Values ('%d', '%d', %s, %s, %d)", bandId, concertId, date, time, expence);
+            stm.executeUpdate(str);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void main(String[] args){
         Bookingansvarlig test = new Bookingansvarlig();
@@ -194,9 +203,6 @@ public class Bookingansvarlig {
         System.out.println(sjangere);
         System.out.println(infoting);
         System.out.println(infoconc);
-
-
-
     }
 
 
