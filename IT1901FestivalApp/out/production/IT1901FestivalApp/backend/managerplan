@@ -1,5 +1,0 @@
-metoder:
-setTechNeeds:(bandId, String)
-setKeyInfo()
-getBands()
-addBand: setKeyInfo, setKeyInformation, setName
