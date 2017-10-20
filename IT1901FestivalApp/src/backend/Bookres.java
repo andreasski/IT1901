@@ -13,8 +13,6 @@ public class Bookres {
   ArrayList<String> band;
   ArrayList<String> bands;
   ArrayList<String> needs;
-  ArrayList<String> genres;
-  ArrayList<String> pubscenes;
   ArrayList<String> concerts;
 
   /*
@@ -28,8 +26,6 @@ public class Bookres {
     band = new ArrayList<>();
     bands = new ArrayList<String>();
     needs = new ArrayList<String>();
-    genres = new ArrayList<String>();
-    pubscenes = new ArrayList<>();
     concerts = new ArrayList<>();
 
 
@@ -192,7 +188,8 @@ public class Bookres {
     * Gets an overview over audience and stage info from previous concerts.
     */
 
-  public ArrayList<String> getPubScene(String genre) {
+  public List<String> getPubScene(String genre) {
+    List<String> pubscenes = new ArrayList<>();
     try {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
