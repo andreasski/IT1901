@@ -38,19 +38,73 @@ public class Bookres_Controller implements Initializable {
     private VBox container;
 
     @FXML
-    private TextField searchField;
+    private VBox aside;
 
     @FXML
-    private Button btnSearch;
+    private VBox search;
 
+    @FXML
+    private ScrollPane genreScrollPane;
 
-    public void searchBand() {
+    public void navSearch() {
+        container.getChildren().clear();
+        Label headerSearch = new Label("Søk etter band");
+        headerSearch.setId("headerScrollPane");
+        TextField searchField = new TextField();
+        searchField.setId("searchField");
+        Button btnSearch = new Button("Søk");
+        btnSearch.setId("btnSearch");
+        HBox searchBarContainer = new HBox(searchField, btnSearch);
+        search.getChildren().addAll(headerSearch, searchBarContainer);
         btnSearch.setOnMouseClicked(event -> showSearchResult(searchField.getText()));
         searchField.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent args) {
                 showSearchResult(searchField.getText());
             }
         });
+        List<String> genres = BookingRes.getGenre();
+        VBox contents = new VBox();
+        for (int i = 0; i < genres.size(); i++) {
+            Label lblGenre = new Label(genres.get(i));
+            lblGenre.getStyleClass().add("listItem" + ((i + 1) % 2));
+            lblGenre.setOnMouseClicked(event -> navGenre(lblGenre.getText()));
+            contents.getChildren().add(lblGenre);
+        }
+        genreScrollPane.setContent(contents);
+    }
+
+    public void navGenre(String genre) {
+        container.getChildren().clear();
+        search.getChildren().clear();
+        VBox contents = new VBox();
+        List<String> prevConcerts = BookingRes.getPubScene(genre);
+        for (int i = 0; i < prevConcerts.size(); i++) {
+            String[] prevConcDetails = prevConcerts.get(i).split(";");
+            Label lblPrevConcStage = new Label("Scene: " + prevConcDetails[0]);
+            Label lblPrevConcCap = new Label(("Kapasitet: " + prevConcDetails[1]));
+            Label lblPrevConcAudience = new Label(("Publikummere: " + prevConcDetails[2]));
+            AnchorPane prevConcContainer = new AnchorPane(lblPrevConcStage, lblPrevConcCap, lblPrevConcAudience);
+            prevConcContainer.getStyleClass().add("margin");
+            prevConcContainer.setLeftAnchor(lblPrevConcStage, 0.0);
+            prevConcContainer.setTopAnchor(lblPrevConcStage, 0.0);
+            prevConcContainer.setLeftAnchor(lblPrevConcCap, 0.0);
+            prevConcContainer.setTopAnchor(lblPrevConcCap, 14.0);
+            prevConcContainer.setLeftAnchor(lblPrevConcAudience, 0.0);
+            prevConcContainer.setTopAnchor(lblPrevConcAudience, 28.0);
+            prevConcContainer.setBottomAnchor(lblPrevConcAudience, 0.0);
+            prevConcContainer.getStyleClass().add("listItem" + ((i + 1) % 2));
+            contents.getChildren().add(prevConcContainer);
+        }
+        ScrollPane prevConcScrollPane = new ScrollPane(contents);
+        prevConcScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        prevConcScrollPane.setId("scrollPane");
+        Label prevConcHeader = new Label("Konserter i " + genre);
+        prevConcHeader.setId("headerScrollPane");
+        Label navSearch = new Label("Tilbake");
+        navSearch.getStyleClass().add("underline");
+        navSearch.setOnMouseClicked(event -> navSearch());
+        container.getChildren().addAll(navSearch, prevConcHeader, prevConcScrollPane);
+
     }
 
     public void showSearchResult(String bandName) {
@@ -159,6 +213,7 @@ public class Bookres_Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         BookingRes = new Bookingansvarlig();
-        searchBand();
+        genreScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        navSearch();
     }
 }

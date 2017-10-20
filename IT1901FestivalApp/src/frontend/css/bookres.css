@@ -13,6 +13,11 @@
     -fx-border-width: 1px;
     -fx-border-color: #CCCCCC;
 }
+
+.underline {
+    -fx-underline: true;
+}
+
 /*--- GENERAL ---*/
 
 /*--- INSTRUCTION_BOX ---*/
@@ -27,6 +32,7 @@
 //Dates
 #scrollPane {
     -fx-max-width: 500px;
+    -fx-min-height: 0px;
 }
 
 .listItem1{
@@ -121,6 +127,10 @@
     -fx-padding: 1em;
     -fx-min-width: 500px;
     -fx-max-width: 500px;
+}
+
+#genreContainer {
+    -fx-max-width: 274px;
 }
 
 /*--- CONTENTS ---*/

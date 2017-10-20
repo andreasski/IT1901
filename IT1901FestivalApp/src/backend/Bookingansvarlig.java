@@ -6,13 +6,13 @@ import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bookingansvarlig {
 
-    ArrayList<String> bands;
-    ArrayList<String> needs;
-    ArrayList<String> genres;
-    ArrayList<String> pubscenes;
+    private ArrayList<String> bands;
+    private ArrayList<String> needs;
+    private ArrayList<String> pubscenes;
 
     /*
     Bookingansvarlig
@@ -25,7 +25,6 @@ public class Bookingansvarlig {
 
         bands = new ArrayList<String>();
         needs = new ArrayList<String>();
-        genres = new ArrayList<String>();
         pubscenes = new ArrayList<>();
 
     }
@@ -137,8 +136,8 @@ public class Bookingansvarlig {
     * Gets a list of the different genres.
     */
 
-    public ArrayList<String> getGenre() {
-
+    public List<String> getGenre() {
+        List<String> genres = new ArrayList<>();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -162,7 +161,7 @@ public class Bookingansvarlig {
     * Gets an overview over audience and stage info from previous concerts.
     */
 
-    public String getPubScene(String genre) {
+    public ArrayList<String> getPubScene(String genre) {
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -172,22 +171,13 @@ public class Bookingansvarlig {
                 String stage = rs.getString("name");
                 String capacity = rs.getString("capacity");
                 String sales = rs.getString("sales");
-                String pubscene = (stage +" "+ capacity +" "+ sales);
+                String pubscene = (stage +";"+ capacity +";"+ sales);
                 pubscenes.add(pubscene);
             } } catch (Exception e) {
             System.err.println("Got an exception8! ");
             System.err.println(e.getMessage());
         }
-        return toString(pubscenes);
-    }
-
-    private String toString(ArrayList<String> liste) {
-        String listString = "";
-        for (String s :liste)
-        {
-            listString += s + "\n";
-        }
-        return listString;
+        return pubscenes;
     }
 
 
@@ -195,9 +185,7 @@ public class Bookingansvarlig {
         Bookingansvarlig test = new Bookingansvarlig();
         String infoting = test.getInfoBand("bølgeband");
         ArrayList<String> infoconc = test.getPreviousConcerts("bølgeband");
-        ArrayList<String> sjangere = test.getGenre();
-        String pubscene = test.getPubScene("pop");
-        System.out.println(pubscene);
+        List<String> sjangere = test.getGenre();
         System.out.println(sjangere);
         System.out.println(infoting);
         System.out.println(infoconc);
