@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Bookingansvarlig {
 
+    ArrayList<String> band;
     ArrayList<String> bands;
     ArrayList<String> needs;
     ArrayList<String> genres;
@@ -23,6 +24,7 @@ public class Bookingansvarlig {
     public Bookingansvarlig() {
         ConnectionManager.connect();
 
+        band = new ArrayList<>();
         bands = new ArrayList<String>();
         needs = new ArrayList<String>();
         genres = new ArrayList<String>();
@@ -30,6 +32,29 @@ public class Bookingansvarlig {
         concerts = new ArrayList<>();
 
 
+    }
+
+     /*
+    ArrayList<String> searchBands
+    *
+    * returns bands
+    */
+
+
+    public ArrayList<String> getBands() {
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT name FROM band");
+            while (rs.next()) {
+                String name = rs.getString("name");
+                band.add(name);
+            } } catch (Exception e) {
+            System.err.println("Got an exception, getBand! ");
+            System.err.println(e.getMessage());
+        }
+        return band;
     }
 
     /*
@@ -234,6 +259,9 @@ public class Bookingansvarlig {
         String pubscene = test.getPubScene("pop");
         ArrayList<String> concerts = test.getConcerts();
         System.out.println(concerts);
+        ArrayList<String> band = test.getBands();
+        System.out.println(band);
+        test.addBookingOffer(1,1,"2017.10.30", "18.00-20.00", 140000);
         System.out.println(pubscene);
         System.out.println(sjangere);
         System.out.println(infoting);
