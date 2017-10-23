@@ -39,6 +39,10 @@ public class Tec_Controller implements Initializable{
   private ScrollPane workScrollPane = new ScrollPane();
   private VBox contents = new VBox();
 
+  public void setTechId(int id) {
+    techId = id;
+  }
+
   /**
    * The method creates fxml content based on external information that is collected with the method getWork(int id)
    * getWork(int id) is from an external class Tec_connector. The id is passed when logging in(running navLanding)
@@ -85,7 +89,12 @@ public class Tec_Controller implements Initializable{
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+  }
+
+  public void initi() {
     Technician.init();
-    navLanding(2);
+    System.out.println(techId);
+    navLanding(techId);
   }
 }

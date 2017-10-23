@@ -11,7 +11,7 @@ import java.util.*;
 
 public class BookingBoss {
 
-    BookingBoss() {
+    public BookingBoss() {
         ConnectionManager.connect();
     }
 
