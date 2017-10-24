@@ -70,7 +70,7 @@ public class BoB_Controller implements Initializable {
     Label concPrice = new Label("Pris: " + concDetArr[1]);
     Label concCrowd = new Label("Publikum: " + concDetArr[2]);
     Label concExpenses = new Label("Utgifter: " + concDetArr[3]);
-    Label concProfit = new Label("Resultat: " + concDetArr[4]);
+    Label concProfit = new Label("Overskudd: " + concDetArr[4]);
     concReportHeader.getStyleClass().add("headerScrollPane");
     AnchorPane concertReport = new AnchorPane();
     concertReport.getStyleClass().add("margin");
@@ -99,7 +99,6 @@ public class BoB_Controller implements Initializable {
     ScrollPane scrollPane = new ScrollPane();
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     VBox contents = new VBox();
-    //--FORMAT-- offerID;Bandname;ConcName;StageName;Date;Time;State
     for (int i = 0; i < offers.size(); i++) {
       String[] offerArr = offers.get(i).split(";");
       Label bandName = new Label("Band: " + offerArr[1]);
@@ -110,13 +109,13 @@ public class BoB_Controller implements Initializable {
       Label lblTicPrice = new Label("Billettpris");
       TextField inpTicPrice = new TextField();
       Button btnSetPrice = new Button("Autogenerer pris");
-      btnSetPrice.setOnAction(event -> inpTicPrice.setText("" + bob.generateTicketPrice(1/*bob.getConcertId(offerArr[2])*/)));
+      btnSetPrice.setOnAction(event -> inpTicPrice.setText("" + bob.generateTicketPrice(bob.getConcertId(offerArr[2]))));
       Button btnAccept = new Button("Godkjenn");
       Button btnDecline = new Button("Avvis");
       btnAccept.getStyleClass().add("btnBookingOffers");
       btnDecline.getStyleClass().add("btnBookingOffers");
       btnAccept.setOnAction(event -> {
-        bob.setPrice(1/*bob.getConcertId(offerArr[2])*/, Integer.parseInt(inpTicPrice.getText()));
+        bob.setPrice(bob.getConcertId(offerArr[2]), Integer.parseInt(inpTicPrice.getText()));
         bob.updateOffer(Integer.parseInt(offerArr[0]),1);
         navOffers();
       });
