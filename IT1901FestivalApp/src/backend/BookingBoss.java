@@ -128,7 +128,6 @@ public class BookingBoss {
         return  price;
     }
 
-    
     public int getConcertId (String concertName) {
         int res = 0;
 
