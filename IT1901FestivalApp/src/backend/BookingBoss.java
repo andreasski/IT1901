@@ -128,7 +128,7 @@ public class BookingBoss {
         return  price;
     }
 
-    //Please fix
+    
     public int getConcertId (String concertName) {
         int res = 0;
 
@@ -136,13 +136,10 @@ public class BookingBoss {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT concert.idconcert FROM concert WHERE concert.name = %s", concertName);
+            String str = String.format("SELECT concert.idconcert FROM concert WHERE concert.name = '%s'", concertName);
             rs = stm.executeQuery(str);
-
             while (rs.next()) {
-                String strm = String.format("%s", rs.getString("idconcert"));
-                res = Integer.parseInt(strm);
-
+                res = rs.getInt("idConcert");
             }
         } catch (Exception e) {
             System.err.println("Got an exception123! ");
@@ -301,15 +298,20 @@ public class BookingBoss {
 
     public static void main(String[] args)
     {
+
         LocalDateTime lt = LocalDateTime.now();
 
         String sr = String.format("%s.%s.%s", lt.getYear(), lt.getMonthValue(), lt.getDayOfMonth());
 
+
         //System.out.println(lt.toString());
         //System.out.println(sr);
 
-        BookingBoss bb = new BookingBoss();
 
+        BookingBoss bb = new BookingBoss();
+        bb.getConcertId("Musikkkonsert");
+
+/*
         List<String> ls = bb.getConcerts();
         Iterator<String> its = ls.iterator();
 
@@ -338,5 +340,6 @@ public class BookingBoss {
         {
             System.out.println(its.next());
         }
+        */
     }
 }
