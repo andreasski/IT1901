@@ -23,7 +23,7 @@
                     <Label fx:id="instructionBoxLabel" styleClass="textContainer"/>
                 </VBox>
                 <VBox styleClass="margin">
-                    <Button fx:id="setPrice" text="Sett pris"/>
+                    <Button fx:id="setPrice" text="Sett pris og godkjenn tilbud"/>
                 </VBox>
             </VBox>
         </VBox>

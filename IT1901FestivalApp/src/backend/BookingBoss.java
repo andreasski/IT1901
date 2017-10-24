@@ -128,6 +128,29 @@ public class BookingBoss {
         return  price;
     }
 
+    //Please fix
+    public int getConcertId (String concertName) {
+        int res = 0;
+
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            String str = String.format("SELECT concert.idconcert FROM concert WHERE concert.name = %s", concertName);
+            rs = stm.executeQuery(str);
+
+            while (rs.next()) {
+                String strm = String.format("%s", rs.getString("idconcert"));
+                res = Integer.parseInt(strm);
+
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception123! ");
+            System.err.println(e.getMessage());
+        }
+        return res;
+    }
+
     public void setPrice(int concertId, int price) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();

@@ -1,18 +1,13 @@
 package frontend.GUI;
-
 import backend.BookingBoss;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,8 +20,10 @@ public class BoB_Controller implements Initializable {
   @FXML
   private VBox container;
 
+  @FXML
+  private Button setPrice;
   private final String concInfoBoxText = "Velg en konsert i listen for å se på rapporten til denne konserten. Trykk på 'Sett pris' for å sette pris på oppkommende konserter";
-  private final String concDetInfoBoxText = "??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ??? ??? hmmm ???";
+  private final String concDetInfoBoxText = "Du finner nøkkelinformasjoenen til konserten i boksen til høyre";
   private final String[] infoBoxText = {concInfoBoxText, concDetInfoBoxText};
   private final String[] levelText = {"Konserter", "Konsert rapport"};
 
@@ -68,41 +65,98 @@ public class BoB_Controller implements Initializable {
     resetContainer(1);
     String concDet = bob.getConcert(concId);
     String[] concDetArr = concDet.split(";");
-    for (String item : concDetArr) {
-      System.out.println(item);
-    }
     Label concReportHeader = new Label("Konsert rapport " + concDetArr[0]);
+    Label concName = new Label("Konsert: " + concDetArr[0]);
+    Label concPrice = new Label("Pris: " + concDetArr[1]);
+    Label concCrowd = new Label("Publikum: " + concDetArr[2]);
+    Label concExpenses = new Label("Utgifter: " + concDetArr[3]);
+    Label concProfit = new Label("Overskudd: " + concDetArr[4]);
     concReportHeader.getStyleClass().add("headerScrollPane");
     AnchorPane concertReport = new AnchorPane();
     concertReport.getStyleClass().add("margin");
     concertReport.setId("concertReport");
+    concertReport.getChildren().addAll(concName, concPrice, concCrowd, concExpenses, concProfit);
+    concertReport.setLeftAnchor(concName, 14.0);
+    concertReport.setTopAnchor(concName, 0.0);
+    concertReport.setLeftAnchor(concPrice, 14.0);
+    concertReport.setTopAnchor(concPrice, 14.0);
+    concertReport.setLeftAnchor(concCrowd, 14.0);
+    concertReport.setTopAnchor(concCrowd, 28.0);
+    concertReport.setLeftAnchor(concExpenses, 14.0);
+    concertReport.setTopAnchor(concExpenses, 42.0);
+    concertReport.setLeftAnchor(concProfit, 14.0);
+    concertReport.setTopAnchor(concProfit, 56.0);
+    concertReport.setBottomAnchor(concProfit, 0.0);
     container.getChildren().addAll(concReportHeader, concertReport);
   }
 
+  public void navOffers() {
+    resetContainer(1);
+    lvl2.setText("Tilbud");
+    List<String> offers = bob.getOffers();
+    Label offersHeader = new Label("Ubehandlede tilbud");
+    offersHeader.getStyleClass().add("headerScrollPane");
+    ScrollPane scrollPane = new ScrollPane();
+    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    VBox contents = new VBox();
+    //--FORMAT-- offerID;Bandname;ConcName;StageName;Date;Time;State
+    for (int i = 0; i < offers.size(); i++) {
+      String[] offerArr = offers.get(i).split(";");
+      Label bandName = new Label("Band: " + offerArr[1]);
+      Label concName = new Label("Konsert: " + offerArr[2]);
+      Label stageName = new Label("Scene: " + offerArr[3]);
+      Label date = new Label(offerArr[4]);
+      Label time = new Label(offerArr[5]);
+      Label lblTicPrice = new Label("Billettpris");
+      TextField inpTicPrice = new TextField();
+      Button btnSetPrice = new Button("Autogenerer pris");
+      btnSetPrice.setOnAction(event -> inpTicPrice.setText("" + bob.generateTicketPrice(1/*bob.getConcertId(offerArr[2])*/)));
+      Button btnAccept = new Button("Godkjenn");
+      Button btnDecline = new Button("Avvis");
+      btnAccept.getStyleClass().add("btnBookingOffers");
+      btnDecline.getStyleClass().add("btnBookingOffers");
+      btnAccept.setOnAction(event -> {
+        bob.setPrice(1/*bob.getConcertId(offerArr[2])*/, Integer.parseInt(inpTicPrice.getText()));
+        bob.updateOffer(Integer.parseInt(offerArr[0]),1);
+        navOffers();
+      });
+      btnDecline.setOnAction(event -> {
+        bob.updateOffer(Integer.parseInt(offerArr[0]),-1);
+        navOffers();
+      });
+      AnchorPane offerContainer = new AnchorPane(bandName, concName, stageName, date, time, lblTicPrice, inpTicPrice, btnSetPrice, btnAccept, btnDecline);
+      offerContainer.getStyleClass().add("listItem" + ((i + 1) % 2));
+      offerContainer.setTopAnchor(bandName, 0.0);
+      offerContainer.setLeftAnchor(bandName, 14.0);
+      offerContainer.setTopAnchor(concName, 14.0);
+      offerContainer.setLeftAnchor(concName, 14.0);
+      offerContainer.setTopAnchor(stageName, 28.0);
+      offerContainer.setLeftAnchor(stageName, 14.0);
+      offerContainer.setTopAnchor(date, 0.0);
+      offerContainer.setRightAnchor(date, 14.0);
+      offerContainer.setTopAnchor(time, 14.0);
+      offerContainer.setRightAnchor(time, 14.0);
+      offerContainer.setTopAnchor(lblTicPrice, 0.0);
+      offerContainer.setLeftAnchor(lblTicPrice, 200.0);
+      offerContainer.setTopAnchor(inpTicPrice, 14.0);
+      offerContainer.setLeftAnchor(inpTicPrice, 200.0);
+      offerContainer.setTopAnchor(btnSetPrice, 40.0);
+      offerContainer.setLeftAnchor(btnSetPrice, 200.0);
+      offerContainer.setTopAnchor(btnAccept, 70.0);
+      offerContainer.setLeftAnchor(btnAccept, 0.0);
+      offerContainer.setTopAnchor(btnDecline, 70.0);
+      offerContainer.setRightAnchor(btnDecline, 0.0);
+      contents.getChildren().add(offerContainer);
+    }
+    scrollPane.setContent(contents);
+    container.getChildren().addAll(offersHeader, scrollPane);
+    }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    Stage stage = new Stage();
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/tec_landing.fxml"));
-
-    Parent root = null;
-    try {
-      root = (Parent)fxmlLoader.load();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    Tec_Controller controller = fxmlLoader.<Tec_Controller>getController();
-    controller.setTechId(2);
-    Scene scene = new Scene(root, 800,600);
-
-    stage.setScene(scene);
-
-    controller.initi();
-
-    stage.show();
     bob = new BookingBoss();
     lvl1.setOnMouseClicked(event -> navLanding());
-    lvl2.setOnMouseClicked(event -> navLanding());
+    setPrice.setOnMouseClicked(event -> navOffers());
     navLanding();
   }
 }

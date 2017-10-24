@@ -31,41 +31,14 @@
 
 .listItem1{
     -fx-background-color: #E6E6E6;
-    -fx-padding: 0.15em 1em;
+    -fx-padding: 0.5em 0 0 0;
     -fx-min-width: 500px;
 }
 
 .listItem0{
     -fx-background-color: #D9D9D9;
-    -fx-padding: 0.15em 1em;
+    -fx-padding: 0.5em 0 0 0;
     -fx-min-width: 500px;
-}
-
-.listItemAside1{
-    -fx-background-color: #E6E6E6;
-    -fx-padding: 0.15em 1em;
-    -fx-min-width: 248px;
-    -fx-max-width: 248px;
-}
-
-.listItemAside0{
-    -fx-background-color: #D9D9D9;
-    -fx-padding: 0.15em 1em;
-    -fx-min-width: 248px;
-    -fx-max-width: 248px;
-}
-
-#headerScrollPaneAside{
-    -fx-border-width: 1px;
-    -fx-border-color: #999999;
-    -fx-font-size: 20px;
-    -fx-min-width: 250px;
-    -fx-background-color: #CCCCCC;
-    -fx-alignment: center;
-}
-
-#bandsScrollPane {
-    -fx-min-height: 0px;
 }
 
 .headerScrollPane{
@@ -75,14 +48,6 @@
     -fx-min-width: 500px;
     -fx-background-color: #CCCCCC;
     -fx-alignment: center;
-}
-
-#inpTechNeed {
-    -fx-min-width: 440px;
-}
-
-#btnTechNeed {
-    -fx-min-width: 60px;
 }
 
 #scrollPane {
@@ -95,11 +60,7 @@
     -fx-wrap-text: true;
 }
 
-#bandsContainer {
-    -fx-padding: 1em 0 0 0;
-}
-
-#btnBookingOffers {
+.btnBookingOffers {
     -fx-min-width: 250px;
 }
 
@@ -124,7 +85,9 @@
 #concertReport {
     -fx-min-width: 500px;
     -fx-max-width: 500px;
-    -fx-background-color: red;
+    -fx-background-color: #F0F0F0;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
 }
 
 /*--- NAV ---*/
