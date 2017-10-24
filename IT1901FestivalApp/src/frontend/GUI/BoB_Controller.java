@@ -70,7 +70,7 @@ public class BoB_Controller implements Initializable {
     Label concPrice = new Label("Pris: " + concDetArr[1]);
     Label concCrowd = new Label("Publikum: " + concDetArr[2]);
     Label concExpenses = new Label("Utgifter: " + concDetArr[3]);
-    Label concProfit = new Label("Overskudd: " + concDetArr[4]);
+    Label concProfit = new Label("Resultat: " + concDetArr[4]);
     concReportHeader.getStyleClass().add("headerScrollPane");
     AnchorPane concertReport = new AnchorPane();
     concertReport.getStyleClass().add("margin");
