@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import java.net.URL;
+import java.nio.charset.CharacterCodingException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -115,9 +116,13 @@ public class BoB_Controller implements Initializable {
       btnAccept.getStyleClass().add("btnBookingOffers");
       btnDecline.getStyleClass().add("btnBookingOffers");
       btnAccept.setOnAction(event -> {
-        bob.setPrice(bob.getConcertId(offerArr[2]), Integer.parseInt(inpTicPrice.getText()));
-        bob.updateOffer(Integer.parseInt(offerArr[0]),1);
-        navOffers();
+        if (authNum(inpTicPrice.getText())) {
+          bob.setPrice(bob.getConcertId(offerArr[2]), Integer.parseInt(inpTicPrice.getText()));
+          bob.updateOffer(Integer.parseInt(offerArr[0]),1);
+          navOffers();
+        } else {
+          lblTicPrice.setText("Pris må være et positivt heltall");
+        }
       });
       btnDecline.setOnAction(event -> {
         bob.updateOffer(Integer.parseInt(offerArr[0]),-1);
@@ -149,6 +154,13 @@ public class BoB_Controller implements Initializable {
     }
     scrollPane.setContent(contents);
     container.getChildren().addAll(offersHeader, scrollPane);
+    }
+
+    public boolean authNum(String price) {
+      for (int i = 0; i < price.length(); i++) { if (!Character.isDigit(price.charAt(i))) { return false;}}
+      int priceInt = Integer.parseInt(price);
+      if (priceInt < 0) { return false;}
+      return true;
     }
 
   @Override
