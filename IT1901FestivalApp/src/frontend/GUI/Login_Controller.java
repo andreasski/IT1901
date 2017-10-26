@@ -42,7 +42,7 @@ public class Login_Controller implements Initializable {
         }
     }
 
-    public void checkRegister(String username, String password, List<CheckBox> checkBoxes){
+    public void checkRegister(TextField username, PasswordField password, PasswordField repeatPassword, List<CheckBox> checkBoxes){
 
         int id = 1;
         for (CheckBox checkBox : checkBoxes) {
@@ -51,7 +51,19 @@ public class Login_Controller implements Initializable {
             }
             id++;
         }
-        handleRegister(login.register(username, password, roleId));
+
+
+        if (password.getText().length() < 3) {
+            registerText.getStyleClass().add("red");
+            registerText.setText("Passordet må være lengre!");
+        }
+        else if (password.getText().equals(repeatPassword.getText())) {
+            handleRegister(login.register(username.getText(), password.getText(), roleId));
+        }
+        else {
+            registerText.getStyleClass().add("red");
+            registerText.setText("Passordene må være like!");
+        }
     }
 
     public void handleRegister(boolean reg) {
@@ -66,6 +78,8 @@ public class Login_Controller implements Initializable {
             System.out.print(password);
             System.out.print(nameId);
             System.out.print(roleId);
+
+            navLogin();
         }
         else {
             registerText.getStyleClass().add("red");
@@ -84,16 +98,16 @@ public class Login_Controller implements Initializable {
         Label rptpwd = new Label("Gjenta passord:");
         Label roles = new Label("Roller:");
 
-        TextField username = new TextField();
-        username.getStyleClass().add("textField");
-        PasswordField password = new PasswordField();
-        password.getStyleClass().add("textField");
-        PasswordField repeatPassword = new PasswordField();
-        repeatPassword.getStyleClass().add("textField");
+        TextField usernameNav = new TextField();
+        usernameNav.getStyleClass().add("textField");
+        PasswordField passwordNav = new PasswordField();
+        passwordNav.getStyleClass().add("textField");
+        PasswordField repeatPasswordNav = new PasswordField();
+        repeatPasswordNav.getStyleClass().add("textField");
 
-        username.getStyleClass().add("inpDefault");
-        password.getStyleClass().add("inpDefault");
-        repeatPassword.getStyleClass().add("inpDefault");
+        usernameNav.getStyleClass().add("inpDefault");
+        passwordNav.getStyleClass().add("inpDefault");
+        repeatPasswordNav.getStyleClass().add("inpDefault");
 
         Button register = new Button("Registrer deg");
 
@@ -110,23 +124,14 @@ public class Login_Controller implements Initializable {
         checkBoxes.add(organizer);
         checkBoxes.add(bookerMan);
 
-        container.getChildren().addAll(registerText, name, username, pwd, password, rptpwd, repeatPassword, roles, tech, booker, manager, organizer, bookerMan, register);
+        container.getChildren().addAll(registerText, name, usernameNav, pwd, passwordNav, rptpwd, repeatPasswordNav, roles, tech, booker, manager, organizer, bookerMan, register);
 
-        if (password.getText().length() < 3) {
-            register.setOnMouseClicked(event -> registerText.getStyleClass().add("red"));
-            register.setOnMouseClicked(event -> registerText.setText("Passordet må være lengre!"));
-        }
-        else if (password.getText().equals(repeatPassword.getText())) {
-            register.setOnMouseClicked(event -> checkRegister(username.getText(), password.getText(), checkBoxes));
-        }
-        else {
-            register.setOnMouseClicked(event -> registerText.getStyleClass().add("red"));
-            register.setOnMouseClicked(event -> registerText.setText("Passordene må være like!"));
-        }
-
+        register.setOnMouseClicked(event -> checkRegister(usernameNav, passwordNav, repeatPasswordNav, checkBoxes));
     }
 
     public void navLogin() {
+
+        container.getChildren().clear();
 
         loginText.setText("Vennligst skriv inn brukernavn og passord:");
         Label name = new Label("Brukernavn:");
