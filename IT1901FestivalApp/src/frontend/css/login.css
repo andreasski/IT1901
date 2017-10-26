@@ -38,7 +38,19 @@
 
 /*--- CONTENTS ---*/
 
-#input {
-    -width: 40%;
+.inpDefault {
+    -fx-max-width: 400px;
+}
+
+.red {
+    -fx-text-fill: #FF0000;
+}
+
+.black {
+    -fx-text-fill: #000000;
+}
+
+.textField {
+    -fx-max-width: 200px;
 }
 /*--- CONTENTS ---*/

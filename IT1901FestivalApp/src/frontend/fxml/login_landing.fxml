@@ -11,5 +11,6 @@
 
     <center>
         <VBox fx:id="container" styleClass="margin"/>
+
     </center>
 </BorderPane>
