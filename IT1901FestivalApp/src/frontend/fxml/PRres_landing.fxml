@@ -10,7 +10,7 @@
     <left>
         <VBox fx:id="aside" styleClass="margin">
             <VBox fx:id="instructionBoxContainer"/>
-                <!--Infotekst -->
+
         </VBox>
     </left>
 
