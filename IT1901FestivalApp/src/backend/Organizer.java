@@ -119,5 +119,24 @@ public class Organizer {
         } return concId;
 
     }
+    public ArrayList<String> getTechnicalNeeds(String band) {
+        ArrayList<String> needs= new ArrayList<>();
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, band WHERE band.name = \"" + band + "\" AND band.idBand = techicalneed.bandid");
+            while (rs.next()) {
+                String need = rs.getString("techicalneed.need");
+                needs.add(need);
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception2! ");
+            System.err.println(e.getMessage());
+        }
+        return needs;
+
+    }
 }
+
 
