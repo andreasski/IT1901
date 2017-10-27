@@ -47,6 +47,7 @@ public class Tec_Controller implements Initializable{
    * @param id
    */
   public void navLanding(int id) {
+    Technician.init();
     int listIndex = 1;
     techId = id;
     String date = "";
