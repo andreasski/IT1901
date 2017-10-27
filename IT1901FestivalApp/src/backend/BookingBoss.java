@@ -15,6 +15,11 @@ public class BookingBoss {
         ConnectionManager.connect();
     }
 
+    /**
+     List<String> getConcerts
+     *
+     * Returns a list of concerts, with id, concert name, date and stage name.
+     */
     public List<String> getConcerts() {
         List<String> ls = new ArrayList<String>();
 
@@ -22,7 +27,7 @@ public class BookingBoss {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT DISTINCT concert.idconcert, concert.name AS cname, bookingoffer.date FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid WHERE bookingoffer.accepted > 1 ORDER BY bookingoffer.date");
+            String str = String.format("SELECT DISTINCT concert.idconcert, concert.name AS cname, bookingoffer.date, stage.name AS sname FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON concert.stageid = stage.idstage WHERE bookingoffer.accepted > 1 ORDER BY bookingoffer.date");
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
@@ -35,7 +40,7 @@ public class BookingBoss {
                 //System.out.print(yr + " " + mn + " " + dy);
                 if (yr < lt.getYear() || mn < lt.getMonthValue() || dy < lt.getDayOfMonth()) {
                     System.out.print(" Added! \n");
-                    String strm = String.format("%s;%s;%s", rs.getString("idconcert"), rs.getString("cname"), date);
+                    String strm = String.format("%s;%s;%s;%s", rs.getString("idconcert"), rs.getString("cname"), date, rs.getString("sname"));
                     ls.add(strm);
                 }
                 else {
@@ -50,6 +55,12 @@ public class BookingBoss {
         return ls;
     }
 
+    /**
+     String getConcert
+     * @param: int concertId
+     *
+     * Returns information of the concert specifiedl
+     */
     public String getConcert(int concertId) {
         String res = "";
 
@@ -72,6 +83,12 @@ public class BookingBoss {
         return  res;
     }
 
+    /**
+     int generateTicketPrice
+     * @param: int concertId
+     *
+     * Returns a generated ticket price for the specified concert. Takes into consideration expenses.
+     */
     public int generateTicketPrice(int concertId) {
         int price = 0;
 
@@ -128,6 +145,12 @@ public class BookingBoss {
         return  price;
     }
 
+    /**
+     int getConcertId
+     * @param: String concertName
+     *
+     * Returns the id of the specified concert.
+     */
     public int getConcertId (String concertName) {
         int res = 0;
 
@@ -147,6 +170,13 @@ public class BookingBoss {
         return res;
     }
 
+    /**
+     void getConcert
+     * @param: int concertId
+     * @param: int price
+     *
+     * sets the price of a concert.
+     */
     public void setPrice(int concertId, int price) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
@@ -158,6 +188,11 @@ public class BookingBoss {
         }
     }
 
+    /**
+     List<String> getOffers
+     *
+     * Returns a list of bookingoffers for the booking boss to accept.
+     */
     public List<String> getOffers() {
         List<String> ls = new ArrayList<String>();
 
@@ -180,6 +215,13 @@ public class BookingBoss {
         return ls;
     }
 
+    /**
+     void updateOffer
+     * @param: int offerId
+     * @param: int state
+     *
+     * accepts or decline a bookingoffer.
+     */
     public void updateOffer(int offerId, int state) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
@@ -190,7 +232,13 @@ public class BookingBoss {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     List<String> getConcertDates
+     * @param: String startDate
+     * @param: String endDate
+     *
+     * Returns a list of dates and if the date is booked or not. The first element of the list is the amount of booked dates, sent but not booked and free days.
+     */
     public List<String> getConcertDates(String startDate, String endDate) {
         List<String> ls = new ArrayList<String>();
 
