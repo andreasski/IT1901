@@ -47,7 +47,7 @@ public class BoB_Controller implements Initializable {
     VBox contents = new VBox();
     for (int i = 0; i < concerts.size(); i++) {
       String[] concDetArr = concerts.get(i).split(";");
-      Label concName = new Label(concDetArr[1]);
+      Label concName = new Label(concDetArr[1] + " - " + concDetArr[3]);
       Label concDate = new Label(concDetArr[2]);
       AnchorPane concContainer = new AnchorPane(concName, concDate);
       concContainer.getStyleClass().add("listItem" + ((i + 1) % 2));
