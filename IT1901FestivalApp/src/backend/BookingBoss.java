@@ -18,7 +18,7 @@ public class BookingBoss {
     /**
      List<String> getConcerts
      *
-     * Returns a list of concerts
+     * Returns a list of concerts, with id, concert name, date and stage name.
      */
     public List<String> getConcerts() {
         List<String> ls = new ArrayList<String>();
@@ -27,7 +27,7 @@ public class BookingBoss {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT DISTINCT concert.idconcert, concert.name AS cname, bookingoffer.date FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid WHERE bookingoffer.accepted > 1 ORDER BY bookingoffer.date");
+            String str = String.format("SELECT DISTINCT concert.idconcert, concert.name AS cname, bookingoffer.date, stage.name AS sname FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON concert.stageid = stage.idstage WHERE bookingoffer.accepted > 1 ORDER BY bookingoffer.date");
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
@@ -40,7 +40,7 @@ public class BookingBoss {
                 //System.out.print(yr + " " + mn + " " + dy);
                 if (yr < lt.getYear() || mn < lt.getMonthValue() || dy < lt.getDayOfMonth()) {
                     System.out.print(" Added! \n");
-                    String strm = String.format("%s;%s;%s", rs.getString("idconcert"), rs.getString("cname"), date);
+                    String strm = String.format("%s;%s;%s;%s", rs.getString("idconcert"), rs.getString("cname"), date, rs.getString("sname"));
                     ls.add(strm);
                 }
                 else {
