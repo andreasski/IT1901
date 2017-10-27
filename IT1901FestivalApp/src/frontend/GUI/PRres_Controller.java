@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class PRres_Controller {
 
     private final String INSTRUCTION_LABEL = "En herlig oversikt over konserter"; //til
-    
+
     private VBox instructionBoxContainer;
 
     private backend.PRres prres;
