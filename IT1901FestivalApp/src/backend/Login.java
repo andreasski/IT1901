@@ -59,7 +59,7 @@ public class Login {
         return check1;
     }
 
-    public boolean register(String name, String password, ArrayList<String> idRole) {
+    public boolean register(String name, String password, String mail, String phone,  ArrayList<String> idRole) {
 
         try{
             Statement stmt = ConnectionManager.conn.createStatement();
