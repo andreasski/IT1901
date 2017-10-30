@@ -3,9 +3,12 @@ package backend;
 import backend.ConnectionManager;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static java.lang.System.out;
@@ -228,24 +231,31 @@ public class Bookres {
     }
   }
 
-  public boolean validateDateTime(String date, String time) {
-    String[] datoen = date.split(":");
-    String[] tidene = time.split("-");
-    int starttid = Integer.parseInt(tidene[0]);
-    int sluttid = Integer.parseInt(tidene[1]);
-    int year = Integer.parseInt(datoen[0]);
-    int month = Integer.parseInt(datoen[1]);
-
-    if (year < 2017 || year > 2018) {
+  public boolean validateDateTime(String date, String time) throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+    SimpleDateFormat sdft = new SimpleDateFormat("hh.mm");
+    Date tidspunkt = sdf.parse(date);
+    Date start = sdf.parse("2017.10.04");
+    Date slutt = sdf.parse("2017.10.30");
+    Date tid1 = sdft.parse("12.00");
+    Date tid2 = sdft.parse("23.00");
+    String[] tids = time.split("-");
+    String s1 = tids[0];
+    String s2 = tids[1];
+    Date starten = sdft.parse(s1);
+    Date slutten = sdft.parse(s2);
+    if (tidspunkt.before(start)){
       return false;
-    } if (month < 2 || month > 4){
+    } if (tidspunkt.after(slutt)){
       return false;
-    } if (starttid < 1000 || sluttid >2300){
+    } if (starten.before(tid1)){
       return false;
-    }
-    else {
+    } if (slutten.after(tid2)){
+      return false;
+    } else {
       return true;
     }
+
 
   }
 
@@ -293,7 +303,7 @@ public class Bookres {
 
   public static void main(String[]args){
     Bookres test = new Bookres();
-    test.addBookingOffer(14, 1, "2017:10:15", "1800-2000", 10000);
+    test.addBookingOffer(14, 1, "2017.10.15", "18.00-24.00", 10000);
   }
 
 }
