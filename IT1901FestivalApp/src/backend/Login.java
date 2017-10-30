@@ -44,6 +44,7 @@ public class Login {
                 String dbPassword = rs.getString("person.password");
 
                 if (dbName.equals(name) && dbPassword.equals(password)) {
+
                     username = dbName;
                     pwd = dbPassword;
                     personId = rs.getString("person.idPerson");
@@ -76,7 +77,7 @@ public class Login {
                 }
             }
 
-            stmt.executeUpdate("INSERT INTO person (name, password) VALUES ('" + name + "', '" + password + "')");
+            stmt.executeUpdate(String.format("INSERT INTO person (name, password, email, phone) VALUES ('%s', '%s', '%s', '%s')", name, password, mail, phone));
 
             rs2 = stmt.executeQuery("SELECT person.idPerson FROM person WHERE person.idPerson = (select max(person.idPerson) from person)");
 

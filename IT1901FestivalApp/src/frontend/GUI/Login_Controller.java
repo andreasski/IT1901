@@ -22,7 +22,7 @@ public class Login_Controller implements Initializable {
     private String name;
     private String password;
     private String nameId;
-    private ArrayList<String> roleId = new ArrayList<>();
+    private ArrayList<String> roleId;
 
     public void handleLogin(boolean success) {
         if (success) {
@@ -44,6 +44,7 @@ public class Login_Controller implements Initializable {
     }
 
     public void checkRegister(TextField username, PasswordField password, PasswordField repeatPassword, String mail, String phone, List<CheckBox> checkBoxes){
+        roleId = new ArrayList<>();
         for (int i = 0; i < checkBoxes.size(); i++) {
             if (checkBoxes.get(i).isSelected()) {
                 roleId.add("" + (i + 1));
@@ -59,8 +60,10 @@ public class Login_Controller implements Initializable {
         } else if (!validateMail(mail)) {
             registerText.getStyleClass().add("red");
             registerText.setText("Epost må være på formatet \"Ola123@mail.no\"");
-        }
-        else if (password.getText().equals(repeatPassword.getText())) {
+        } else if (!(roleId.size() > 0)) {
+            registerText.getStyleClass().add("red");
+            registerText.setText("Vennligst velg minst en rolle");
+        } else if (password.getText().equals(repeatPassword.getText())) {
             handleRegister(login.register(username.getText(), password.getText(), mail, phone, roleId));
         } else {
             registerText.getStyleClass().add("red");
@@ -79,27 +82,21 @@ public class Login_Controller implements Initializable {
     }
 
     public static boolean validateMail(String mail) {
-        System.out.println("Wat0");
         String[] splitAt = mail.split("@"); // asd lel.no
         String[] splitDot;
         if (splitAt.length == 2) {
-            System.out.println("Wot1??");
             splitDot = splitAt[1].split("\\."); // lel no
             for (int i = 0; i < splitAt[0].length(); i++) {
                 if (!Character.isDigit(splitAt[0].charAt(i)) && !Character.isLetter(splitAt[0].charAt(i))) {
-                    System.out.println("Wat1");
                     return false;
                 }
             }
         } else {
-            System.out.println("Wot1.5??");
             return false;
         }
 
-        System.out.println("Len: " + splitDot.length);
 
         if (splitDot.length == 2) {
-            System.out.println("Wot2??");
             for (int j = 0; j < splitDot[0].length(); j++) {
                 if (!Character.isLetter(splitDot[0].charAt(j))) {
                     return false;
@@ -123,12 +120,6 @@ public class Login_Controller implements Initializable {
             password = login.getPassword();
             nameId = login.getPersonId();
             roleId = login.getRoleId();
-
-            System.out.print(name);
-            System.out.print(password);
-            System.out.print(nameId);
-            System.out.print(roleId);
-
             navLogin();
         }
         else {
