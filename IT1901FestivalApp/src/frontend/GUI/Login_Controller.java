@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +91,8 @@ public class Login_Controller implements Initializable {
     public void navRegister() {
 
         container.getChildren().clear();
-        //registerText.getStyleClass().add("black");
+
+
 
         registerText.setText("Skriv inn nytt brukernavn, passord og hvilke(n) rolle(r) du har:");
         Label name = new Label("Nytt Brukernavn");
@@ -109,7 +111,17 @@ public class Login_Controller implements Initializable {
         passwordNav.getStyleClass().add("inpDefault");
         repeatPasswordNav.getStyleClass().add("inpDefault");
 
+        Label lblMail = new Label("Epost: ");
+        TextField inpMail = new TextField();
+        Label lblPhone = new Label("Telefon: ");
+        TextField inpPhone = new TextField();
+
+        inpMail.getStyleClass().addAll("textField", "inpDefault");
+        inpPhone.getStyleClass().addAll("textField", "inpDefault");
+
         Button register = new Button("Registrer deg");
+        Button btnLogin = new Button("Tilbake til logg inn");
+        btnLogin.setOnAction(event -> navLogin());
 
         CheckBox tech = new CheckBox("Tekniker");
         CheckBox booker = new CheckBox("Bookingansvarlig");
@@ -124,7 +136,13 @@ public class Login_Controller implements Initializable {
         checkBoxes.add(organizer);
         checkBoxes.add(bookerMan);
 
-        container.getChildren().addAll(registerText, name, usernameNav, pwd, passwordNav, rptpwd, repeatPasswordNav, roles, tech, booker, manager, organizer, bookerMan, register);
+        VBox inpContainer = new VBox(name, usernameNav, pwd, passwordNav, rptpwd, repeatPasswordNav, lblMail, inpMail, lblPhone, inpPhone);
+        VBox rolesContainer = new VBox(roles, tech, booker, manager, organizer, bookerMan);
+        rolesContainer.getStyleClass().add("margin");
+        HBox regInfContainer = new HBox(inpContainer, rolesContainer);
+        HBox btnContainer = new HBox(register, btnLogin);
+
+        container.getChildren().addAll(registerText, regInfContainer, btnContainer);
 
         register.setOnMouseClicked(event -> checkRegister(usernameNav, passwordNav, repeatPasswordNav, checkBoxes));
     }
@@ -148,7 +166,7 @@ public class Login_Controller implements Initializable {
         Button logIn = new Button("Logg inn"); /* Laget knapp, Logg inn */
         Button register = new Button("Registrer deg"); /* Skal sende deg til en side for registrering */
 
-        HBox buttons = new HBox(15);
+        HBox buttons = new HBox();
         buttons.getChildren().addAll(logIn, register);
 
         container.setPadding(new Insets(15, 12, 15, 12));
@@ -156,7 +174,7 @@ public class Login_Controller implements Initializable {
         container.getChildren().addAll(loginText, name, username, pwd, password, buttons);
 
         register.setOnMouseClicked(event -> navRegister());
-        logIn.setOnMouseClicked(event -> handleLogin(login.checkLogin(username.getText(), password.getText()))); /*  */
+        logIn.setOnMouseClicked(event -> handleLogin(login.checkLogin(username.getText(), password.getText())));
 
     }
 
