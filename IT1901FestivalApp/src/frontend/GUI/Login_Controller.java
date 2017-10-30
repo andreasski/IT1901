@@ -2,15 +2,22 @@ package frontend.GUI;
 
 import backend.Login;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.xml.soap.Text;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Login_Controller implements Initializable {
 
@@ -19,25 +26,14 @@ public class Login_Controller implements Initializable {
     private Login login;
     private Label loginText = new Label();
     private Label registerText = new Label();
-    private String name;
-    private String password;
-    private String nameId;
     private ArrayList<String> roleId;
+    private final String[] fxmlRef = {"tec_landing", "bookres_landing", "man_landing", "arr_landing", "bob_landing"};
+    private final String[] roleRef = {"Tekniker", "Booking ansvarlig", "Manager", "Arrangør", "Booking sjef"};
 
     public void handleLogin(boolean success) {
         if (success) {
-            //Nav
-            name = login.getUsername();
-            password = login.getPassword();
-            nameId = login.getPersonId();
-            roleId = login.getRoleId();
-
-            System.out.print(name);
-            System.out.print(password);
-            System.out.print(nameId);
-            System.out.print(roleId);
-            }
-        else {
+            navNav();
+        } else {
             loginText.getStyleClass().add("red");
             loginText.setText("Feil brukernavn og/eller passord, vennligst prøv igjen");
         }
@@ -116,9 +112,6 @@ public class Login_Controller implements Initializable {
     public void handleRegister(boolean reg) {
         if (reg) {
             //Navigerer til navigasjonshub
-            name = login.getUsername();
-            password = login.getPassword();
-            nameId = login.getPersonId();
             roleId = login.getRoleId();
             navLogin();
         }
@@ -214,6 +207,60 @@ public class Login_Controller implements Initializable {
 
     }
 
+    public void navNav() {
+        container.getChildren().clear();
+        Map<String, String> fxmlRoleRef = new HashMap<>();
+        for (int j = 0; j < fxmlRef.length; j++) {
+            fxmlRoleRef.put(roleRef[j], fxmlRef[j]);
+        }
+        container.getChildren().add(new Label("Velkommen " + login.getUsername()));
+        List<String> roles = login.getRoles();
+        for (int i = 0; i < roles.size(); i++) {
+            if (fxmlRoleRef.containsKey(roles.get(i))) {
+                final int ROLE_INDEX = i;
+                Label lblRole = new Label(roles.get(i));
+                lblRole.setOnMouseClicked(event -> {
+                    Stage stage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/" + fxmlRoleRef.get(roles.get(ROLE_INDEX)) + ".fxml"));
+
+                    Parent root = null;
+                    try {
+                        root = (Parent) fxmlLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (roles.get(ROLE_INDEX).equals("Tekniker")) {
+                        Tec_Controller controller = fxmlLoader.<Tec_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                        controller.init(Integer.parseInt(login.getPersonId()));
+                    } else if (roles.get(ROLE_INDEX).equals("Booking ansvarlig")) {
+                        Bookres_Controller controller = fxmlLoader.<Bookres_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                    } else if (roles.get(ROLE_INDEX).equals("Manager")) {
+                        Man_Controller controller = fxmlLoader.<Man_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                        controller.init(Integer.parseInt(login.getPersonId()));
+                    } else if (roles.get(ROLE_INDEX).equals("Arrangør")) {
+                        Arr_Controller controller = fxmlLoader.<Arr_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                    } else if (roles.get(ROLE_INDEX).equals("Booking sjef")) {
+                        BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                    }
+                    stage.show();
+
+                });
+
+                container.getChildren().add(lblRole);
+            }
+
+        }
+    }
     @java.lang.Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 

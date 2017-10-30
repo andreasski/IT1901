@@ -47,6 +47,11 @@ public class Man_Controller implements Initializable{
 
   private backend.Manager manager;
   private VBox contents = new VBox();
+  private int manId;
+
+  public void setManId(int id) {
+    manId = id;
+  }
 
   /**
    * The method creates fxml content based on external information that is collected with the method getWork(int id)
@@ -175,10 +180,14 @@ public class Man_Controller implements Initializable{
     btnBookingOffers.setText("Nye booking tilbud: " + manager.getOffers().size());
   }
 
+  public void init(int id) {
+    setManId(id);
+  }
+
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    manager = new backend.Manager(1);
+    manager = new backend.Manager(manId);
     getNumOffers();
     navLanding();
   }

@@ -4,6 +4,7 @@ package backend;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Login {
 
@@ -26,6 +27,26 @@ public class Login {
 
     public ArrayList<String> getRoleId() {
         return roleId;
+    }
+
+    public List<String> getRoles() {
+        List<String> roles = new ArrayList<>();
+
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery(String.format("SELECT role.name FROM role, roleperson WHERE %d = roleperson.personid AND roleperson.roleid = role.idrole", Integer.parseInt(personId)));
+
+            while (rs.next()) { roles.add(rs.getString("role.name"));}
+
+        } catch (Exception e) {
+            System.err.println("Got an exception100! ");
+            System.err.println(e.getMessage());
+        }
+
+
+        return roles;
     }
 
     public boolean checkLogin(String name, String password) {

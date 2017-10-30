@@ -84,6 +84,10 @@ public class Tec_Controller implements Initializable{
     container.getChildren().add(workScrollPane);
   }
 
+  public void init(int id) {
+    setTechId(id);
+  }
+
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
