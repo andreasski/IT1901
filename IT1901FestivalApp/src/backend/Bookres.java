@@ -2,11 +2,13 @@ package backend;
 
 import backend.ConnectionManager;
 
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.System.out;
 
 public class Bookres {
 
@@ -213,12 +215,62 @@ public class Bookres {
     try {
       Statement stm = ConnectionManager.conn.createStatement();
       ResultSet rs;
-      String str = String.format("Insert Into bookingoffer(bandid, concertid, date, time, expense) Values ('%d', '%d', '%s', '%s', %d)", bandId, concertId, date, time, expence);
-      stm.executeUpdate(str);
+      String str = String.format("Insert Into bookingoffer(bandid, concertId, date, time, expense) Values ('%d', '%d', '%s', '%s', %d)", bandId, concertId, date, time, expence);
+      if (!validateDateTime(date, time)) {
+        throw new IllegalArgumentException("Datoen må være innenfor tidsperioden til festivalen.");
+      } else if (!doesBandExcist(bandId)){
+        throw new IllegalArgumentException("bandet eksisterer ikke");
+      } else {
+        stm.executeUpdate(str);
+      }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      out.println(e.getMessage());
     }
   }
+
+  public boolean validateDateTime(String date, String time) {
+    String[] datoen = date.split(":");
+    String[] tidene = time.split("-");
+    int starttid = Integer.parseInt(tidene[0]);
+    int sluttid = Integer.parseInt(tidene[1]);
+    int year = Integer.parseInt(datoen[0]);
+    int month = Integer.parseInt(datoen[1]);
+
+    if (year < 2017 || year > 2018) {
+      return false;
+    } if (month < 2 || month > 4){
+      return false;
+    } if (starttid < 1000 || sluttid >2300){
+      return false;
+    }
+    else {
+      return true;
+    }
+
+  }
+
+  public boolean doesBandExcist(int bandId) {
+    List<Integer> bandIDs = new ArrayList<>();
+    try {
+      Statement stmt = ConnectionManager.conn.createStatement();
+      ResultSet rs;
+      rs = stmt.executeQuery("SELECT idband FROM band");
+
+      while (rs.next()) {
+        int bandID = rs.getInt("idband");
+        bandIDs.add(bandID);
+      }
+        if (bandIDs.contains(bandId)){
+          return true;
+        } else {
+          return false;}
+    } catch (Exception e) {
+      System.err.println("Got an exceptionband! ");
+      System.err.println(e.getMessage());
+      return false;
+    }
+  }
+
 
   public ArrayList<String> getConcerts() {
 
@@ -234,9 +286,14 @@ public class Bookres {
       }
 
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      out.println(e.getMessage());
     }
     return concerts;
+  }
+
+  public static void main(String[]args){
+    Bookres test = new Bookres();
+    test.addBookingOffer(14, 1, "2017:10:15", "1800-2000", 10000);
   }
 
 }
