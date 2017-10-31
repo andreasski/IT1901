@@ -2,6 +2,7 @@ package frontend.GUI;
 
 import backend.PRres;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -10,11 +11,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class PRres_Controller {
+public class PRres_Controller implements Initializable {
 
-    private final String INSTRUCTION_LABEL = "En herlig oversikt over konserter"; //til
+    private final String INSTRUCTION_LABEL = "En herlig oversikt over konserter";
 
     @FXML
     private VBox instructionBoxContainer;
@@ -44,41 +47,25 @@ public class PRres_Controller {
         instructionBoxLbl.setId("instructionBoxLabel");
         instructionBoxContainer.getChildren().add(instructionBoxLbl);
 
-        ArrayList<String> bookedBands = prres.getBookedBands();
 
-        int numVbox = bookedBands.size();
-        System.out.println(numVbox);
-        VBox[] vBoxes = new VBox[numVbox];
+        // A ArrayList containing concertID of all booked Concert
+        ArrayList<Integer> bookedConcerts = prres.getConcertIdBooked();
 
-        for(int i = 0; i<bookedBands.size(); i++){
+
+        // For each booked concert, create a VBox with Id = concertId, label it with concertname and add it to contents
+
+
+        for(int concert : bookedConcerts){
             VBox vb = new VBox();
-            Label concertName = new Label("getConcName(concid)");
+            Label concertName = new Label(prres.getConcertName(concert));
+            concertName.setId("concertName");
+            vb.setId("concertBox");
             vb.getChildren().add(concertName);
-
-            Text bandName = new Text();
-            bandName.setText("Navn");
-
-            Text bandConcertTime = new Text();
-            bandConcertTime.setText("Tidspunkt");
-
-            Text bandConcertTicketSale = new Text();
-            bandConcertTicketSale.setText("salgstall");
-
-            Text bandContactinfo = new Text();
-            bandContactinfo.setText("tlf og email");
-
-            Text bandReview = new Text();
-            bandReview.setText("omtale + link til omtale");
-
-            BorderPane concertDetail = new BorderPane();
-            concertDetail.setTop(bandName);
-            concertDetail.setLeft(bandConcertTime);
-            concertDetail.setCenter(bandContactinfo);
-            concertDetail.setRight(bandConcertTicketSale);
-            concertDetail.setBottom(bandReview);
-
-            vb.getChildren().add(concertDetail);
-
+            ArrayList<Integer> bookedBands = prres.getBookedBands(concert);
+            for(int band : bookedBands){
+                vb.getChildren().add(addBandDetail(band, concert));
+            }
+            bookedBands.clear(); //rett pos
             contents.getChildren().add(vb);
         }
 
@@ -87,10 +74,44 @@ public class PRres_Controller {
         container.getChildren().add(prScrollPane);
     }
 
+    //Creates a Borderpane with all the info requested
+    public BorderPane addBandDetail(int bandid, int concertid){
+        String details = prres.getBandDetails(bandid, concertid);
+        List <String> detailsList = new ArrayList<>(Arrays.asList(details.split(";"))); //bandname, phone, email, sales, bio, link
 
+        Text bandName = new Text();
+        bandName.setText("Navn: " + detailsList.get(0));
+
+        Text bandConcertTime = new Text();
+        bandConcertTime.setText("2000");
+
+        Text bandConcertTicketSale = new Text();
+        bandConcertTicketSale.setText("Billetter solgt: " + detailsList.get(3));
+
+        Text bandContactinfo = new Text();
+        bandContactinfo.setText("Tlf: " + detailsList.get(1) +" \nmail: "+ detailsList.get(2));
+
+        Text bandReview = new Text();
+        bandReview.setText("Omtale: " + detailsList.get(4) + "\nPresseomtale: " + detailsList.get(5));
+
+        bandConcertTicketSale.setId("infotext");
+        bandContactinfo.setId("infotext");
+        bandName.setId("infotext");
+        bandReview.setId("infotext");
+
+        BorderPane concertDetail = new BorderPane();
+        concertDetail.setTop(bandName);
+        concertDetail.setLeft(bandContactinfo);
+        //concertDetail.setCenter(bandConcertTime);
+        concertDetail.setRight(bandConcertTicketSale);
+        concertDetail.setBottom(bandReview);
+        concertDetail.setId("bandBox");
+        return concertDetail;
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         prres = new PRres();
-        System.out.println(prres.getBookedBands().size());
         getConcertDetails();
 
     }
