@@ -5,11 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.LightBase;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import javax.xml.soap.Text;
@@ -111,7 +115,6 @@ public class Login_Controller implements Initializable {
 
     public void handleRegister(boolean reg) {
         if (reg) {
-            //Navigerer til navigasjonshub
             roleId = login.getRoleId();
             navLogin();
         }
@@ -213,7 +216,14 @@ public class Login_Controller implements Initializable {
         for (int j = 0; j < fxmlRef.length; j++) {
             fxmlRoleRef.put(roleRef[j], fxmlRef[j]);
         }
-        container.getChildren().add(new Label("Velkommen " + login.getUsername()));
+        Label lblWelcome = new Label("Velkommen " + login.getUsername());
+        Label lblLogout = new Label("Logg ut");
+        lblLogout.getStyleClass().add("underline");
+        lblLogout.setOnMouseClicked(event ->  navLogin());
+        AnchorPane topBar = new AnchorPane(lblWelcome, lblLogout);
+        topBar.setLeftAnchor(lblWelcome, 0.0);
+        topBar.setRightAnchor(lblLogout, 28.0);
+        container.getChildren().add(topBar);
         List<String> roles = login.getRoles();
         for (int i = 0; i < roles.size(); i++) {
             if (fxmlRoleRef.containsKey(roles.get(i))) {
@@ -255,7 +265,8 @@ public class Login_Controller implements Initializable {
                     stage.show();
 
                 });
-
+                lblRole.getStyleClass().add("btnNav");
+                lblRole.setAlignment(Pos.CENTER);
                 container.getChildren().add(lblRole);
             }
 
