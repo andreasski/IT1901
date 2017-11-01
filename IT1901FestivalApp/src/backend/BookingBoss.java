@@ -27,7 +27,7 @@ public class BookingBoss {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT DISTINCT concert.idconcert, concert.name AS cname, bookingoffer.date, stage.name AS sname FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON concert.stageid = stage.idstage WHERE bookingoffer.accepted > 1 ORDER BY bookingoffer.date");
+            String str = String.format("SELECT DISTINCT concert.idconcert, concert.name AS cname, concert.date, stage.name AS sname FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON concert.stageid = stage.idstage WHERE bookingoffer.accepted > 1 ORDER BY concert.date");
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
@@ -200,7 +200,7 @@ public class BookingBoss {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT bookingoffer.idbookingoffer, band.name AS bname, concert.name AS cname, stage.name AS sname, bookingoffer.date, bookingoffer.time, bookingoffer.accepted FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert on concert.idconcert = bookingoffer.concertid INNER JOIN stage on stage.idstage = concert.stageid WHERE bookingoffer.accepted = 0");
+            String str = String.format("SELECT bookingoffer.idbookingoffer, band.name AS bname, concert.name AS cname, stage.name AS sname, concert.date, bookingoffer.time, bookingoffer.accepted FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert on concert.idconcert = bookingoffer.concertid INNER JOIN stage on stage.idstage = concert.stageid WHERE bookingoffer.accepted = 0");
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
@@ -246,7 +246,7 @@ public class BookingBoss {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT bookingoffer.idbookingoffer, bookingoffer.date, bookingoffer.accepted FROM bookingoffer WHERE bookingoffer.accepted > -1 ORDER BY bookingoffer.date");
+            String str = String.format("SELECT bookingoffer.idbookingoffer, concert.date, bookingoffer.accepted FROM concert, bookingoffer WHERE concert.idconcert = bookingoffer.concertid AND bookingoffer.accepted > -1 ORDER BY concert.date");
             rs = stm.executeQuery(str);
 
             while (rs.next()) {

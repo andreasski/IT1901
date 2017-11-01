@@ -23,9 +23,9 @@ public class Technician {
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT bookingoffer.date, stage.name, bookingoffer.time FROM bookingoffer, concert, concerttechnician, stage WHERE concerttechnician.technicianid = " + techId + " AND bookingoffer.accepted = 1 AND concert.stageid = stage.idstage AND concerttechnician.concertid = bookingoffer.concertid AND bookingoffer.concertid = concert.idconcert ORDER BY bookingoffer.date");
+            rs = stmt.executeQuery("SELECT concert.date, stage.name, bookingoffer.time FROM bookingoffer, concert, concerttechnician, stage WHERE concerttechnician.technicianid = " + techId + " AND bookingoffer.accepted = 1 AND concert.stageid = stage.idstage AND concerttechnician.concertid = bookingoffer.concertid AND bookingoffer.concertid = concert.idconcert ORDER BY concert.date");
             while (rs.next()) {
-                String name = rs.getString("bookingoffer.date") + " " + rs.getString("stage.name") + " " + rs.getString("bookingoffer.time");
+                String name = rs.getString("concert.date") + " " + rs.getString("stage.name") + " " + rs.getString("bookingoffer.time");
                 work.add(name);
             }
         } catch (Exception e) {

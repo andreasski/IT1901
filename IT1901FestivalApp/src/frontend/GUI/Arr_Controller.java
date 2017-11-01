@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class Arr_Controller implements Initializable{
 
@@ -34,8 +35,6 @@ public class Arr_Controller implements Initializable{
   private Label lvl1, lvl2, lvl3, Spacing_lvl1_lvl2, Spacing_lvl2_lvl3, instructionBoxLbl;
 
   //Constants
-  private final double LEFT_ANCHOR_CONCERTS         = 16;
-  private final double RIGHT_ANCHOR_CONCERTS        = 50;
   private final double LEFT_ANCHOR_DETAILS          = 16;
   private final double TOP_ANCHOR_DETAILS           = 16;
   private final double BOTTOM_ANCHOR_DETAILS        = 16;
@@ -85,6 +84,8 @@ public class Arr_Controller implements Initializable{
     container.getChildren().add(scrollPane);
   }
 
+
+
   /**
    * Loads data for "concerts" from an external source, using an external class Arr_connector
    * The data is stored in the ArrayList<String> dates variable with the method getConcerts(String date)
@@ -96,25 +97,39 @@ public class Arr_Controller implements Initializable{
     Spacing_lvl1_lvl2.setText(" > ");
     Spacing_lvl2_lvl3.setText("");
     String stage = "";
+    String concertName = "";
     int concertIndex = 0;
     for (int i = 0; i < concerts.size(); i++) {
       String[] tempArray = concerts.get(i).split(";");
       AnchorPane btnConcert = new AnchorPane();
+      System.out.println("Band: " + tempArray[3] + " Scene: " + tempArray[0]);
       if (!stage.equals(tempArray[0])) {
         stage = tempArray[0];
-        Label sceneHeader = new Label(stage);
+        concertIndex = 0;
+      }
+      if (!concertName.equals(tempArray[3])) {
+        System.out.println("Band: " + tempArray[3] + " Scene: " + tempArray[0]);
+        concertName = tempArray[3];
+        Label lblConc = new Label("Konsert: " + concertName);
+        Label lblStage = new Label("Scene: " + stage);
+        AnchorPane sceneHeader = new AnchorPane(lblConc, lblStage);
+        sceneHeader.setLeftAnchor(lblConc, 0.0);
+        sceneHeader.setTopAnchor(lblConc, 0.0);
+        sceneHeader.setRightAnchor(lblStage, 14.0);
+        sceneHeader.setTopAnchor(lblStage, 0.0);
         sceneHeader.getStyleClass().add("concertsSceneHeader");
         contents.getChildren().add(sceneHeader);
-        concertIndex = 1;
+
       }
       Label lblBand = new Label(tempArray[1]);
       Label lblTime = new Label(tempArray[2]);
       btnConcert.getChildren().addAll(lblBand, lblTime);
-      btnConcert.setLeftAnchor(lblBand, LEFT_ANCHOR_CONCERTS);
-      btnConcert.setRightAnchor(lblTime, RIGHT_ANCHOR_CONCERTS);
-      btnConcert.getStyleClass().add("listItem" + ++concertIndex % 2);
+      btnConcert.setLeftAnchor(lblBand, 14.0);
+      btnConcert.setRightAnchor(lblTime, 14.0);
+      btnConcert.getStyleClass().add("listItem" + ((concertIndex + 1) % 2));
       btnConcert.setOnMouseClicked(event -> { navConcertDetails(dateSave, lblBand.getText(), lblTime.getText());});
       contents.getChildren().add(btnConcert);
+      concertIndex++;
     }
     scrollPane.setContent(contents);
     container.getChildren().add(scrollPane);

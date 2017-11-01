@@ -1,10 +1,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane fx:id="body" fx:controller="frontend.GUI.Bookres_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/bookres.css">
 
     <top>
@@ -13,8 +12,16 @@
 
     <left>
         <VBox fx:id="aside">
+            <HBox fx:id="nav" styleClass="leftTopMargin">
+                <Label fx:id="lvl1" styleClass="underline" text="Søk"/>
+                <Label fx:id="spacing1_2" text=""/>
+                <Label fx:id="lvl2" styleClass="underline" text=""/>
+            </HBox>
             <VBox styleClass="margin">
                 <Label fx:id="instructionBoxLabel" styleClass="textContainer" text="Søk etter et band i databasen for å se informasjon om dette bandet, i tillegg til en oversikt over tidligere konserter og tekniske behov. Du kan også søke etter konserter innen en sjanger"/>
+            </VBox>
+            <VBox styleClass="leftMargin">
+                <Button fx:id="btnBookingOffer" text="Opprett booking tilbud"/>
             </VBox>
             <VBox fx:id="genreContainer" styleClass="margin">
                 <Label fx:id="headerScrollPaneAside" text="Sjangere"/>

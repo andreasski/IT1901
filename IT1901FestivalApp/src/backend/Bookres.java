@@ -15,7 +15,6 @@ import static java.lang.System.out;
 
 public class Bookres {
 
-  ArrayList<String> band;
   ArrayList<String> bands;
   ArrayList<String> needs;
   ArrayList<String> concerts;
@@ -28,35 +27,9 @@ public class Bookres {
   public Bookres() {
     ConnectionManager.connect();
 
-    band = new ArrayList<>();
     bands = new ArrayList<String>();
     needs = new ArrayList<String>();
     concerts = new ArrayList<>();
-
-
-  }
-
-     /*
-    ArrayList<String> searchBands
-    *
-    * returns bands
-    */
-
-
-  public ArrayList<String> getBands() {
-    try {
-      Statement stmt = ConnectionManager.conn.createStatement();
-      ResultSet rs;
-
-      rs = stmt.executeQuery("SELECT name FROM band");
-      while (rs.next()) {
-        String name = rs.getString("name");
-        band.add(name);
-      } } catch (Exception e) {
-      System.err.println("Got an exception, getBand! ");
-      System.err.println(e.getMessage());
-    }
-    return band;
   }
 
   /*
@@ -81,6 +54,24 @@ public class Bookres {
       System.err.println(e.getMessage());
     }
     return bands;
+  }
+
+  public List<String> searchConcerts(String concert) {
+    List concerts = new ArrayList();
+    try {
+      Statement stmt = ConnectionManager.conn.createStatement();
+      ResultSet rs;
+
+      rs = stmt.executeQuery("SELECT name FROM concert WHERE name LIKE '%" + concert + "%'");
+      while (rs.next()) {
+        String name = rs.getString("name");
+        concerts.add(name);
+      }
+    } catch (Exception e) {
+      System.err.println("Got an exception123! ");
+      System.err.println(e.getMessage());
+    }
+    return concerts;
   }
 
   /*
@@ -147,7 +138,7 @@ public class Bookres {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
 
-      String str = String.format("SELECT concert.name AS cname, stage.name AS sname, bookingoffer.date, concert.sales, concert.price, concert.expenses, concert.earnings FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE accepted > 1 AND band.name = 'Bølgeband'", band);
+      String str = String.format("SELECT concert.name AS cname, stage.name AS sname, concert.date, concert.sales, concert.price, concert.expenses, concert.earnings FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE accepted > 1 AND band.name = 'Bølgeband'", band);
       rs = stmt.executeQuery(str);
       while (rs.next()) {
         String scon = String.format("%s;%s;%s;%s;%s;%s;%s", rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("sales"), rs.getString("price"), rs.getString("expenses"), rs.getString("earnings"));
@@ -214,96 +205,56 @@ public class Bookres {
     return pubscenes;
   }
 
-  public void addBookingOffer(int bandId, int concertId, String date, String time, int expence) {
+  public String addBookingOffer(String time, String concertName, String bandName, int expense) {
     try {
       Statement stm = ConnectionManager.conn.createStatement();
       ResultSet rs;
-      String str = String.format("Insert Into bookingoffer(bandid, concertId, date, time, expense) Values ('%d', '%d', '%s', '%s', %d)", bandId, concertId, date, time, expence);
-      if (!validateDateTime(date, time)) {
-        throw new IllegalArgumentException("Datoen må være innenfor tidsperioden til festivalen.");
-      } else if (!doesBandExcist(bandId)){
-        throw new IllegalArgumentException("bandet eksisterer ikke");
-      } else {
-        stm.executeUpdate(str);
+      String strBID = String.format("SELECT idBand FROM band WHERE band.name = '%s'", bandName);
+      String strCID = String.format("SELECT idconcert FROM concert WHERE concert.name = '%s'", concertName);
+
+      rs = stm.executeQuery(strBID);
+      if (!rs.next() ) {
+        return "Bandet " + bandName + " eksisterer ikke i databasen";
       }
+      int bandID = rs.getInt("idBand");
+      rs = stm.executeQuery(strCID);
+      if (!rs.next()) {
+        return "Konserten " + concertName + " eksisterer ikke i databasen";
+      }
+      int concID = rs.getInt("idconcert");
+
+      String str = String.format("Insert Into bookingoffer(bandid, concertId, time, expense) Values ('%s', '%s', '%s', %d)", bandID, concID, time, expense);
+      stm.executeUpdate(str);
+
     } catch (Exception e) {
       out.println(e.getMessage());
-    }
+    } return "Booking tilbud opprettet";
   }
 
-  public boolean validateDateTime(String date, String time) throws ParseException {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-    SimpleDateFormat sdft = new SimpleDateFormat("hh.mm");
-    Date tidspunkt = sdf.parse(date);
-    Date start = sdf.parse("2017.10.04");
-    Date slutt = sdf.parse("2017.10.30");
-    Date tid1 = sdft.parse("12.00");
-    Date tid2 = sdft.parse("23.00");
-    String[] tids = time.split("-");
-    String s1 = tids[0];
-    String s2 = tids[1];
-    Date starten = sdft.parse(s1);
-    Date slutten = sdft.parse(s2);
-    if (tidspunkt.before(start)){
-      return false;
-    } if (tidspunkt.after(slutt)){
-      return false;
-    } if (starten.before(tid1)){
-      return false;
-    } if (slutten.after(tid2)){
-      return false;
-    } else {
+  public boolean validateDateTime(String time) {
       return true;
-    }
-
-
   }
 
-  public boolean doesBandExcist(int bandId) {
-    List<Integer> bandIDs = new ArrayList<>();
+  public boolean doesBandExist(String bandName) {
     try {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
-      rs = stmt.executeQuery("SELECT idband FROM band");
-
+      rs = stmt.executeQuery("SELECT name FROM band");
       while (rs.next()) {
-        int bandID = rs.getInt("idband");
-        bandIDs.add(bandID);
-      }
-        if (bandIDs.contains(bandId)){
+        if (rs.getString("name").equals(bandName)) {
           return true;
-        } else {
-          return false;}
-    } catch (Exception e) {
+        }
+      } return false;
+    }
+    catch (Exception e) {
       System.err.println("Got an exceptionband! ");
       System.err.println(e.getMessage());
       return false;
     }
   }
 
-
-  public ArrayList<String> getConcerts() {
-
-    try {
-      Statement stm = ConnectionManager.conn.createStatement();
-      ResultSet rs;
-      rs = stm.executeQuery("SELECT idconcert, name FROM concert");
-      while (rs.next()) {
-        String idconcert = rs.getString("idconcert");
-        String name = rs.getString("name");
-        String out = idconcert +":"+ name;
-        concerts.add(out);
-      }
-
-    } catch (Exception e) {
-      out.println(e.getMessage());
-    }
-    return concerts;
-  }
-
   public static void main(String[]args){
     Bookres test = new Bookres();
-    test.addBookingOffer(14, 1, "2017.10.15", "18.00-24.00", 10000);
   }
 
 }

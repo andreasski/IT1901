@@ -50,7 +50,6 @@ public class Login_Controller implements Initializable {
                 roleId.add("" + (i + 1));
             }
         }
-
         if (password.getText().length() < 3) {
             registerText.getStyleClass().add("red");
             registerText.setText("Passordet må være lengre!");
@@ -95,7 +94,6 @@ public class Login_Controller implements Initializable {
             return false;
         }
 
-
         if (splitDot.length == 2) {
             for (int j = 0; j < splitDot[0].length(); j++) {
                 if (!Character.isLetter(splitDot[0].charAt(j))) {
@@ -127,7 +125,7 @@ public class Login_Controller implements Initializable {
     public void navRegister() {
         container.getChildren().clear();
         registerText.setText("Skriv inn nytt brukernavn, passord og hvilke(n) rolle(r) du har:");
-        Label name = new Label("Nytt Brukernavn");
+        Label name = new Label("Nytt Brukernavn:");
         Label pwd = new Label("Passord:");
         Label rptpwd = new Label("Gjenta passord:");
         Label roles = new Label("Roller:");
@@ -180,7 +178,6 @@ public class Login_Controller implements Initializable {
     }
 
     public void navLogin() {
-
         container.getChildren().clear();
 
         loginText.setText("Vennligst skriv inn brukernavn og passord:");
@@ -207,15 +204,12 @@ public class Login_Controller implements Initializable {
 
         register.setOnMouseClicked(event -> navRegister());
         logIn.setOnMouseClicked(event -> handleLogin(login.checkLogin(username.getText(), password.getText())));
-
     }
 
     public void navNav() {
         container.getChildren().clear();
         Map<String, String> fxmlRoleRef = new HashMap<>();
-        for (int j = 0; j < fxmlRef.length; j++) {
-            fxmlRoleRef.put(roleRef[j], fxmlRef[j]);
-        }
+        for (int j = 0; j < fxmlRef.length; j++) { fxmlRoleRef.put(roleRef[j], fxmlRef[j]);}
         Label lblWelcome = new Label("Velkommen " + login.getUsername());
         Label lblLogout = new Label("Logg ut");
         lblLogout.getStyleClass().add("underline");
@@ -232,7 +226,6 @@ public class Login_Controller implements Initializable {
                 lblRole.setOnMouseClicked(event -> {
                     Stage stage = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/" + fxmlRoleRef.get(roles.get(ROLE_INDEX)) + ".fxml"));
-
                     Parent root = null;
                     try {
                         root = (Parent) fxmlLoader.load();
@@ -263,7 +256,6 @@ public class Login_Controller implements Initializable {
                         stage.setScene(scene);
                     }
                     stage.show();
-
                 });
                 lblRole.getStyleClass().add("btnNav");
                 lblRole.setAlignment(Pos.CENTER);
@@ -272,9 +264,9 @@ public class Login_Controller implements Initializable {
 
         }
     }
+
     @java.lang.Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-
         login = new Login();
         navLogin();
 

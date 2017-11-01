@@ -10,10 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import backend.Bookres;
 import java.net.URL;
@@ -38,7 +35,10 @@ public class Bookres_Controller implements Initializable {
     private VBox container;
 
     @FXML
-    private VBox aside;
+    private Label lvl1, lvl2, spacing1_2;
+
+    @FXML
+    private Button btnBookingOffer;
 
     @FXML
     private VBox search;
@@ -48,6 +48,9 @@ public class Bookres_Controller implements Initializable {
 
     public void navSearch() {
         container.getChildren().clear();
+        search.getChildren().clear();
+        spacing1_2.setText("");
+        lvl2.setText("");
         Label headerSearch = new Label("Søk etter band");
         headerSearch.setId("headerScrollPane");
         TextField searchField = new TextField();
@@ -76,6 +79,8 @@ public class Bookres_Controller implements Initializable {
     public void navGenre(String genre) {
         container.getChildren().clear();
         search.getChildren().clear();
+        spacing1_2.setText(" > ");
+        lvl2.setText(genre);
         VBox contents = new VBox();
         List<String> prevConcerts = BookingRes.getPubScene(genre);
         for (int i = 0; i < prevConcerts.size(); i++) {
@@ -100,11 +105,145 @@ public class Bookres_Controller implements Initializable {
         prevConcScrollPane.setId("scrollPane");
         Label prevConcHeader = new Label("Konserter i " + genre);
         prevConcHeader.setId("headerScrollPane");
-        Label navSearch = new Label("Tilbake");
-        navSearch.getStyleClass().add("underline");
-        navSearch.setOnMouseClicked(event -> navSearch());
-        container.getChildren().addAll(navSearch, prevConcHeader, prevConcScrollPane);
+        container.getChildren().addAll(prevConcHeader, prevConcScrollPane);
+    }
 
+    public void navBookingOffer() {
+        container.getChildren().clear();
+        search.getChildren().clear();
+        spacing1_2.setText(" > ");
+        lvl2.setText("Boooking tilbud");
+        VBox contents = new VBox();
+
+        Label headerBookOffer = new Label("Booking tilbud");
+        headerBookOffer.setId("headerScrollPane");
+
+        Label lblTime = new Label("Klokkeslett: (xx:xx-xx:xx)");
+        TextField inpTime = new TextField();
+        Label lblConcert = new Label("Konsert: ");
+        TextField inpConcert = new TextField();
+        Label lblBand = new Label("Band: ");
+        TextField inpBand = new TextField();
+        Label lblPrice = new Label("Pris: ");
+        TextField inpPrice = new TextField();
+        VBox inpContainer = new VBox(lblTime, inpTime, lblConcert, inpConcert, lblBand, inpBand, lblPrice, inpPrice);
+
+        Label lblSearchInstruction = new Label("Huk av alternativet du vil søke etter");
+        lblSearchInstruction.getStyleClass().add("margin");
+
+        ToggleGroup searchVar = new ToggleGroup();
+        RadioButton radConc = new RadioButton("Konserter  ");
+        radConc.setSelected(true);
+        RadioButton radBand = new RadioButton("Band");
+        radConc.setToggleGroup(searchVar);
+        radBand.setToggleGroup(searchVar);
+        HBox radBtnContainer = new HBox(radConc, radBand);
+        radBtnContainer.getStyleClass().add("leftMargin");
+
+        TextField inpSearch = new TextField();
+        inpSearch.setId("inpSearch");
+        Button btnSearch = new Button("Søk");
+        btnSearch.setId("btnSearch");
+        HBox searchInpContainer = new HBox(inpSearch, btnSearch);
+        searchInpContainer.getStyleClass().add("topMargin");
+
+        ScrollPane searchResScrollPane = new ScrollPane();
+        searchResScrollPane.setId("searchResScrollPane");
+        searchResScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        searchResScrollPane.setContent(new VBox());
+
+        btnSearch.setOnAction(event -> {
+            List<String> contentsList = new ArrayList<>();
+            VBox scrollPaneContents = new VBox();
+            if (radBand.isSelected()) {
+                contentsList = BookingRes.searchBands(inpSearch.getText());
+                if (contentsList.size() > 0) {
+                    for (int i = 0; i < contentsList.size(); i++) {
+                        Label bandName = new Label(contentsList.get(i));
+                        bandName.getStyleClass().add("listItemBO" + ((i + 1) % 2));
+                        bandName.setOnMouseClicked(event1 -> inpBand.setText(bandName.getText()));
+                        scrollPaneContents.getChildren().add(bandName);
+                    }
+                } else {
+                    scrollPaneContents.getChildren().add(new Label("Ingen treff"));
+                }
+            } else {
+                contentsList = BookingRes.searchConcerts(inpSearch.getText());
+                if (contentsList.size() > 0) {
+                    for (int i = 0; i < contentsList.size(); i++) {
+                        Label concName = new Label(contentsList.get(i));
+                        concName.getStyleClass().add("listItemBO" + ((i + 1) % 2));
+                        concName.setOnMouseClicked(event1 -> inpConcert.setText(concName.getText()));
+                        scrollPaneContents.getChildren().add(concName);
+                    }
+                } else {
+                    scrollPaneContents.getChildren().add(new Label("Ingen treff"));
+                }
+            } searchResScrollPane.setContent(scrollPaneContents);
+        });
+
+        Label addRes = new Label("");
+        addRes.getStyleClass().add("topMargin");
+
+        Button btnAdd = new Button("Opprett tilbud");
+        btnAdd.setOnAction(event -> {
+            if (inpBand.getText().length() > 0 && inpConcert.getText().length() > 0) {
+                if (validateTime(inpTime.getText())) {
+                    if (validatePrice(inpPrice.getText())) {
+                        addRes.setText(BookingRes.addBookingOffer(inpTime.getText(), inpConcert.getText(), inpBand.getText(), Integer.parseInt(inpPrice.getText())));
+                    } else {
+                        addRes.setText("Pris må være et positivt heltall");
+                    }
+                } else {
+                    addRes.setText("Feil format på tid");
+                }
+            } else {
+                addRes.setText("Vennligst fyll inn alle feltene");
+            }
+
+        });
+
+        VBox searchContainer = new VBox(lblSearchInstruction, radBtnContainer, searchInpContainer, searchResScrollPane);
+        searchContainer.setId("searchContainer");
+
+
+        AnchorPane bookingOfferContainer = new AnchorPane(inpContainer, searchContainer, btnAdd, addRes);
+        bookingOfferContainer.setLeftAnchor(inpContainer, 0.0);
+        bookingOfferContainer.setTopAnchor(inpContainer, 0.0);
+        bookingOfferContainer.setRightAnchor(searchContainer, 0.0);
+        bookingOfferContainer.setTopAnchor(searchContainer, 0.0);
+        bookingOfferContainer.setLeftAnchor(btnAdd, 0.0);
+        bookingOfferContainer.setRightAnchor(btnAdd, 0.0);
+        bookingOfferContainer.setBottomAnchor(btnAdd, 0.0);
+        bookingOfferContainer.setLeftAnchor(addRes, 0.0);
+        bookingOfferContainer.setBottomAnchor(addRes, 28.0);
+        bookingOfferContainer.setId("bookingOfferContainer");
+
+        contents.getChildren().addAll(headerBookOffer, bookingOfferContainer);
+        container.getChildren().add(contents);
+    }
+
+    public boolean validatePrice(String price) {
+        if (price.length() > 0) {
+            for (int i = 0; i < price.length(); i++) {
+                if (!Character.isDigit(price.charAt(i))) { return false;}
+            } return Integer.parseInt(price) > 0;
+        } return false;
+    }
+
+    public boolean validateTime(String time) {
+        String[] splitDash = time.split("-");
+        if (splitDash.length != 2) { return false;}
+        for (int i = 0; i < 2; i++) {
+            String[] splitColon = splitDash[i].split(":");
+            if (splitColon.length != 2) { return false;}
+            for (int j = 0; j < 2; j++) { if (!Character.isDigit(splitColon[0].charAt(j)) || !Character.isDigit(splitColon[1].charAt(j))) { return false;}}
+        }
+        int h1 = Integer.parseInt(splitDash[0].substring(0,2));
+        int m1 = Integer.parseInt(splitDash[0].substring(3,5));
+        int h2 = Integer.parseInt(splitDash[1].substring(0,2));
+        int m2 = Integer.parseInt(splitDash[1].substring(3,5));
+        return (h2 > h1) || (h2 == h1 && m2 > m1);
     }
 
     public void showSearchResult(String bandName) {
@@ -213,6 +352,8 @@ public class Bookres_Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         BookingRes = new Bookres();
+        lvl1.setOnMouseClicked(event -> navSearch());
+        btnBookingOffer.setOnAction(event -> navBookingOffer());
         genreScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         navSearch();
     }

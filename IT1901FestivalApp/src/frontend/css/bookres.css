@@ -18,6 +18,18 @@
     -fx-underline: true;
 }
 
+.leftMargin {
+    -fx-padding: 0 0 0 1em;
+}
+
+.leftTopMargin {
+    -fx-padding: 1em 0 0 1em;
+}
+
+.topMargin {
+    -fx-padding: 1em 0 0 0;
+}
+
 /*--- GENERAL ---*/
 
 /*--- INSTRUCTION_BOX ---*/
@@ -61,6 +73,20 @@
     -fx-max-width: 248px;
 }
 
+.listItemBO1 {
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 0.15em 1em;
+    -fx-min-width: 298px;
+    -fx-max-width: 298px;
+}
+
+.listItemBO0 {
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 0.15em 1em;
+    -fx-min-width: 298px;
+    -fx-max-width: 298px;
+}
+
 #headerScrollPane{
     -fx-border-width: 1px;
     -fx-border-color: #999999;
@@ -79,19 +105,8 @@
     -fx-alignment: center;
 }
 
-.workDateHeader {
-    -fx-background-color: #CFCFCF;
-    -fx-font-size: 18px;
-    -fx-padding: 0.2em 0 0.2em 1em;
-    -fx-min-width: 500px;
-}
-
 #searchField {
-    -fx-min-width: 440px;
-}
-
-#btnSearch {
-    -fx-min-width: 60px;
+    -fx-min-width: 450px;
 }
 
 #bandDetails {
@@ -101,7 +116,6 @@
     -fx-max-width: 250px;
     -fx-border-width: 1px;
     -fx-border-color: #999999;
-
 }
 
 #concertsScrollPane {
@@ -133,4 +147,40 @@
     -fx-max-width: 274px;
 }
 
+#btnBookingOffer {
+    -fx-min-width: 250px;
+    -fx-text-align: center;
+    -fx-align: center;
+}
+
+#bookingOfferContainer {
+    -fx-padding: 1em;
+    -fx-background-color: #F0F0F0;
+    -fx-min-width: 500px;
+    -fx-max-width: 500px;
+    -fx-min-height: 300px;
+    -fx-max-height: 300px;
+
+}
+
+#searchContainer {
+    -fx-background-color: #E2E2E2;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+}
+
+#inpSearch {
+    -fx-min-width: 248px;
+}
+
+#btnSearch {
+    -fx-min-width: 50px;
+}
+
+#searchResScrollPane {
+    -fx-min-height: 0;
+    -fx-max-height: 150px;
+}
 /*--- CONTENTS ---*/
