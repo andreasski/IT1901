@@ -60,7 +60,7 @@ public class PRres {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT concertid FROM bookingoffer WHERE accepted = 2 ORDER BY date");
+            rs = stmt.executeQuery("SELECT concertid FROM bookingoffer WHERE accepted = 2");
             while (rs.next()) {
                 int concert = rs.getInt("concertid");
                 if (!concertsBooked.contains(concert)) {
