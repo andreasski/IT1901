@@ -3,12 +3,17 @@ package frontend.GUI;
 import backend.PRres;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import java.awt.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,25 +94,27 @@ public class PRres_Controller implements Initializable {
         bandConcertTicketSale.setText("Billetter solgt: " + detailsList.get(3));
 
         Text bandContactinfo = new Text();
-        bandContactinfo.setText("Tlf: " + detailsList.get(1) +" \nmail: "+ detailsList.get(2));
+        bandContactinfo.setText("Tlf: " + detailsList.get(1) +" \nmail: "+ detailsList.get(2) + "\n" + "Omtale: " + detailsList.get(4) + "\nPresseomtale: ");
 
-        Text bandReview = new Text();
-        bandReview.setText("Omtale: " + detailsList.get(4) + "\nPresseomtale: " + detailsList.get(5));
+
+        Hyperlink review = new Hyperlink(detailsList.get(5));
 
         bandConcertTicketSale.setId("infotext");
         bandContactinfo.setId("infotext");
         bandName.setId("infotext");
-        bandReview.setId("infotext");
+        review.setId("infotext");
 
         BorderPane concertDetail = new BorderPane();
         concertDetail.setTop(bandName);
         concertDetail.setLeft(bandContactinfo);
         //concertDetail.setCenter(bandConcertTime);
         concertDetail.setRight(bandConcertTicketSale);
-        concertDetail.setBottom(bandReview);
+        concertDetail.setBottom(review);
+
         concertDetail.setId("bandBox");
         return concertDetail;
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
