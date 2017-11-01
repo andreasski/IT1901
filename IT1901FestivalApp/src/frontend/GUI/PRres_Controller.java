@@ -10,6 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import java.awt.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,6 +114,7 @@ public class PRres_Controller implements Initializable {
         concertDetail.setId("bandBox");
         return concertDetail;
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
