@@ -86,12 +86,11 @@ public class Tec_Controller implements Initializable{
 
   public void init(int id) {
     setTechId(id);
+    navLanding(techId);
   }
 
   //Method runs when fxml is loaded
   @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    navLanding(techId);
-  }
+  public void initialize(URL location, ResourceBundle resources) {  }
 
 }
