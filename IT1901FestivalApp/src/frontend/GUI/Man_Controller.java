@@ -182,13 +182,13 @@ public class Man_Controller implements Initializable{
 
   public void init(int id) {
     setManId(id);
+    manager = new backend.Manager(manId);
+    getNumOffers();
+    navLanding();
   }
 
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    manager = new backend.Manager(manId);
-    getNumOffers();
-    navLanding();
   }
 }

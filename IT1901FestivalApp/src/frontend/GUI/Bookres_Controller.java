@@ -263,6 +263,7 @@ public class Bookres_Controller implements Initializable {
         }
         searchScrollPane = new ScrollPane();
         searchScrollPane.setContent(searchContents);
+
         container.getChildren().add(searchScrollPane);
     }
 

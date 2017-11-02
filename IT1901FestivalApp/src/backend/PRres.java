@@ -44,7 +44,7 @@ public class PRres {
             rs = stmt.executeQuery("SELECT person.phone, person.email, concert.sales, band.biography, band.name FROM band INNER JOIN bookingoffer ON bookingoffer.bandid = band.idBand INNER JOIN concert ON bookingoffer.concertid = concert.idconcert INNER JOIN person ON person.idPerson = band.managerid WHERE band.idBand = \""+bandID+"\" AND concert.idconcert = \""+concertID+"\" ");
             while (rs.next()) {
                 String bandname = rs.getString("band.name");
-                bandDetail = String.format("%s;%s;%s;%s;%s;%s", bandname, rs.getString("person.phone"), rs.getString("person.email"), rs.getString("concert.sales"), rs.getString("band.biography"), "https://www.rullestein.no/"+bandname+" ");
+                bandDetail = String.format("%s;%s;%s;%s;%s;%s", bandname, rs.getString("person.phone"), rs.getString("person.email"), rs.getString("concert.sales"), rs.getString("band.biography"), "https://www.rullestein.no/"+addLink(bandname)+" ");
 
             } } catch (Exception e) {
             System.err.println("Got an exception, getBandDetails! ");
@@ -54,13 +54,28 @@ public class PRres {
 
     }
 
+    public String addLink(String bandname){
+        String link = "";
+        String[] linker;
+        if (bandname.contains(" ")){
+            linker = bandname.split(" ");
+            for(int i = 0; i< linker.length;i++){
+                link += linker[i];
+            }
+        }
+        else{
+            link = bandname;
+        }
+        return link;
+    }
+
     public ArrayList<Integer> getConcertIdBooked(){
         ArrayList<Integer> concertsBooked = new ArrayList<>();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT concertid FROM bookingoffer WHERE accepted = 2 ORDER BY date");
+            rs = stmt.executeQuery("SELECT concertid FROM bookingoffer WHERE accepted = 2");
             while (rs.next()) {
                 int concert = rs.getInt("concertid");
                 if (!concertsBooked.contains(concert)) {

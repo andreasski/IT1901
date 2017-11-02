@@ -8,3 +8,7 @@
 #bandBox {
     -fx-padding: 1em;
 }
+
+#concertName {
+    -fx-font-size: 16px;
+}
