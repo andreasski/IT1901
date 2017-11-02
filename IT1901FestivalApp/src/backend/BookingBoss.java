@@ -246,7 +246,7 @@ public class BookingBoss {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT (SELECT COUNT(DISTINCT concert.idconcert) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 2) AS booked, (SELECT COUNT(DISTINCT concert.idconcert) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 1) AS sent, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date LIMIT 1) AS sdate, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date DESC LIMIT 1) AS edate");
+            String str = String.format("SELECT (SELECT COUNT(DISTINCT concert.date) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 2) AS booked, (SELECT COUNT(DISTINCT bookingoffer.idbookingoffer) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 1) AS sent, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date LIMIT 1) AS sdate, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date DESC LIMIT 1) AS edate");
             rs = stm.executeQuery(str);
 
             while (rs.next()) {

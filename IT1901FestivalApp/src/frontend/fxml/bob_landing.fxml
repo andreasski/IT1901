@@ -22,9 +22,11 @@
                 <VBox styleClass="margin">
                     <Label fx:id="instructionBoxLabel" styleClass="textContainer"/>
                 </VBox>
-                <VBox styleClass="margin">
+                <VBox styleClass="marginLeft">
                     <Button fx:id="setPrice" text="Sett pris og godkjenn tilbud"/>
                 </VBox>
+                <VBox fx:id="dateStatusContainer" styleClass="margin"/>
+
             </VBox>
         </VBox>
     </left>

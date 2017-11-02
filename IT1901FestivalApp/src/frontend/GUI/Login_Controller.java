@@ -81,10 +81,10 @@ public class Login_Controller implements Initializable {
     }
 
     public static boolean validateMail(String mail) {
-        String[] splitAt = mail.split("@"); // asd lel.no
+        String[] splitAt = mail.split("@");
         String[] splitDot;
         if (splitAt.length == 2) {
-            splitDot = splitAt[1].split("\\."); // lel no
+            splitDot = splitAt[1].split("\\.");
             for (int i = 0; i < splitAt[0].length(); i++) {
                 if (!Character.isDigit(splitAt[0].charAt(i)) && !Character.isLetter(splitAt[0].charAt(i))) {
                     return false;
@@ -94,15 +94,12 @@ public class Login_Controller implements Initializable {
             return false;
         }
 
-        if (splitDot.length == 2) {
-            for (int j = 0; j < splitDot[0].length(); j++) {
-                if (!Character.isLetter(splitDot[0].charAt(j))) {
-                    return false;
-                }
-            }
-            for (int k = 0; k < splitDot[1].length(); k++) {
-                if (!Character.isLetter(splitDot[1].charAt(k))) {
-                    return false;
+        if (splitDot.length >= 2) {
+            for (int j = 0; j < splitDot.length; j++) {
+                for (int k = 0; k < splitDot[j].length(); k++) {
+                    if (!Character.isLetter(splitDot[j].charAt(k))) {
+                        return false;
+                    }
                 }
             }
         } else {

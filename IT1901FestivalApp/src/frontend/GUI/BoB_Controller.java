@@ -23,6 +23,10 @@ public class BoB_Controller implements Initializable {
 
   @FXML
   private Button setPrice;
+
+  @FXML
+  private VBox dateStatusContainer;
+
   private final String concInfoBoxText = "Velg en konsert i listen for å se på rapporten til denne konserten. Trykk på 'Sett pris' for å sette pris på oppkommende konserter";
   private final String concDetInfoBoxText = "Du finner nøkkelinformasjoenen til konserten i boksen til høyre";
   private final String[] infoBoxText = {concInfoBoxText, concDetInfoBoxText};
@@ -35,6 +39,26 @@ public class BoB_Controller implements Initializable {
     lvl1.setText((0 <= lvl) ? levelText[0] : "");
     lvl2.setText((1 <= lvl) ? levelText[1] : "");
     instructionBoxLabel.setText(infoBoxText[lvl]);
+    dateStatusContainer.getChildren().clear();
+
+    Label lblBookedDates = new Label("Datoer booket: ");
+    Label lblOfferDates = new Label("Antall tilbud sendt: ");
+    Label lblAvaliableDates = new Label("Ledige datoer: ");
+    VBox lblCont = new VBox(lblBookedDates, lblOfferDates, lblAvaliableDates);
+
+    String[] datesArr = bob.getConcertDates().split(";");
+    Label bookedDates = new Label(datesArr[0]);
+    Label offerDates = new Label(datesArr[1]);
+    Label avaliableDates = new Label(datesArr[2]);
+    VBox dateCont = new VBox(bookedDates, offerDates, avaliableDates);
+
+    AnchorPane dateStat = new AnchorPane(lblCont, dateCont);
+    dateStat.getStyleClass().add("textContainer");
+    dateStat.setTopAnchor(lblCont, 0.0);
+    dateStat.setLeftAnchor(lblCont, 0.0);
+    dateStat.setTopAnchor(dateCont, 0.0);
+    dateStat.setRightAnchor(dateCont, 0.0);
+    dateStatusContainer.getChildren().add(dateStat);
   }
 
   public void navLanding() {
