@@ -225,7 +225,9 @@ public class Bookres {
         return "Konserten " + concertName + " eksisterer ikke i databasen";
       }
       int concID = rs.getInt("idconcert");
-
+      if (!validateDateTime(time, concertName)){
+        return "Det er allerede en konsert innenfor dette tidsrommet.";
+      }
       String str = String.format("Insert Into bookingoffer(bandid, concertId, time, expense) Values ('%s', '%s', '%s', %d)", bandID, concID, time, expense);
       stm.executeUpdate(str);
 
