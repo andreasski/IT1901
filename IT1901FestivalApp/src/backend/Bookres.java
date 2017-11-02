@@ -1,17 +1,20 @@
 package backend;
 
 import backend.ConnectionManager;
+import com.sun.istack.internal.localization.NullLocalizable;
 
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 
 public class Bookres {
 
@@ -231,9 +234,44 @@ public class Bookres {
     } return "Booking tilbud opprettet";
   }
 
-  public boolean validateDateTime(String time) {
-      return true;
+  public boolean validateDateTime(String time, String concertName) {
+    List<String> timeList = new ArrayList<>();
+    String[] splitDash = time.split("-");
+    String startin = splitDash[0];
+    String endin = splitDash[1];
+    LocalTime startTidIn = LocalTime.parse(startin);
+    LocalTime sluttTidIn = LocalTime.parse(endin);
+    try {
+      Statement stmt = ConnectionManager.conn.createStatement();
+      ResultSet rs;
+      rs = stmt.executeQuery("SELECT time FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid WHERE concert.name = \"" + concertName + "\"");
+      while (rs.next()) {
+        String times = rs.getString("time");
+        timeList.add(times);
+      }
+      for (String t: timeList){
+        String[] splitDashs = t.split("-");
+        String start = splitDashs[0];
+        String end = splitDashs[1];
+        LocalTime startTid = LocalTime.parse(start);
+        LocalTime sluttTid = LocalTime.parse(end);
+        if((startTidIn.isAfter(startTid) && startTidIn.isBefore(sluttTid))
+                || startTidIn.equals(startTid)
+                || sluttTidIn.equals(sluttTid)
+                || (sluttTidIn.isBefore(sluttTid) && sluttTidIn.isAfter(startTid)))
+        {
+          return false;
+        }
+      }}
+
+    catch (Exception e) {
+      System.err.println("Got an exceptionTime! ");
+      System.err.println(e.getMessage());
+      return false;
+    }
+    return true;
   }
+
 
   public boolean doesBandExist(String bandName) {
     try {
@@ -255,6 +293,7 @@ public class Bookres {
 
   public static void main(String[]args){
     Bookres test = new Bookres();
+    System.out.println(test.validateDateTime("10:05-10:30", "partykonsert"));
   }
 
 }
