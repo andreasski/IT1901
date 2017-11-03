@@ -49,36 +49,37 @@ public class Login {
         return roles;
     }
 
-    public boolean checkLogin(String name, String password) {
+    public String checkLogin(String name, String password) {
 
-        boolean check1 = false;
+        String response = "";
+
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            boolean check2 = false;
-
-            rs = stmt.executeQuery("SELECT person.idPerson, person.name, person.password, role.idrole FROM person, role, roleperson WHERE person.idPerson = roleperson.personid AND roleperson.roleid = role.idrole");
-
+            rs = stmt.executeQuery("SELECT person.idPerson, person.name, person.password, role.idrole, person.accepted FROM person, role, roleperson WHERE person.idPerson = roleperson.personid AND roleperson.roleid = role.idrole");
+            response = "Feil brukernavn og/eller passord";
             while (rs.next()) {
-
                 String dbName = rs.getString("person.name");
                 String dbPassword = rs.getString("person.password");
-
                 if (dbName.equals(name) && dbPassword.equals(password)) {
-
+                    System.out.println(dbName + " v " + name);
+                    System.out.println(dbPassword+ " v " + password);
+                    System.out.println("What");
                     username = dbName;
                     pwd = dbPassword;
                     personId = rs.getString("person.idPerson");
                     roleId.add(rs.getString("role.idrole"));
-                    check2 = true;
+                    response = "";
+                    if (rs.getInt("person.accepted") != 1) {
+                        response = "Brukeren er ikke godkjent av admin";
+                    }
                 }
-            }
-            return check2;
+            } return response;
         } catch (Exception e) {
             System.err.println("Got an exception1! ");
             System.err.println(e.getMessage());
         }
-        return check1;
+        return response;
     }
 
     public boolean register(String name, String password, String mail, String phone,  ArrayList<String> idRole) {
