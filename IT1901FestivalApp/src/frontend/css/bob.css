@@ -7,6 +7,10 @@
     -fx-padding: 1em;
 }
 
+.marginLeft {
+    -fx-padding: 0 0 0 1em;
+}
+
 .textContainer {
     -fx-background-color: #DDDDDD;
     -fx-padding: 1em;
@@ -88,6 +92,11 @@
     -fx-background-color: #F0F0F0;
     -fx-border-width: 1px;
     -fx-border-color: #CCCCCC;
+}
+
+#setPrice {
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
 }
 
 /*--- NAV ---*/

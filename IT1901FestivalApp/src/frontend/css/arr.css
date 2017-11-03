@@ -61,6 +61,22 @@
     -fx-font-size: 16px;
 }
 
+.lisItemBO1 {
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 0.15em;
+    -fx-min-width: 322px;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+}
+
+.lisItemBO0 {
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 0.15em;
+    -fx-min-width: 322px;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+}
+
 #headerScrollPane{
     -fx-border-width: 1px;
     -fx-border-color: #999999;
@@ -85,15 +101,17 @@
     -fx-background-color: #E6E6E6;
     -fx-padding: 0.15em 1em;
     -fx-min-width: 150px;
+    -fx-max-width: 150px;
 }
 
 .technicianListItem0{
     -fx-background-color: #D9D9D9;
     -fx-padding: 0.15em 1em;
     -fx-min-width: 150px;
+    -fx-max-width: 150px;
 }
 
-#technicianHeader {
+.technicianHeader {
     -fx-border-width: 1px;
     -fx-border-color: #999999;
     -fx-font-size: 20px;
@@ -102,7 +120,8 @@
     -fx-alignment: center;
 }
 
-#concertDetailsWrapper {
+#concertDetailsWrapper{
+    -fx-padding: 1em;
     -fx-background-color: #DDDDDD;
     -fx-border-width: 1px;
     -fx-border-color: #999999;
@@ -111,7 +130,49 @@
     -fx-padding: 0;
 }
 
-#technichiansScrollPane {
+.technichiansScrollPane {
+    -fx-min-height: 0px;
+    -fx-max-height: 80px;
+}
+
+#headerBookingOffers {
+    -fx-border-width: 1px;
+    -fx-border-color: #999999;
+    -fx-font-size: 20px;
+    -fx-min-width: 324px;
+    -fx-background-color: #CCCCCC;
+    -fx-alignment: center;
+}
+
+.scrollPane {
     -fx-min-height: 0;
+}
+
+.inpField {
+    -fx-max-width: 200px;
+}
+
+#btnAddConc {
+    -fx-min-width: 224px;
+}
+.searchStage {
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+}
+
+.listItemStage1 {
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 0.15em;
+    -fx-min-width: 200px;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+}
+
+.listItemStage0 {
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 0.15em;
+    -fx-min-width: 200px;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
 }
 /*--- CONTENTS ---*/

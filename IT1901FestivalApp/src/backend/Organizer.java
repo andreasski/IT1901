@@ -2,7 +2,7 @@ package backend;
 /**
  * Organizer class establish a connection to the database via the ConnectionManager class.
  * Using queries to get data from the database and returns it to the GUI.
- * @author: Heidi Brække, Magnus Eriksson
+ * @author: Heidi Brække, Magnus Eriksson, Andreas Skifjeld
  */
 
 import java.sql.*;
@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-
 public class Organizer {
 
     /*
@@ -43,7 +41,6 @@ public class Organizer {
             System.err.println("Got an exception1! ");
             System.err.println(e.getMessage());
         }
-
         //Sort list
         List<String> dates = new ArrayList<>(dateSet);
         dates = radixSort(dates);
@@ -84,7 +81,48 @@ public class Organizer {
         } return dates;
     }
 
-    /*
+    public static String addConcert(String concertName, String date, String stageName) {
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str1 = String.format("SELECT idstage FROM stage WHERE stage.name = '%s'", stageName);
+            rs = stm.executeQuery(str1);
+
+            int stageId;
+
+            if (!rs.next()) {
+                return "Scenen finnes ikke i databasen";
+            } else {
+                stageId = rs.getInt("idstage");
+            }
+
+            String str = String.format("Insert Into concert(name, date, stageid) Values ('%s', '%s', %d)", concertName, date, stageId);
+            stm.executeUpdate(str);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } return "Konsert opprettet";
+    }
+
+    public static List<String> getStage(String stage) {
+        List<String> stages = new ArrayList();
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT name FROM stage WHERE name LIKE '%" + stage + "%'");
+            while (rs.next()) {
+                String name = rs.getString("name");
+                stages.add(name);
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception123! ");
+            System.err.println(e.getMessage());
+        }
+        return stages;
+    }
+
+    /**
     List<String> getConcerts
     * @param: String date
     *
@@ -95,14 +133,11 @@ public class Organizer {
         try{
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery(String.format("SELECT bookingoffer.time, bookingoffer.bandid, band.name, stage.name, concert.name  FROM bookingoffer, band, stage, concert WHERE concert.date = '%s' AND  bookingoffer.concertid = concert.idconcert AND bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert  AND concert.stageid = stage.idstage AND bookingoffer.accepted > 1  ORDER BY concert.name, stage.name, bookingoffer.time", date));
-
+            rs = stmt.executeQuery(String.format("SELECT stage.name, concert.name  FROM stage, concert WHERE concert.date = '%s' AND concert.stageid = stage.idstage ORDER BY concert.name, stage.name", date));
             while ( rs.next() ) {
-                String bandname = rs.getString("band.name");
                 String stagename = rs.getString("stage.name");
-                String time = rs.getString("bookingoffer.time");
                 String concertName = rs.getString("concert.name");
-                String concert = stagename + ";" + bandname  + ";" + time + ";" + concertName;
+                String concert = stagename + ";" + concertName;
                 concerts.add(concert);
             }
         } catch (Exception e){
@@ -111,21 +146,18 @@ public class Organizer {
         } return concerts;
     }
 
-    /*
+    /**
     List<String> getTechnicians
-    * @param: String date
-    * @param: String time
-    * @param: String bandId
+    * @param: String concertName
     *
     * Gets the technicans.
     */
-    public static List<String> getTechnicians(String date, String bandName, String time){
+    public static List<String> getTechnicians(String concertName){
         List<String> techs = new ArrayList<>();
-        String concertid = getConcertId(date, bandName, time);
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT person.name FROM person, concerttechnician WHERE concerttechnician.concertid = '" + concertid + "' AND concerttechnician.technicianid = person.idPerson");
+            rs = stmt.executeQuery(String.format("SELECT person.name FROM person, concerttechnician, concert WHERE concert.name = '%s' AND concerttechnician.concertid = concert.idconcert AND concerttechnician.technicianid = person.idPerson", concertName));
 
             while ( rs.next() ){
                 String person = rs.getString("name");
@@ -138,46 +170,40 @@ public class Organizer {
         } return techs;
     }
 
-    /*
-    List<String> getTechnicians
-    * @param: String date
-    * @param: String time
-    * @param: String bandId
-    *
-    * Gets the concert that corresponds with the information.
-    */
-    public static String getConcertId(String date, String bandName, String time) {
-        String concId = "";
+    public static ArrayList<String> getTechnicalNeeds(String concertName) {
+        Set<String> needsSet = new HashSet<>();
+        ArrayList<String> needs = new ArrayList<>();
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery(String.format("SELECT bookingoffer.concertid FROM bookingoffer, band, stage, concert WHERE bookingoffer.bandid = band.idband AND bookingoffer.concertid = concert.idconcert AND concert.stageid = stage.idstage AND concert.date = '%s' AND bookingoffer.time = '%s' AND band.name = '%s' AND bookingoffer.accepted > 1;", date, time, bandName));
-            while ( rs.next() ){
-                concId = rs.getString("concertid");
-            }
-        } catch (Exception e) {
-            System.err.println("Got an exception4! ");
-            System.err.println(e.getMessage());
-        } return concId;
-
-    }
-    public ArrayList<String> getTechnicalNeeds(String band) {
-        ArrayList<String> needs= new ArrayList<>();
-        try {
-            Statement stmt = ConnectionManager.conn.createStatement();
-            ResultSet rs;
-
-            rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, band WHERE band.name = \"" + band + "\" AND band.idBand = techicalneed.bandid");
+            rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, concert, bookingoffer, band WHERE concert.name = \"" + concertName + "\" AND concert.idconcert = bookingoffer.concertid AND bookingoffer.accepted >= 2 AND bookingoffer.bandid = band.idBand AND band.idBand = techicalneed.bandid ");
             while (rs.next()) {
                 String need = rs.getString("techicalneed.need");
-                needs.add(need);
+                needsSet.add(need);
             }
+            needs = new ArrayList<>(needsSet);
+            needs.sort(String::compareToIgnoreCase);
         } catch (Exception e) {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
-        }
-        return needs;
+        } return needs;
+    }
 
+    public static List<String> getBookingOffers(String concertName) {
+        List<String> bookingOffers = new ArrayList<>();
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            rs = stmt.executeQuery(String.format("SELECT bookingoffer.time, band.name FROM concert, bookingoffer, band WHERE concert.name = '%s' AND concert.idconcert = bookingoffer.concertid AND bookingoffer.accepted >= 2 AND bookingoffer.bandid = band.idBand ORDER BY bookingoffer.time", concertName));
+            while (rs.next()) {
+                String band = rs.getString("band.name");
+                String time = rs.getString("bookingoffer.time");
+                bookingOffers.add(band + ";" + time);
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception2312412312! ");
+            System.err.println(e.getMessage());
+        } return bookingOffers;
     }
 }
 

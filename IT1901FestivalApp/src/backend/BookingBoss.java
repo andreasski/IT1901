@@ -239,108 +239,36 @@ public class BookingBoss {
      *
      * Returns a list of dates and if the date is booked or not. The first element of the list is the amount of booked dates, sent but not booked and free days.
      */
-    public List<String> getConcertDates(String startDate, String endDate) {
-        List<String> ls = new ArrayList<String>();
+    public String getConcertDates() {
+        String strres= "%s%s%s";
 
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT bookingoffer.idbookingoffer, concert.date, bookingoffer.accepted FROM concert, bookingoffer WHERE concert.idconcert = bookingoffer.concertid AND bookingoffer.accepted > -1 ORDER BY concert.date");
+            String str = String.format("SELECT (SELECT COUNT(DISTINCT concert.date) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 2) AS booked, (SELECT COUNT(DISTINCT bookingoffer.idbookingoffer) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 1) AS sent, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date LIMIT 1) AS sdate, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date DESC LIMIT 1) AS edate");
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
-                String strm = String.format("%s;%s;%s", rs.getString("idbookingoffer"), rs.getString("date"), rs.getString("accepted"));
-                ls.add(strm);
+
+                String[] spl = rs.getString("sdate").split("\\.");
+                String[] epl = rs.getString("edate").split("\\.");
+
+
+                LocalDate sd = LocalDate.of(Integer.parseInt(spl[2]), Integer.parseInt(spl[1]), Integer.parseInt(spl[0]));
+                LocalDate ed = LocalDate.of(Integer.parseInt(epl[2]), Integer.parseInt(epl[1]), Integer.parseInt(epl[0]));
+
+                int booked =  Integer.parseInt(rs.getString("booked"));
+                int sent =  Integer.parseInt(rs.getString("sent"));
+
+                strres = String.format("%d;%d;%d", booked, sent, ChronoUnit.DAYS.between(sd, ed) - booked);
             }
         } catch (Exception e) {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
         }
 
-        List<String> lst = new ArrayList<String>();
-
-        String[] spls = startDate.split("\\.");
-        String[] sple = endDate.split("\\.");
-
-        int ys = Integer.parseInt(spls[0]);
-        int ms = Integer.parseInt(spls[1]);
-        int ds = Integer.parseInt(spls[2]);
-
-        int ye = Integer.parseInt(sple[0]);
-        int me = Integer.parseInt(sple[1]);
-        int de = Integer.parseInt(sple[2]);
-
-        LocalDate sdate = LocalDate.of(ys, ms, ds);
-        LocalDate edate = LocalDate.of(ye, me, de);
-
-        int booked = 0;
-        int sent = 0;
-        long free = ChronoUnit.DAYS.between(sdate, edate);
-        System.out.println(sdate.toString() + " - " + edate.toString() + " - " + free);
-        lst.add("%d;%d;%d");
-
-        Iterator<String> its = ls.iterator();
-        HashMap<String, Integer> bookedm = new HashMap<String, Integer>();
-        HashMap<String, Integer> sentm = new HashMap<String, Integer>();
-        while (its.hasNext())
-        {
-            String[] bsp = its.next().split(";");
-            String[] dsp = bsp[1].split("\\.");
-            LocalDate bdat = LocalDate.of(Integer.parseInt(dsp[0]), Integer.parseInt(dsp[1]), Integer.parseInt(dsp[2]));
-
-            int acc = Integer.parseInt(bsp[2]);
-            if (acc == 2)
-            {
-                if (bookedm.containsKey(bdat.toString()))
-                {
-                    bookedm.put(bdat.toString(), bookedm.get(bdat.toString()) + 1);
-                }
-                else
-                {
-                    bookedm.put(bdat.toString(), 1);
-                }
-            }
-            else
-            {
-                if (sentm.containsKey(bdat.toString()))
-                {
-                    sentm.put(bdat.toString(), sentm.get(bdat.toString()) + 1);
-                }
-                else
-                {
-                    sentm.put(bdat.toString(), 1);
-                }
-            }
-        }
-
-        LocalDate cdate = LocalDate.of(ys, ms, ds);
-        for (int i = 0; i < free +1; i++)
-        {
-            int boo = 0;
-            int sen = 0;
-
-            if (bookedm.containsKey(cdate.toString()))
-            {
-                boo = bookedm.get(cdate.toString());
-            }
-            if (sentm.containsKey(cdate.toString()))
-            {
-                sen = sentm.get(cdate.toString());
-            }
-
-
-            booked += boo;
-            sent += sen;
-            String str = String.format("%s;%d;%d", cdate.toString(), boo, sen);
-            lst.add(str);
-            cdate = cdate.plusDays(1);
-        }
-
-        lst.set(0, String.format(lst.get(0), booked, sent, free));
-
-
-        return lst;
+        return strres;
     }
 
     public static void main(String[] args)
@@ -358,7 +286,7 @@ public class BookingBoss {
         BookingBoss bb = new BookingBoss();
         bb.getConcertId("Musikkkonsert");
 
-/*
+
         List<String> ls = bb.getConcerts();
         Iterator<String> its = ls.iterator();
 
@@ -382,11 +310,7 @@ public class BookingBoss {
             System.out.println(its.next());
         }
 
-        its = bb.getConcertDates("2017.10.05", "2017.10.30").iterator();
-        while (its.hasNext())
-        {
-            System.out.println(its.next());
-        }
-        */
+        System.out.println(bb.getConcertDates());
+
     }
 }

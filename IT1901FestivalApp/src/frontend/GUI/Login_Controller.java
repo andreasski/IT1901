@@ -1,6 +1,8 @@
 package frontend.GUI;
 
 import backend.Login;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,8 +33,8 @@ public class Login_Controller implements Initializable {
     private Label loginText = new Label();
     private Label registerText = new Label();
     private ArrayList<String> roleId;
-    private final String[] fxmlRef = {"tec_landing", "bookres_landing", "man_landing", "arr_landing", "bob_landing"};
-    private final String[] roleRef = {"Tekniker", "Booking ansvarlig", "Manager", "Arrangør", "Booking sjef"};
+    private final String[] fxmlRef = {"tec_landing", "bookres_landing", "man_landing", "arr_landing", "bob_landing", "prres_landing"};
+    private final String[] roleRef = {"Tekniker", "Booking ansvarlig", "Manager", "Arrangør", "Booking sjef", "PR manager"};
 
     public void handleLogin(boolean success) {
         if (success) {
@@ -81,10 +83,10 @@ public class Login_Controller implements Initializable {
     }
 
     public static boolean validateMail(String mail) {
-        String[] splitAt = mail.split("@"); // asd lel.no
+        String[] splitAt = mail.split("@");
         String[] splitDot;
         if (splitAt.length == 2) {
-            splitDot = splitAt[1].split("\\."); // lel no
+            splitDot = splitAt[1].split("\\.");
             for (int i = 0; i < splitAt[0].length(); i++) {
                 if (!Character.isDigit(splitAt[0].charAt(i)) && !Character.isLetter(splitAt[0].charAt(i))) {
                     return false;
@@ -94,15 +96,12 @@ public class Login_Controller implements Initializable {
             return false;
         }
 
-        if (splitDot.length == 2) {
-            for (int j = 0; j < splitDot[0].length(); j++) {
-                if (!Character.isLetter(splitDot[0].charAt(j))) {
-                    return false;
-                }
-            }
-            for (int k = 0; k < splitDot[1].length(); k++) {
-                if (!Character.isLetter(splitDot[1].charAt(k))) {
-                    return false;
+        if (splitDot.length >= 2) {
+            for (int j = 0; j < splitDot.length; j++) {
+                for (int k = 0; k < splitDot[j].length(); k++) {
+                    if (!Character.isLetter(splitDot[j].charAt(k))) {
+                        return false;
+                    }
                 }
             }
         } else {
@@ -158,7 +157,7 @@ public class Login_Controller implements Initializable {
         CheckBox manager = new CheckBox("Manager");
         CheckBox organizer = new CheckBox("Arrangør");
         CheckBox bookerMan = new CheckBox("Bookingsjef");
-        CheckBox pr = new CheckBox("PR-Manager");
+        CheckBox pr = new CheckBox("PR Ansvarlig");
         CheckBox serving = new CheckBox("Servering");
 
         List<CheckBox> checkBoxes = new ArrayList<>();
@@ -192,6 +191,11 @@ public class Login_Controller implements Initializable {
         username.getStyleClass().add("textField");
         PasswordField password = new PasswordField(); /* Ditto */
         password.getStyleClass().add("textField");
+        password.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent args) {
+                handleLogin(login.checkLogin(username.getText(), password.getText()));
+            }
+        });
 
         username.getStyleClass().add("inpDefault");
         password.getStyleClass().add("inpDefault");
@@ -258,8 +262,8 @@ public class Login_Controller implements Initializable {
                         BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
-                    } else if (roles.get(ROLE_INDEX).equals("PR-Manager")) {
-                        BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
+                    } else if (roles.get(ROLE_INDEX).equals("PR Ansvarlig")) {
+                        PRres_Controller controller = fxmlLoader.<PRres_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     } else if (roles.get(ROLE_INDEX).equals("Servering")) {
@@ -267,6 +271,7 @@ public class Login_Controller implements Initializable {
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     }
+
                     stage.show();
                 });
                 lblRole.getStyleClass().add("btnNav");

@@ -118,7 +118,7 @@ public class Bookres_Controller implements Initializable {
         Label headerBookOffer = new Label("Booking tilbud");
         headerBookOffer.setId("headerScrollPane");
 
-        Label lblTime = new Label("Klokkeslett: (xx:xx-xx:xx)");
+        Label lblTime = new Label("Klokkeslett: (tt:mm-tt:mm)");
         TextField inpTime = new TextField();
         Label lblConcert = new Label("Konsert: ");
         TextField inpConcert = new TextField();
@@ -263,6 +263,7 @@ public class Bookres_Controller implements Initializable {
         }
         searchScrollPane = new ScrollPane();
         searchScrollPane.setContent(searchContents);
+
         container.getChildren().add(searchScrollPane);
     }
 
