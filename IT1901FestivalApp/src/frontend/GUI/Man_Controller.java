@@ -65,7 +65,6 @@ public class Man_Controller implements Initializable{
       getNumOffers();
     });
     List<String> bands = new ArrayList<>(manager.getBandNames());
-    bands.addAll(manager.getBandNames());
     VBox bandContainer = new VBox();
     bandContainer.setId("bandContainer");
     for (int i = 1; i < bands.size(); i++) {
@@ -110,12 +109,20 @@ public class Man_Controller implements Initializable{
     List<String> techNeeds = manager.getTechNeeds(bandName);
     for (int i = 0; i < techNeeds.size(); i++) {
       Label lblTechNeed = new Label(techNeeds.get(i));
-      lblTechNeed.getStyleClass().add("listItem" + ((i + 1) % 2));
-      lblTechNeed.setOnMouseClicked(event -> {
+      Label lblDel = new Label("X");
+      lblDel.setOnMouseClicked(event -> {
         manager.removeTechNeed(lblTechNeed.getText(), bandName);
         getTechnicalDetails(bandName);
       });
-      contents.getChildren().add(lblTechNeed);
+      lblDel.getStyleClass().add("underline");
+      AnchorPane techNeedContainer = new AnchorPane(lblTechNeed, lblDel);
+      techNeedContainer.getStyleClass().add("listItem" + ((i + 1) % 2));
+      techNeedContainer.setLeftAnchor(lblTechNeed, 14.0);
+      techNeedContainer.setTopAnchor(lblTechNeed, 0.0);
+      techNeedContainer.setRightAnchor(lblDel, 14.0);
+      techNeedContainer.setTopAnchor(lblDel, 0.0);
+
+      contents.getChildren().add(techNeedContainer);
     }
     scrollPane.setContent(contents);
     container.getChildren().add(scrollPane);
