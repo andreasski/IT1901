@@ -1,6 +1,8 @@
 package frontend.GUI;
 
 import backend.Login;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -187,6 +189,11 @@ public class Login_Controller implements Initializable {
         username.getStyleClass().add("textField");
         PasswordField password = new PasswordField(); /* Ditto */
         password.getStyleClass().add("textField");
+        password.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent args) {
+                handleLogin(login.checkLogin(username.getText(), password.getText()));
+            }
+        });
 
         username.getStyleClass().add("inpDefault");
         password.getStyleClass().add("inpDefault");
