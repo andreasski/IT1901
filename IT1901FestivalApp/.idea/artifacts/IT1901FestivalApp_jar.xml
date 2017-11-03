@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="IT1901FestivalApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/IT1901FestivalApp_jar</output-path>
+    <root id="archive" name="IT1901FestivalApp.jar">
+      <element id="module-output" name="IT1901FestivalApp" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../mysql-connector-java-5.1.44/mysql-connector-java-5.1.44-bin.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
