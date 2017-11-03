@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static oracle.jrockit.jfr.events.Bits.intValue;
+
 public class Serving {
 
     public Serving() { ConnectionManager.connect(); }
 
-    private String date;
+    //private String date;
+    private ArrayList<String> allDates = null;
+    private ArrayList<String> concerts = null;
     private ArrayList<String> time = null;
     private ArrayList<Integer> popularity = null;
     private HashMap<String, String> genre = new HashMap<>();
@@ -20,9 +24,9 @@ public class Serving {
     private String sales;
     private String expenses;
     private String earnings;
-    private HashMap<String, Double> estBooze = new HashMap<>();
+    private HashMap<String, Integer> estBooze = new HashMap<>();
 
-    public String getDate() { return date; }
+    //public String getDate() { return date; }
     public ArrayList<String> getTime() { return time; }
     public ArrayList<Integer> getPopularity() { return popularity; }
     public HashMap<String, String> getGenre() { return genre; }
@@ -32,7 +36,49 @@ public class Serving {
     public String getSales() { return sales; }
     public String getExpenses() { return expenses; }
     public String getEarnings() { return earnings; }
-    public HashMap<String, Double> getEstBooze() { return estBooze; }
+    public HashMap<String, Integer> getEstBooze() { return estBooze; }
+
+
+    public ArrayList<String> getAllDates() {
+
+        try{
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT date FROM concert;");
+
+            while (rs.next()) {
+                allDates.add(rs.getString("concert.date"));
+            }
+
+        } catch (Exception e) {
+            System.err.println("Got an exception1! ");
+            System.err.println(e.getMessage());
+        }
+
+        return allDates;
+    }
+
+
+    public ArrayList<String> getConcerts(String date) {
+
+        try{
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT concert.name FROM concert WHERE concert.date = '" + date + "';");
+
+            while (rs.next()) {
+                concerts.add(rs.getString("concert.name"));
+            }
+
+        } catch (Exception e) {
+            System.err.println("Got an exception2! ");
+            System.err.println(e.getMessage());
+        }
+        return concerts;
+    }
+
 
     public void getInfo(String concert) {
 
@@ -43,7 +89,7 @@ public class Serving {
             rs = stmt.executeQuery("SELECT date, time, capacity, popularity, band.name, genre.name FROM bookingoffer, stage, band, genre, genreband, concert WHERE concert.name = '" + concert + "' AND concert.idconcert = bookingoffer.concertid AND concert.stageid = stage.idstage AND bookingoffer.bandid = band.idBand AND band.idBand = genreband.bandid AND genreband.genreid = genre.idGenre;");
 
             while (rs.next()) {
-                date = rs.getString("bookingoffer.date");
+                //date = rs.getString("bookingoffer.date");
                 capacity = rs.getInt("stage.capacity");
                 String addTime = rs.getString("bookingoffer.time");
                 String addBand = rs.getString("band.name");
@@ -65,7 +111,7 @@ public class Serving {
             }
 
         } catch (Exception e) {
-            System.err.println("Got an exception1! ");
+            System.err.println("Got an exception3! ");
             System.err.println(e.getMessage());
         }
 
@@ -79,9 +125,11 @@ public class Serving {
 
     public void setEstBooze() {
 
-        estBooze.put("Øl", 0.75*estAudience);
-        estBooze.put("Vin", 0.2*estAudience);
-        estBooze.put("Mineralvann", 0.5*estAudience);
+        double
+
+        estBooze.put("Øl", intValue(0.75*estAudience));
+        estBooze.put("Vin", intValue(0.2*estAudience));
+        estBooze.put("Mineralvann", intValue(0.5*estAudience));
 
     }
 
