@@ -188,16 +188,16 @@ public class Bookres_Controller implements Initializable {
         Button btnAdd = new Button("Opprett tilbud");
         btnAdd.setOnAction(event -> {
             if (inpBand.getText().length() > 0 && inpConcert.getText().length() > 0) {
-                if (validateTime(inpTime.getText())) {
-                    if (validatePrice(inpPrice.getText())) {
-                        addRes.setText(BookingRes.addBookingOffer(inpTime.getText(), inpConcert.getText(), inpBand.getText(), Integer.parseInt(inpPrice.getText())));
-                    } else {
-                        addRes.setText("Pris må være et positivt heltall");
-                    }
+  //              if (validateTime(inpTime.getText())) {
+                if (validatePrice(inpPrice.getText())) {
+                    addRes.setText(BookingRes.addBookingOffer(inpTime.getText(), inpConcert.getText(), inpBand.getText(), Integer.parseInt(inpPrice.getText())));
                 } else {
-                    addRes.setText("Feil format på tid");
+                    addRes.setText("Pris må være et positivt heltall");
                 }
-            } else {
+             //else {
+               // addRes.setText("Feil format på tid");
+            //}
+        } else {
                 addRes.setText("Vennligst fyll inn alle feltene");
             }
 
@@ -231,7 +231,7 @@ public class Bookres_Controller implements Initializable {
         } return false;
     }
 
-    public boolean validateTime(String time) {
+/*    public boolean validateTime(String time) {
         String[] splitDash = time.split("-");
         if (splitDash.length != 2) { return false;}
         for (int i = 0; i < 2; i++) {
@@ -245,7 +245,7 @@ public class Bookres_Controller implements Initializable {
         int m2 = Integer.parseInt(splitDash[1].substring(3,5));
         return (h2 > h1) || (h2 == h1 && m2 > m1);
     }
-
+*/
     public void showSearchResult(String bandName) {
         searchContents.getChildren().clear();
         container.getChildren().clear();
