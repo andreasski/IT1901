@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.omg.CORBA.CODESET_INCOMPATIBLE;
 
 import javax.xml.soap.Text;
 import java.io.IOException;
@@ -33,8 +34,8 @@ public class Login_Controller implements Initializable {
     private Label loginText = new Label();
     private Label registerText = new Label();
     private ArrayList<String> roleId;
-    private final String[] fxmlRef = {"tec_landing", "bookres_landing", "man_landing", "arr_landing", "bob_landing", "prres_landing"};
-    private final String[] roleRef = {"Tekniker", "Booking ansvarlig", "Manager", "Arrangør", "Booking sjef", "PR manager"};
+    private final String[] fxmlRef = {"tec_landing", "bookres_landing", "man_landing", "arr_landing", "bob_landing", "prres_landing", "admin_landing"};
+    private final String[] roleRef = {"Tekniker", "Booking ansvarlig", "Manager", "Arrangør", "Booking sjef", "PR manager", "Admin"};
 
     public void handleLogin(boolean success) {
         if (success) {
@@ -240,6 +241,7 @@ public class Login_Controller implements Initializable {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     if (roles.get(ROLE_INDEX).equals("Tekniker")) {
                         Tec_Controller controller = fxmlLoader.<Tec_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
@@ -270,8 +272,11 @@ public class Login_Controller implements Initializable {
                         BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
+                    } else if (roles.get(ROLE_INDEX).equals("Admin")) {
+                        Adm_Controller controller = fxmlLoader.<Adm_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
                     }
-
                     stage.show();
                 });
                 lblRole.getStyleClass().add("btnNav");

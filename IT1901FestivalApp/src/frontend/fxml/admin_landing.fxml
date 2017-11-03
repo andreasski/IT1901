@@ -1,9 +1,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
-<BorderPane fx:id="body" fx:controller="frontend.GUI.Man_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/man.css">
+<BorderPane fx:id="body" fx:controller="frontend.GUI.Adm_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/admin.css">
 
     <top>
         <fx:include source="admin_header.fxml"/>
@@ -11,10 +9,7 @@
 
     <left>
         <VBox fx:id="aside" styleClass="margin">
-            <VBox fx:id="instructionBoxContainer">
-                <Label text="Godkjen eller avvis brukere i listen"/>
-            </VBox>
-            <Button fx:id="btnBookingOffers"/>
+            <Label fx:id="instructionBoxLabel" styleClass="textContainer" text="Godkjen eller avvis brukere i listen"/>
         </VBox>
     </left>
 
