@@ -60,7 +60,7 @@ public class Bookres {
   }
 
   public List<String> searchConcerts(String concert) {
-    List concerts = new ArrayList();
+    List<String> concerts = new ArrayList();
     try {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
@@ -273,26 +273,6 @@ public class Bookres {
     }
     return true;
   }
-
-
-  public boolean doesBandExist(String bandName) {
-    try {
-      Statement stmt = ConnectionManager.conn.createStatement();
-      ResultSet rs;
-      rs = stmt.executeQuery("SELECT name FROM band");
-      while (rs.next()) {
-        if (rs.getString("name").equals(bandName)) {
-          return true;
-        }
-      } return false;
-    }
-    catch (Exception e) {
-      System.err.println("Got an exceptionband! ");
-      System.err.println(e.getMessage());
-      return false;
-    }
-  }
-
   public static void main(String[]args){
     Bookres test = new Bookres();
     System.out.println(test.validateDateTime("10:05-10:30", "partykonsert"));

@@ -81,6 +81,47 @@ public class Organizer {
         } return dates;
     }
 
+    public static String addConcert(String concertName, String date, String stageName) {
+        try {
+            Statement stm = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+            String str1 = String.format("SELECT idstage FROM stage WHERE stage.name = '%s'", stageName);
+            rs = stm.executeQuery(str1);
+
+            int stageId;
+
+            if (!rs.next()) {
+                return "Scenen finnes ikke i databasen";
+            } else {
+                stageId = rs.getInt("idstage");
+            }
+
+            String str = String.format("Insert Into concert(name, date, stageid) Values ('%s', '%s', %d)", concertName, date, stageId);
+            stm.executeUpdate(str);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } return "Konsert opprettet";
+    }
+
+    public static List<String> getStage(String stage) {
+        List<String> stages = new ArrayList();
+        try {
+            Statement stmt = ConnectionManager.conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT name FROM stage WHERE name LIKE '%" + stage + "%'");
+            while (rs.next()) {
+                String name = rs.getString("name");
+                stages.add(name);
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception123! ");
+            System.err.println(e.getMessage());
+        }
+        return stages;
+    }
+
     /**
     List<String> getConcerts
     * @param: String date

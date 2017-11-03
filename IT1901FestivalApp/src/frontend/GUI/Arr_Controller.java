@@ -11,9 +11,13 @@ package frontend.GUI;
 import backend.Organizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.LightBase;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -34,6 +38,9 @@ public class Arr_Controller implements Initializable{
 
   @FXML
   private Label lvl1, lvl2, lvl3, Spacing_lvl1_lvl2, Spacing_lvl2_lvl3, instructionBoxLbl;
+
+  @FXML
+  private Button btnAddConc;
 
   //Constants
   private final String LANDING_INFO_TEXT            = "Klikk på en av datoene for å se oversikten over konserter på denne datoen";
@@ -182,12 +189,102 @@ public class Arr_Controller implements Initializable{
     container.getChildren().add(concertDetailsWrapper);
   }
 
+  public void navAddConc() {
+    resetContainer(1);
+    Spacing_lvl1_lvl2.setText(" > ");
+    lvl2.setText("Legg til konsert");
+    container.getChildren().clear();
+    Label headerAddConc = new Label("Legg til konsert");
+    headerAddConc.setId("headerScrollPane");
+
+    Label lblName = new Label("Navn: ");
+    TextField inpName = new TextField();
+    inpName.getStyleClass().add("inpField");
+    VBox nameCont = new VBox(lblName, inpName);
+    Label lblDate = new Label("Dato: (dd.mm.åååå)");
+    TextField inpDate = new TextField();
+    inpDate.getStyleClass().add("inpField");
+    VBox dateCont = new VBox(lblDate, inpDate);
+
+    Label lblStagee = new Label("Scene: ");
+    TextField inpStagee = new TextField();
+    inpName.getStyleClass().add("inpField");
+    VBox stageCont = new VBox(lblStagee, inpStagee);
+
+    Button btnAdd = new Button("Legg til");
+    Label lblFeedback = new Label();
+    Label lblStage = new Label("Søk etter en scene: ");
+    TextField inpStage = new TextField();
+    inpStage.getStyleClass().add("searchStage");
+    Button btnSearchStage = new Button("Søk");
+    btnSearchStage.getStyleClass().add("searchStage");
+    ScrollPane stageScrollPane = new ScrollPane();
+    stageScrollPane.getStyleClass().add("scrollPane");
+    VBox searchStage = new VBox(lblStage, inpStage, btnSearchStage, stageScrollPane);
+    btnSearchStage.setOnAction(event -> {
+      List<String> stages = Organizer.getStage(inpStage.getText());
+      if (stages.size() == 0) { stageScrollPane.setContent(new Label("Ingen treff"));}
+      VBox stagesContents = new VBox();
+      for (int i = 0; i < stages.size(); i++) {
+        Label stage = new Label(stages.get(i));
+        stage.getStyleClass().add("listItemStage" + ((i + 1) % 2));
+        stage.setOnMouseClicked(event1 -> inpStagee.setText(stage.getText()));
+        stagesContents.getChildren().add(stage);
+      }
+      stageScrollPane.setContent(stagesContents);
+    });
+    btnAdd.setOnAction(event -> {
+      if (!validateDate(inpDate.getText())) {
+        lblFeedback.setText("Vennligst fyll inn en gyldig dato");
+      } else {
+        lblFeedback.setText(Organizer.addConcert(inpName.getText(), inpDate.getText(), inpStagee.getText()));
+      }
+    });
+    AnchorPane addConcContents = new AnchorPane(nameCont, dateCont, stageCont, searchStage, btnAdd, lblFeedback);
+    addConcContents.setId("concertDetailsWrapper");
+    addConcContents.getStyleClass().add("margin");
+    addConcContents.setLeftAnchor(nameCont, 14.0);
+    addConcContents.setTopAnchor(nameCont, 14.0);
+    addConcContents.setLeftAnchor(dateCont, 14.0);
+    addConcContents.setTopAnchor(dateCont, 58.0);
+    addConcContents.setLeftAnchor(stageCont, 14.0);
+    addConcContents.setTopAnchor(stageCont, 102.0);
+    addConcContents.setLeftAnchor(btnAdd, 14.0);
+    addConcContents.setTopAnchor(btnAdd, 146.0);
+    addConcContents.setLeftAnchor(lblFeedback, 14.0);
+    addConcContents.setTopAnchor(lblFeedback, 182.0);
+    addConcContents.setBottomAnchor(lblFeedback, 14.0);
+    addConcContents.setRightAnchor(searchStage, 14.0);
+    addConcContents.setTopAnchor(searchStage, 14.0);
+    container.getChildren().addAll(headerAddConc, addConcContents);
+  }
+
+  private int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  public boolean validateDate(String date) {
+    String[] ddmmyyyy = date.split("\\.");
+    if (ddmmyyyy.length != 3 || ddmmyyyy[0].length() != 2 || ddmmyyyy[1].length() != 2 || ddmmyyyy[2].length() != 4) { return false;}
+    for (int i = 0; i < ddmmyyyy.length; i++) {
+      for (int j = 0; j < ddmmyyyy[i].length(); j++) { if (!Character.isDigit(ddmmyyyy[i].charAt(j))) { return false;}}
+    }
+    int day = (ddmmyyyy[0].charAt(0) == 0) ? ddmmyyyy[0].charAt(0) : Integer.parseInt(ddmmyyyy[0]);
+    int month = (ddmmyyyy[1].charAt(0) == 0) ? ddmmyyyy[1].charAt(0) : Integer.parseInt(ddmmyyyy[1]);
+    int yS = -1;
+    for (int i = 0; i < ddmmyyyy[2].length(); i++) { if (yS == -1 && ddmmyyyy[2].charAt(i) != 0) { yS = i;}}
+    int year = (yS == -1) ? 0 : Integer.parseInt(ddmmyyyy[2].substring(yS, 4)) ;
+    if (month < 1 || month > 12) { return false;}
+    else if ((day < 1 || day > days[month - 1])) {
+      return day == 29 && month == 2 && ((year % 400 == 0 || year % 4 == 0) && !(year % 100 == 0));
+    } return true;
+  }
+
   //Method runs when fxml is loaded
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     Organizer.init();
     lvl1.setOnMouseClicked(event -> navLanding());
     lvl2.setOnMouseClicked(event -> navConcerts(Organizer.getConcerts(dateSave), dateSave));
+    btnAddConc.setOnMouseClicked(event -> navAddConc());
     navLanding();
   }
 }

@@ -147,4 +147,32 @@
 .scrollPane {
     -fx-min-height: 0;
 }
+
+.inpField {
+    -fx-max-width: 200px;
+}
+
+#btnAddConc {
+    -fx-min-width: 224px;
+}
+.searchStage {
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+}
+
+.listItemStage1 {
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 0.15em;
+    -fx-min-width: 200px;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+}
+
+.listItemStage0 {
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 0.15em;
+    -fx-min-width: 200px;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+}
 /*--- CONTENTS ---*/
