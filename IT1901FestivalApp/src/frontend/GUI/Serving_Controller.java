@@ -9,16 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
+import java.util.*;
 
 
 public class Serving_Controller implements Initializable {
 
     @FXML
     private VBox container;
-    private ComboBox<String> comboBoxDates;
+    private ComboBox<String> comboBoxDates = null;
     private ObservableList<String> allDates = FXCollections.observableArrayList();
     private Serving serving;
     private ArrayList<String> concerts = null;
@@ -35,16 +34,77 @@ public class Serving_Controller implements Initializable {
     }
 
 
-    public navInfo(String concert) {
+    public void navInfo(String concert) {
+
+        container.getChildren().clear();
 
         serving.getInfo(concert);
 
         ArrayList<String> times = serving.getTime();
-        HashMap<String, String> genre = serving.getGenre();
+        HashMap<String, ArrayList<String>> genre = serving.getGenre();
         int capacity = serving.getCapacity();
         int estAudience = serving.getEstAudience();
         HashMap<String, Integer> estBooze = serving.getEstBooze();
 
+        String textTitle = "Informasjon om " + concert + ":";
+        String textTime = "Konserten foregår i tidsrommet: ";
+        String textGenre = "Her spiller ";
+        String textCapacity = "Scenen har plass til: " + capacity + " mennesker.";
+        String textBooze = "På konserten regnes det med å drikkes: ";
+
+        for (int i = 0; i < times.size(); i++) {
+            textTime += times.get(i);
+            if (i == (times.size() - 1)) {
+                textTime += ".";
+            }
+            else if (i == (times.size() - 2)) {
+                textTime += " og ";
+            }
+            else {
+                textTime += ", ";
+            }
+        }
+
+        Set<String> keySet = genre.keySet();
+
+        for (Iterator<String> it = keySet.iterator(); it.hasNext();) {
+
+            String band = it.next(); // it.next gir key verdi
+            ArrayList<String> y = genre.get(band);
+            textGenre += band + " som spiller innenfor sjanger ";
+
+            for (int j = 0; j < y.size(); j++) {
+                textGenre += y.get(j);
+
+                if (j == ((y.size()) - 2)) {
+                    textGenre += " og ";
+                } else if (j < (y.size() - 2)) {
+                    textGenre += ", ";
+                }
+            }
+            textGenre += ".";
+            if (it.hasNext()) {
+                textGenre += " ";
+            }
+        }
+
+        String olEst = Integer.toString(estBooze.get("Øl"));
+        String vinEst = Integer.toString(estBooze.get("Vin"));
+        String mineralEst = Integer.toString(estBooze.get("Mineralvann"));
+
+        textBooze += "Øl: " + olEst + "L    Vin: " + vinEst + "L    Mineralvann" + mineralEst + "L.";
+
+        Label title = new Label(textTitle);
+        Label showTime = new Label(textTime);
+        Label showGenre = new Label(textGenre);
+        Label showCapacity = new Label(textCapacity);
+        Label showBooze = new Label(textBooze);
+
+        Button back = new Button("Tilbake");
+
+        container.getChildren().addAll(title, showTime, showGenre, showCapacity, showBooze, back);
+
+        back.setOnMouseClicked(event -> navServing());
     }
 
 
@@ -74,6 +134,8 @@ public class Serving_Controller implements Initializable {
             };
         });*/
 
+        container.getChildren().addAll(dato, comboBoxDates);
+
         comboBoxDates.setOnAction((event) -> {
             String date = comboBoxDates.getSelectionModel().getSelectedItem();
             handleConcerts(date);
@@ -93,10 +155,10 @@ public class Serving_Controller implements Initializable {
         });*/
 
         for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).setOnAction((event) -> {
-                navInfo(concerts.get(i));
-            });
+            String concert = concerts.get(i);
+            buttons.get(i).setOnAction(event -> navInfo(concert));
         }
+
 
     }
 

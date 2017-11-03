@@ -17,7 +17,7 @@ public class Serving {
     private ArrayList<String> concerts = null;
     private ArrayList<String> time = null;
     private ArrayList<Integer> popularity = null;
-    private HashMap<String, String> genre = new HashMap<>();
+    private HashMap<String, ArrayList<String>> genre = new HashMap<>();
     private int estAudience;
     private int capacity;
     private String price;
@@ -29,7 +29,7 @@ public class Serving {
     //public String getDate() { return date; }
     public ArrayList<String> getTime() { return time; }
     public ArrayList<Integer> getPopularity() { return popularity; }
-    public HashMap<String, String> getGenre() { return genre; }
+    public HashMap<String, ArrayList<String>> getGenre() { return genre; }
     public int getEstAudience() { return estAudience; }
     public int getCapacity() { return capacity; }
     public String getPrice() { return price; }
@@ -86,16 +86,22 @@ public class Serving {
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT date, time, capacity, popularity, band.name, genre.name FROM bookingoffer, stage, band, genre, genreband, concert WHERE concert.name = '" + concert + "' AND concert.idconcert = bookingoffer.concertid AND concert.stageid = stage.idstage AND bookingoffer.bandid = band.idBand AND band.idBand = genreband.bandid AND genreband.genreid = genre.idGenre;");
+            rs = stmt.executeQuery("SELECT date, time, capacity, popularity, band.name, genre.name FROM bookingoffer, stage, band, genre, genreband, concert WHERE concert.name = '" + concert + "' AND concert.idconcert = bookingoffer.concertid AND concert.stageid = stage.idstage AND bookingoffer.bandid = band.idBand AND band.idBand = genreband.bandid AND genreband.genreid = genre.idGenre ORDER BY time;");
 
             while (rs.next()) {
                 //date = rs.getString("bookingoffer.date");
                 capacity = rs.getInt("stage.capacity");
                 String addTime = rs.getString("bookingoffer.time");
-                String addBand = rs.getString("band.name");
+                String addBand1 = rs.getString("band.name");
                 String addGenre = rs.getString("genre.name");
-                genre.put(addBand, addGenre);
                 int addPopularity = rs.getInt("band.popularity");
+
+                if (genre.containsKey(addBand1)) {
+                    genre.get(addBand1).add(addGenre);
+                } else {
+                    genre.put(addBand1, new ArrayList<>());
+                    genre.get(addBand1).add(addGenre);
+                }
 
                 if (time != null && !time.isEmpty()) {
                     String lastTime = time.get(time.size() - 1);
@@ -125,11 +131,13 @@ public class Serving {
 
     public void setEstBooze() {
 
-        double
+        double olEst = 0.75*estAudience;
+        double vinEst = 0.2*estAudience;
+        double mineralEst = 0.5*estAudience;
 
-        estBooze.put("Øl", intValue(0.75*estAudience));
-        estBooze.put("Vin", intValue(0.2*estAudience));
-        estBooze.put("Mineralvann", intValue(0.5*estAudience));
+        estBooze.put("Øl", (int) olEst);
+        estBooze.put("Vin", (int) vinEst);
+        estBooze.put("Mineralvann", (int) mineralEst);
 
     }
 
