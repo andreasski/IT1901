@@ -158,6 +158,8 @@ public class Login_Controller implements Initializable {
         CheckBox manager = new CheckBox("Manager");
         CheckBox organizer = new CheckBox("Arrangør");
         CheckBox bookerMan = new CheckBox("Bookingsjef");
+        CheckBox pr = new CheckBox("PR-Manager");
+        CheckBox serving = new CheckBox("Servering");
 
         List<CheckBox> checkBoxes = new ArrayList<>();
         checkBoxes.add(tech);
@@ -165,9 +167,11 @@ public class Login_Controller implements Initializable {
         checkBoxes.add(manager);
         checkBoxes.add(organizer);
         checkBoxes.add(bookerMan);
+        checkBoxes.add(pr);
+        checkBoxes.add(serving);
 
         VBox inpContainer = new VBox(name, usernameNav, pwd, passwordNav, rptpwd, repeatPasswordNav, lblMail, inpMail, lblPhone, inpPhone);
-        VBox rolesContainer = new VBox(roles, tech, booker, manager, organizer, bookerMan);
+        VBox rolesContainer = new VBox(roles, tech, booker, manager, organizer, bookerMan, pr);
         rolesContainer.getStyleClass().add("margin");
         HBox regInfContainer = new HBox(inpContainer, rolesContainer);
         HBox btnContainer = new HBox(register, btnLogin);
@@ -251,6 +255,14 @@ public class Login_Controller implements Initializable {
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     } else if (roles.get(ROLE_INDEX).equals("Booking sjef")) {
+                        BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                    } else if (roles.get(ROLE_INDEX).equals("PR-Manager")) {
+                        BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                    } else if (roles.get(ROLE_INDEX).equals("Servering")) {
                         BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
