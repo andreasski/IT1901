@@ -37,12 +37,12 @@ public class Login_Controller implements Initializable {
     private final String[] fxmlRef = {"tec_landing", "bookres_landing", "man_landing", "arr_landing", "bob_landing", "prres_landing", "admin_landing"};
     private final String[] roleRef = {"Tekniker", "Booking ansvarlig", "Manager", "Arrangør", "Booking sjef", "PR manager", "Admin"};
 
-    public void handleLogin(boolean success) {
-        if (success) {
+    public void handleLogin(String response) {
+        if (response.equals("")) {
             navNav();
         } else {
             loginText.getStyleClass().add("red");
-            loginText.setText("Feil brukernavn og/eller passord, vennligst prøv igjen");
+            loginText.setText(response);
         }
     }
 
