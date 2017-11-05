@@ -62,9 +62,6 @@ public class Login {
                 String dbName = rs.getString("person.name");
                 String dbPassword = rs.getString("person.password");
                 if (dbName.equals(name) && dbPassword.equals(password)) {
-                    System.out.println(dbName + " v " + name);
-                    System.out.println(dbPassword+ " v " + password);
-                    System.out.println("What");
                     username = dbName;
                     pwd = dbPassword;
                     personId = rs.getString("person.idPerson");

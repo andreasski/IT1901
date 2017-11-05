@@ -115,12 +115,12 @@ public class Manager {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
-            String str = String.format("SELECT bookingoffer.idbookingoffer, band.name AS bname, concert.name AS cname, stage.name AS sname, concert.date, bookingoffer.time, bookingoffer.accepted FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert on concert.idconcert = bookingoffer.concertid INNER JOIN stage on stage.idstage = concert.stageid WHERE band.managerid = %d AND bookingoffer.accepted = 1",
+            String str = String.format("SELECT bookingoffer.idbookingoffer, band.name AS bname, concert.name AS cname, stage.name AS sname, concert.date, bookingoffer.time, bookingoffer.accepted, bookingoffer.expense FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert on concert.idconcert = bookingoffer.concertid INNER JOIN stage on stage.idstage = concert.stageid WHERE band.managerid = %d AND bookingoffer.accepted = 1",
                     userId);
             rs = stm.executeQuery(str);
 
             while (rs.next()) {
-                String strm = String.format("%s;%s;%s;%s;%s;%s;%s", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
+                String strm = String.format("%s;%s;%s;%s;%s;%s;%s%s", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"), rs.getString("expense"));
                 ls.add(strm);
             }
         } catch (Exception e) {
@@ -161,7 +161,9 @@ public class Manager {
             bands.clear();
             String str = String.format("SELECT * FROM band WHERE band.managerid = %d", userId);
             rs = stm.executeQuery(str);
+            System.out.println("What");
             while (rs.next()) {
+                System.out.println(rs.getString("name"));
                 bands.put(rs.getString("name"), rs.getInt("idBand"));
             }
         } catch (Exception e) {

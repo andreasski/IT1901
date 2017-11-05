@@ -8,6 +8,7 @@ package frontend.GUI;
  * @since   26.09.2017
  */
 
+import backend.Manager;
 import backend.Organizer;
 import backend.Technician;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +70,8 @@ public class Man_Controller implements Initializable{
     List<String> bands = new ArrayList<>(manager.getBandNames());
     VBox bandContainer = new VBox();
     bandContainer.setId("bandContainer");
-    for (int i = 1; i < bands.size(); i++) {
+    for (int i = 0; i < bands.size(); i++) {
+      System.out.println(bands.get(i));
       Label lblBand = new Label(bands.get(i));
       lblBand.getStyleClass().add("listItemAside" + i % 2);
       lblBand.setOnMouseClicked(event -> getTechnicalDetails(lblBand.getText()));
@@ -145,6 +149,7 @@ public class Man_Controller implements Initializable{
       Label stageName = new Label("Scene : " + offerDetails[3]);
       Label concertDate = new Label("Dato: " + offerDetails[4]);
       Label concertTime = new Label("Klokken: " + offerDetails[5]);
+      Label concertExpense = new Label("Betaling: " + offerDetails[6] + ",-");
       Button btnAccept = new Button("Godkjenn");
       Button btnDecline = new Button("Avvis");
       btnAccept.getStyleClass().add("btnOffer");
@@ -154,22 +159,24 @@ public class Man_Controller implements Initializable{
         getNumOffers();
         getBookingOffers();
       });
-      btnAccept.setOnMouseClicked(event -> {
+      btnDecline.setOnMouseClicked(event -> {
         manager.updateOffer(Integer.parseInt(offerContainer.getId()), -1);
         getNumOffers();
         getBookingOffers();
       });
-      offerContainer.getChildren().addAll(bandName, concertName, stageName, concertDate, concertTime, btnAccept, btnDecline);
+      offerContainer.getChildren().addAll(bandName, concertName, stageName, concertDate, concertTime, concertExpense, btnAccept, btnDecline);
       offerContainer.setLeftAnchor(bandName, 14.0);
       offerContainer.setTopAnchor(bandName, 18.0);
       offerContainer.setLeftAnchor(concertName, 14.0);
       offerContainer.setTopAnchor(concertName, 0.0);
       offerContainer.setTopAnchor(stageName, 18.0);
       offerContainer.setRightAnchor(stageName, 14.0);
-      offerContainer.setRightAnchor(concertDate, 200.0);
+      offerContainer.setLeftAnchor(concertDate, 200.0);
       offerContainer.setTopAnchor(concertDate, 0.0);
       offerContainer.setRightAnchor(concertTime, 14.0);
       offerContainer.setTopAnchor(concertTime, 0.0);
+      offerContainer.setLeftAnchor(concertExpense, 200.0);
+      offerContainer.setTopAnchor(concertExpense, 18.0);
       offerContainer.setTopAnchor(btnAccept, 42.0);
       offerContainer.setLeftAnchor(btnAccept, 0.0);
       offerContainer.setTopAnchor(btnDecline, 42.0);
@@ -189,7 +196,7 @@ public class Man_Controller implements Initializable{
 
   public void init(int id) {
     setManId(id);
-    manager = new backend.Manager(manId);
+    manager = new Manager(id);
     getNumOffers();
     navLanding();
   }
