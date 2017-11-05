@@ -161,9 +161,7 @@ public class Manager {
             bands.clear();
             String str = String.format("SELECT * FROM band WHERE band.managerid = %d", userId);
             rs = stm.executeQuery(str);
-            System.out.println("What");
             while (rs.next()) {
-                System.out.println(rs.getString("name"));
                 bands.put(rs.getString("name"), rs.getInt("idBand"));
             }
         } catch (Exception e) {
