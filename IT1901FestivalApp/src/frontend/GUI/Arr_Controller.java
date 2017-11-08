@@ -33,7 +33,7 @@ public class Arr_Controller implements Initializable{
   private String dateSave = "00.00.0000";
   private Label headerScrollPane;
 
-  //FXML referances
+  //FXML references
   @FXML
   private VBox container;
 

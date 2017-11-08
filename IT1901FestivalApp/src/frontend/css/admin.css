@@ -17,13 +17,6 @@
 .spacing {
     -fx-min-height: 14px;
 }
-/*--- GENERAL ---*/
-
-
-#instructionBoxLabel {
-    -fx-max-width: 250px;
-    -fx-wrap-text: true;
-}
 
 .listItem1{
     -fx-background-color: #E6E6E6;
@@ -37,7 +30,6 @@
     -fx-max-width: 500px;
 }
 
-
 #headerScrollPane{
     -fx-border-width: 1px;
     -fx-border-color: #999999;
@@ -47,13 +39,17 @@
     -fx-alignment: center;
 }
 
+#instructionBoxLabel {
+    -fx-max-width: 250px;
+    -fx-wrap-text: true;
+}
 
 #scrollPane {
     -fx-min-height: 0px;
     -fx-max-width: 500px;
     -fx-min-width: 500px;
 }
-
+/*--- GENERAL ---*/
 
 .btnHandleUser {
     -fx-min-width: 250px;

@@ -1,5 +1,4 @@
 package frontend.GUI;
-
 import backend.Admin;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,17 +7,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import java.net.URL;
 import java.util.*;
 
 public class Adm_Controller implements Initializable{
 
+  //Global variables
   Admin admin = new Admin();
 
+  //FXML references
   @FXML
   VBox container;
 
+  /**
+   * Generates and shows the fxml for the landing page of admin. Is called on load
+   */
   public void navLanding() {
     container.getChildren().clear();
     Map<String, List<String>> users = admin.getUsers();
@@ -58,7 +61,6 @@ public class Adm_Controller implements Initializable{
       userContainer.setTopAnchor(btnReject, 60.0);
       userContainer.getStyleClass().add("listItem" + ((i + 1) % 2));
       contents.getChildren().add(userContainer);
-
     }
     ScrollPane scrollPane = new ScrollPane(contents);
     scrollPane.setId("scrollPane");
@@ -66,6 +68,11 @@ public class Adm_Controller implements Initializable{
     container.getChildren().addAll(lblHeader, scrollPane);
   }
 
+  /**
+   * Method is called once the FXML is loaded. Calls navLanding()
+   * @param location
+   * @param resources
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     navLanding();
