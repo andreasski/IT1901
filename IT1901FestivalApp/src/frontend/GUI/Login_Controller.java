@@ -27,13 +27,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Login_Controller implements Initializable {
-
+    //FXML references
     @FXML
     private VBox container;
+
+    //Global variables
     private Login login;
     private Label loginText = new Label();
     private Label registerText = new Label();
     private ArrayList<String> roleId;
+
+    //Constants
     private final String[] fxmlRef = {"tec_landing", "bookres_landing", "man_landing", "arr_landing", "bob_landing", "PRres_landing", "admin_landing"};
     private final String[] roleRef = {"Tekniker", "Booking ansvarlig", "Manager", "Arrangør", "Booking sjef", "PR manager", "Admin"};
 
@@ -46,6 +50,15 @@ public class Login_Controller implements Initializable {
         }
     }
 
+    /**
+     * Frontend validation(rip) of userinput. Registers user if input is valid
+     * @param username
+     * @param password
+     * @param repeatPassword
+     * @param mail
+     * @param phone
+     * @param checkBoxes list of fxml checkboxes with roles
+     */
     public void checkRegister(TextField username, PasswordField password, PasswordField repeatPassword, String mail, String phone, List<CheckBox> checkBoxes){
         roleId = new ArrayList<>();
         for (int i = 0; i < checkBoxes.size(); i++) {
@@ -73,6 +86,11 @@ public class Login_Controller implements Initializable {
         }
     }
 
+    /**
+     * Method checks if a phone number consists of eight integers
+     * @param number userinput number
+     * @return true if valid, false otherwise
+     */
     public static boolean validatePhone(String number) {
         if (number.length() == 8) {
             for (int i = 0; i < number.length(); i++) {
@@ -83,6 +101,11 @@ public class Login_Controller implements Initializable {
         } return false;
     }
 
+    /**
+     * Method checks if mail is on format xxxx123@xxxx. ... .xx. ie, ola96Nordman@stud.ntnu.no
+     * @param mail userinput mail
+     * @return true if mail is valid, false otherwise
+     */
     public static boolean validateMail(String mail) {
         String[] splitAt = mail.split("@");
         String[] splitDot;
@@ -107,21 +130,22 @@ public class Login_Controller implements Initializable {
             }
         } else {
             return false;
-        }
-        return true;
+        }   return true;
     }
 
     public void handleRegister(boolean reg) {
         if (reg) {
             roleId = login.getRoleId();
             navLogin();
-        }
-        else {
+        } else {
             registerText.getStyleClass().add("red");
             registerText.setText("Brukernavnet er allerede i bruk, vennligst velg et annet brukernavn:");
         }
     }
 
+    /**
+     * Navigates to the registration screen
+     */
     public void navRegister() {
         container.getChildren().clear();
         registerText.setText("Skriv inn nytt brukernavn, passord og hvilke(n) rolle(r) du har:");
@@ -129,30 +153,24 @@ public class Login_Controller implements Initializable {
         Label pwd = new Label("Passord:");
         Label rptpwd = new Label("Gjenta passord:");
         Label roles = new Label("Roller:");
-
         TextField usernameNav = new TextField();
         usernameNav.getStyleClass().add("textField");
         PasswordField passwordNav = new PasswordField();
         passwordNav.getStyleClass().add("textField");
         PasswordField repeatPasswordNav = new PasswordField();
         repeatPasswordNav.getStyleClass().add("textField");
-
         usernameNav.getStyleClass().add("inpDefault");
         passwordNav.getStyleClass().add("inpDefault");
         repeatPasswordNav.getStyleClass().add("inpDefault");
-
         Label lblMail = new Label("Epost: ");
         TextField inpMail = new TextField();
         Label lblPhone = new Label("Telefon: ");
         TextField inpPhone = new TextField();
-
         inpMail.getStyleClass().addAll("textField", "inpDefault");
         inpPhone.getStyleClass().addAll("textField", "inpDefault");
-
         Button register = new Button("Registrer deg");
         Button btnLogin = new Button("Tilbake til logg inn");
         btnLogin.setOnAction(event -> navLogin());
-
         CheckBox tech = new CheckBox("Tekniker");
         CheckBox booker = new CheckBox("Bookingansvarlig");
         CheckBox manager = new CheckBox("Manager");
@@ -160,7 +178,6 @@ public class Login_Controller implements Initializable {
         CheckBox bookerMan = new CheckBox("Bookingsjef");
         CheckBox pr = new CheckBox("PR Ansvarlig");
         CheckBox serving = new CheckBox("Servering");
-
         List<CheckBox> checkBoxes = new ArrayList<>();
         checkBoxes.add(tech);
         checkBoxes.add(booker);
@@ -169,25 +186,23 @@ public class Login_Controller implements Initializable {
         checkBoxes.add(bookerMan);
         checkBoxes.add(pr);
         checkBoxes.add(serving);
-
         VBox inpContainer = new VBox(name, usernameNav, pwd, passwordNav, rptpwd, repeatPasswordNav, lblMail, inpMail, lblPhone, inpPhone);
         VBox rolesContainer = new VBox(roles, tech, booker, manager, organizer, bookerMan, pr);
         rolesContainer.getStyleClass().add("margin");
         HBox regInfContainer = new HBox(inpContainer, rolesContainer);
         HBox btnContainer = new HBox(register, btnLogin);
-
         container.getChildren().addAll(registerText, regInfContainer, btnContainer);
-
         register.setOnMouseClicked(event -> checkRegister(usernameNav, passwordNav, repeatPasswordNav, inpMail.getText(), inpPhone.getText(), checkBoxes));
     }
 
+    /**
+     * Navigates to the login screen
+     */
     public void navLogin() {
         container.getChildren().clear();
-
         loginText.setText("Vennligst skriv inn brukernavn og passord:");
         Label name = new Label("Brukernavn:");
         Label pwd = new Label("Passord:");
-
         TextField username = new TextField(); /* Lager tekstfelt */
         username.getStyleClass().add("textField");
         PasswordField password = new PasswordField(); /* Ditto */
@@ -197,24 +212,22 @@ public class Login_Controller implements Initializable {
                 handleLogin(login.checkLogin(username.getText(), password.getText()));
             }
         });
-
         username.getStyleClass().add("inpDefault");
         password.getStyleClass().add("inpDefault");
-
         Button logIn = new Button("Logg inn"); /* Laget knapp, Logg inn */
         Button register = new Button("Registrer deg"); /* Skal sende deg til en side for registrering */
-
         HBox buttons = new HBox();
         buttons.getChildren().addAll(logIn, register);
-
         container.setPadding(new Insets(15, 12, 15, 12));
         container.setSpacing(5);
         container.getChildren().addAll(loginText, name, username, pwd, password, buttons);
-
         register.setOnMouseClicked(event -> navRegister());
         logIn.setOnMouseClicked(event -> handleLogin(login.checkLogin(username.getText(), password.getText())));
     }
 
+    /**
+     * Shows user a navigation hub with the users roles.
+     */
     public void navNav() {
         container.getChildren().clear();
         Map<String, String> fxmlRoleRef = new HashMap<>();
@@ -282,14 +295,13 @@ public class Login_Controller implements Initializable {
                 lblRole.setAlignment(Pos.CENTER);
                 container.getChildren().add(lblRole);
             }
-
         }
     }
 
-    @java.lang.Override
+    //Loads contents after FXML is loaded
+    @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         login = new Login();
         navLogin();
-
     }
 }

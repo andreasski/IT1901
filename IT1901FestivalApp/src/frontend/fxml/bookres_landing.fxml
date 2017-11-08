@@ -18,7 +18,7 @@
                 <Label fx:id="lvl2" styleClass="underline" text=""/>
             </HBox>
             <VBox styleClass="margin">
-                <Label fx:id="instructionBoxLabel" styleClass="textContainer" text="Søk etter et band i databasen for å se informasjon om dette bandet, i tillegg til en oversikt over tidligere konserter og tekniske behov. Du kan også søke etter konserter innen en sjanger"/>
+                <Label fx:id="instructionBoxLabel" styleClass="textContainer" text="Søk etter et band i databasen for å se informasjon om dette bandet, i tillegg til en oversikt over tidligere konserter og tekniske behov. Du kan også søke etter konserter innen en sjanger eller opprette nye booking tilbud"/>
             </VBox>
             <VBox styleClass="leftMargin">
                 <Button fx:id="btnBookingOffer" text="Opprett booking tilbud"/>

@@ -33,9 +33,9 @@ import java.util.ResourceBundle;
 public class Man_Controller implements Initializable{
 
   //CONSTANTS
-  private final String INSTRUCTION_LABEL = "Velg et av bandene i listen. Du kan så legge til eller fjerne tekniske behov.";
+  private final String INSTRUCTION_LABEL = "Velg et av bandene i listen for å legge til eller fjerne tekniske behov. Behandle nye tilbud ved å trykke på knappen";
 
-
+  //FXML references
   @FXML
   private VBox instructionBoxContainer;
 
@@ -48,10 +48,15 @@ public class Man_Controller implements Initializable{
   @FXML
   private Button btnBookingOffers;
 
+  //Global variables
   private backend.Manager manager;
   private VBox contents = new VBox();
   private int manId;
 
+  /**
+   * Setter manid
+   * @param id user id
+   */
   public void setManId(int id) {
     manId = id;
   }
@@ -85,6 +90,10 @@ public class Man_Controller implements Initializable{
     bandsScrollPane.setContent(bandContainer);
   }
 
+  /**
+   * Shows the user the technical details of the selected band
+   * @param bandName band name
+   */
   public void getTechnicalDetails (String bandName) {
     container.getChildren().clear();
     contents.getChildren().clear();
@@ -125,13 +134,15 @@ public class Man_Controller implements Initializable{
       techNeedContainer.setTopAnchor(lblTechNeed, 0.0);
       techNeedContainer.setRightAnchor(lblDel, 14.0);
       techNeedContainer.setTopAnchor(lblDel, 0.0);
-
       contents.getChildren().add(techNeedContainer);
     }
     scrollPane.setContent(contents);
     container.getChildren().add(scrollPane);
   }
 
+  /**
+   * Shows user pending booking offers
+   */
   public void getBookingOffers() {
     container.getChildren().clear();
     contents.getChildren().clear();
@@ -190,10 +201,17 @@ public class Man_Controller implements Initializable{
     container.getChildren().add(scrollPane);
   }
 
+  /**
+   * Updates label on btn with nmb of current pending offers
+   */
   public void getNumOffers() {
     btnBookingOffers.setText("Nye booking tilbud: " + manager.getOffers().size());
   }
 
+  /**
+   * Initializes the Manager with the user id id
+   * @param id user id
+   */
   public void init(int id) {
     setManId(id);
     manager = new Manager(id);

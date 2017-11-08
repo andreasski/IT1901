@@ -15,16 +15,11 @@
 }
 /*--- GENERAL ---*/
 
-/*--- INSTRUCTION_BOX ---*/
 #instructionBoxLabel {
     -fx-max-width: 250px;
     -fx-wrap-text: true;
 }
-/*--- INSTRUCTION_BOX ---*/
 
-/*--- CONTENTS ---*/
-
-//Dates
 #scrollPane {
     -fx-max-width: 500px;
     -fx-min-height: 0;
@@ -57,4 +52,3 @@
     -fx-padding: 0.2em 0 0.2em 1em;
     -fx-min-width: 500px;
 }
-/*--- CONTENTS ---*/

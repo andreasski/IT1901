@@ -26,16 +26,22 @@ public class Tec_Controller implements Initializable{
   private final double LEFT_ANCHOR_WORK   = 10.0;
   private final double RIGHT_ANCHOR_WORK  = 50.0;
 
+  //FXML references
   @FXML
   private VBox container;
 
   @FXML
   private VBox aside;
 
+  //Global variables
   private int techId;
   private ScrollPane workScrollPane = new ScrollPane();
   private VBox contents = new VBox();
 
+  /**
+   * Sets the tech id
+   * @param id user id
+   */
   public void setTechId(int id) {
     techId = id;
   }
@@ -44,7 +50,7 @@ public class Tec_Controller implements Initializable{
    * The method creates fxml content based on external information that is collected with the method getWork(int id)
    * getWork(int id) is from an external class Tec_connector. The id is passed when logging in(running navLanding)
    * and is used to get the correct data for the user in getWork(int id)
-   * @param id
+   * @param id techid
    */
   public void navLanding(int id) {
     Technician.init();
@@ -83,6 +89,10 @@ public class Tec_Controller implements Initializable{
     workScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     container.getChildren().add(workScrollPane);
   }
+
+  /** Sets tech id and navigates to landing page
+   * @param id user id
+   */
 
   public void init(int id) {
     setTechId(id);
