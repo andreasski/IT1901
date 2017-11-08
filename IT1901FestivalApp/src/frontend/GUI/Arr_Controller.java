@@ -27,12 +27,13 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class Arr_Controller implements Initializable{
-
+  //Global variables
   private VBox contents = new VBox();
   private ScrollPane scrollPane;
   private String dateSave = "00.00.0000";
   private Label headerScrollPane;
 
+  //FXML referances
   @FXML
   private VBox container;
 
@@ -117,7 +118,7 @@ public class Arr_Controller implements Initializable{
   }
 
   /**
-   * Loads data for "concertDetails" from an external source, using an external class Arr_connector
+   * Loads data for "concertDetails" from an external source, using an external class Organizer
    * The data is stored in the ArrayList<String> dates variable with the method getTechnicians(String date, String band, String time)
    * * The method then adds the data in fxml form to the container
    */
@@ -126,11 +127,9 @@ public class Arr_Controller implements Initializable{
     Spacing_lvl1_lvl2.setText(" > ");
     Spacing_lvl2_lvl3.setText(" > ");
     List<String> technicians = Organizer.getTechnicians(concertName);
-
     Label lblStage = new Label("Scene: " + stage);
     Label lblConcert = new Label("Konsert: " + concertName);
     Label lblDate = new Label(date);
-
     for (int i = 0; i < technicians.size(); i++) {
       Label technichianLabel = new Label(technicians.get(i));
       technichianLabel.getStyleClass().add("technicianListItem" + ((i + 1) % 2));
@@ -141,7 +140,6 @@ public class Arr_Controller implements Initializable{
     ScrollPane technichiansScrollPane = new ScrollPane(contents);
     technichiansScrollPane.getStyleClass().add("technichiansScrollPane");
     VBox technichiansScrollPaneWrapper= new VBox(technicianHeader, technichiansScrollPane);
-
     List<String> techNeeds = Organizer.getTechnicalNeeds(concertName);
     VBox techNeedsContents = new VBox();
     for (int i = 0; i < techNeeds.size(); i++) {
@@ -155,7 +153,6 @@ public class Arr_Controller implements Initializable{
     techNeedsScrollPane.getStyleClass().add("technichiansScrollPane");
     VBox techNeedsScrollPaneWrapper= new VBox(technicalNeedsHeader, techNeedsScrollPane);
     VBox techDetailsContainer = new VBox(technichiansScrollPaneWrapper, techNeedsScrollPaneWrapper);
-
     List<String> bookingOffers = Organizer.getBookingOffers(concertName);
     Label headerBookingOffers = new Label("Program");
     headerBookingOffers.setId("headerBookingOffers");
@@ -173,7 +170,6 @@ public class Arr_Controller implements Initializable{
     ScrollPane bookingOffersScrollPane = new ScrollPane(contentsBO);
     bookingOffersScrollPane.getStyleClass().add("scrollPane");
     VBox boContainer = new VBox(headerBookingOffers, bookingOffersScrollPane);
-
     AnchorPane concertDetailsWrapper = new AnchorPane(lblStage, lblConcert, lblDate,techDetailsContainer, boContainer);
     concertDetailsWrapper.setLeftAnchor(lblConcert, 14.0);
     concertDetailsWrapper.setTopAnchor(lblConcert, 14.0);
@@ -189,6 +185,9 @@ public class Arr_Controller implements Initializable{
     container.getChildren().add(concertDetailsWrapper);
   }
 
+  /**
+   * Generates and shows the fxml for adding a new concert.
+   */
   public void navAddConc() {
     resetContainer(1);
     Spacing_lvl1_lvl2.setText(" > ");
@@ -196,7 +195,7 @@ public class Arr_Controller implements Initializable{
     container.getChildren().clear();
     Label headerAddConc = new Label("Legg til konsert");
     headerAddConc.setId("headerScrollPane");
-
+    instructionBoxLbl.setText("Fyll ut navn og dato for å opprette en ny konsert");
     Label lblName = new Label("Navn: ");
     TextField inpName = new TextField();
     inpName.getStyleClass().add("inpField");
@@ -205,12 +204,10 @@ public class Arr_Controller implements Initializable{
     TextField inpDate = new TextField();
     inpDate.getStyleClass().add("inpField");
     VBox dateCont = new VBox(lblDate, inpDate);
-
     Label lblStagee = new Label("Scene: ");
     TextField inpStagee = new TextField();
     inpName.getStyleClass().add("inpField");
     VBox stageCont = new VBox(lblStagee, inpStagee);
-
     Button btnAdd = new Button("Legg til");
     Label lblFeedback = new Label();
     Label lblStage = new Label("Søk etter en scene: ");
@@ -259,9 +256,13 @@ public class Arr_Controller implements Initializable{
     container.getChildren().addAll(headerAddConc, addConcContents);
   }
 
-  private int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
+  /**
+   * Mathod validates the date. Date is passed as the argument date. Method works for all years with, and after 0AD. Method takes leapyears into account. Date format is dd.mm.yyyy
+   * @param date
+   * @return
+   */
   public boolean validateDate(String date) {
+    int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     String[] ddmmyyyy = date.split("\\.");
     if (ddmmyyyy.length != 3 || ddmmyyyy[0].length() != 2 || ddmmyyyy[1].length() != 2 || ddmmyyyy[2].length() != 4) { return false;}
     for (int i = 0; i < ddmmyyyy.length; i++) {
