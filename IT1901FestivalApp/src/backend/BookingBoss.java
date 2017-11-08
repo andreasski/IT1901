@@ -31,9 +31,9 @@ public class BookingBoss {
                 String date = rs.getString("date");
                 String[] datearr = date.split("\\.");
                 LocalDateTime lt = LocalDateTime.now();
-                int yr = Integer.parseInt(datearr[0]);
+                int dy = Integer.parseInt(datearr[0]);
                 int mn = Integer.parseInt(datearr[1]);
-                int dy = Integer.parseInt(datearr[2]);
+                int yr = Integer.parseInt(datearr[2]);
                 if (yr < lt.getYear() || mn < lt.getMonthValue() || dy < lt.getDayOfMonth()) {
                     String strm = String.format("%s;%s;%s;%s", rs.getString("idconcert"), rs.getString("cname"), date, rs.getString("sname"));
                     ls.add(strm);
@@ -82,10 +82,10 @@ public class BookingBoss {
         int extraPrice = 1;
         int cexp = 0;
         int cap = 0;
-        ArrayList<Integer> bexp = new ArrayList<Integer>();
-        ArrayList<Integer> bpop = new ArrayList<Integer>();
-        ArrayList<Integer> balb = new ArrayList<Integer>();
-        ArrayList<Integer> bcon = new ArrayList<Integer>();
+        ArrayList<Integer> bexp = new ArrayList<>();
+        ArrayList<Integer> bpop = new ArrayList<>();
+        ArrayList<Integer> balb = new ArrayList<>();
+        ArrayList<Integer> bcon = new ArrayList<>();
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;

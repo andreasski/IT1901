@@ -94,7 +94,7 @@ public class BoB_Controller implements Initializable {
   }
 
   /**
-   * Generates and shows the contents og concert report page in booking boss. Report contains key information about a given concert such as net profits, attendees and more
+   * Generates and shows the contents og concert report page in booking boss. Report contains key information about a given concert such as net profit, attendees and more
    * @param concId id of the concert to show the contents for
    */
   public void navReport(int concId) {

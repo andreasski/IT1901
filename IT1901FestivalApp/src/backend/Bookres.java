@@ -1,28 +1,16 @@
 package backend;
-
-import backend.ConnectionManager;
-import com.sun.istack.internal.localization.NullLocalizable;
-
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import static java.lang.System.out;
-import static java.lang.System.setOut;
 
 public class Bookres {
-
   ArrayList<String> bands;
   ArrayList<String> needs;
   ArrayList<String> concerts;
 
-  /*
+  /**
   Bookingansvarlig
   *
   * Initializes the object.
@@ -35,7 +23,7 @@ public class Bookres {
     concerts = new ArrayList<>();
   }
 
-  /*
+  /**
   ArrayList<String> searchBands
   * @param: String band
   *
@@ -59,36 +47,38 @@ public class Bookres {
     return bands;
   }
 
+  /**
+   * Returns a list of concerts that partially matches concert
+   * @param concert The name of the concert that is being searched after
+   * @return A list of concerts that partially fits the concert that is being searched after
+   */
   public List<String> searchConcerts(String concert) {
     List<String> concerts = new ArrayList();
     try {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
-
       rs = stmt.executeQuery("SELECT name FROM concert WHERE name LIKE '%" + concert + "%'");
       while (rs.next()) {
         String name = rs.getString("name");
         concerts.add(name);
       }
     } catch (Exception e) {
-      System.err.println("Got an exception123! ");
+      System.err.println("Got an exception! ");
       System.err.println(e.getMessage());
-    }
-    return concerts;
+    } return concerts;
   }
 
-  /*
+  /**
   ArrayList<String> getTechnicalNeeds
   * @param: String band
   *
-  * Gets the technical need for the following band.
+  * @return Gets the technical need for the following band.
   */
   public ArrayList<String> getTechnicalNeeds(String band) {
     needs.clear();
     try {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
-
       rs = stmt.executeQuery("SELECT techicalneed.need FROM techicalneed, band WHERE band.name = \"" + band + "\" AND band.idBand = techicalneed.bandid");
       while (rs.next()) {
         String need = rs.getString("techicalneed.need");
@@ -97,16 +87,14 @@ public class Bookres {
     } catch (Exception e) {
       System.err.println("Got an exception2! ");
       System.err.println(e.getMessage());
-    }
-    return needs;
-
+    } return needs;
   }
 
-  /*
+  /**
   String getInfoBand
   * @param: String band
   *
-  * Gets the information about the following band.
+  * @return Gets the information about the following band.
   */
   public String getInfoBand(String band) {
     String info = "";
@@ -114,8 +102,6 @@ public class Bookres {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
       rs = stmt.executeQuery("SELECT popularity, salesalbum, salesconcerts FROM band where band.name = \"" + band + "\"");
-
-
       while (rs.next()) {
         int pop = rs.getInt("popularity");
         int sale = rs.getInt("salesalbum");
@@ -125,22 +111,20 @@ public class Bookres {
     } catch (Exception e) {
       System.err.println("Got an exception2! ");
       System.err.println(e.getMessage());
-    }
-    return info;
+    } return info;
   }
 
-  /*
+  /**
   String getPreviosConcerts
   * @param: String band
   *
-  * Gets a list of the previous concerts of a band.
+  * @return Gets a list of the previous concerts of a band.
   */
   public ArrayList<String> getPreviousConcerts(String band) {
-    ArrayList<String> info = new ArrayList<String>();
+    ArrayList<String> info = new ArrayList<>();
     try {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
-
       String str = String.format("SELECT concert.name AS cname, stage.name AS sname, concert.date, concert.sales, concert.price, concert.expenses, concert.earnings FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE accepted > 1 AND band.name = 'Bølgeband'", band);
       rs = stmt.executeQuery(str);
       while (rs.next()) {
@@ -150,16 +134,14 @@ public class Bookres {
     } catch (Exception e) {
       System.err.println("Got an exception2! ");
       System.err.println(e.getMessage());
-    }
-    return info;
-
+    } return info;
   }
 
-     /*
-    String getGenre
-    *
-    * Gets a list of the different genres.
-    */
+  /**
+  String getGenre
+  *
+  * @return Gets a list of the different genres.
+  */
 
   public List<String> getGenre() {
     List<String> genres = new ArrayList<>();
@@ -167,7 +149,6 @@ public class Bookres {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
       rs = stmt.executeQuery("SELECT name FROM genre");
-
       while (rs.next()) {
         String genre = rs.getString("name");
         genres.add(genre);
@@ -175,16 +156,14 @@ public class Bookres {
     } catch (Exception e) {
       System.err.println("Got an exception7! ");
       System.err.println(e.getMessage());
-    }
-    return genres;
+    } return genres;
   }
 
-
-    /*
+    /**
     String getGenre
     * @param: String genre
     *
-    * Gets an overview over audience and stage info from previous concerts.
+    * @return Gets an overview over audience and stage info from previous concerts.
     */
 
   public List<String> getPubScene(String genre) {
@@ -193,7 +172,6 @@ public class Bookres {
       Statement stmt = ConnectionManager.conn.createStatement();
       ResultSet rs;
       rs = stmt.executeQuery("SELECT DISTINCT stage.name, stage.capacity, concert.sales FROM genre INNER JOIN genreband ON genreband.genreid = genre.idGenre INNER JOIN band ON band.idBand = genreband.bandid INNER JOIN bookingoffer ON bookingoffer.bandid = band.idBand INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON stage.idstage = concert.stageid WHERE genre.name = \"" + genre + "\" AND bookingoffer.accepted > 1");
-
       while (rs.next()) {
         String stage = rs.getString("name");
         String capacity = rs.getString("capacity");
@@ -204,17 +182,23 @@ public class Bookres {
     } catch (Exception e) {
       System.err.println("Got an exception8! ");
       System.err.println(e.getMessage());
-    }
-    return pubscenes;
+    } return pubscenes;
   }
 
+  /**
+   * Method adds a booking offer to the database if all the arguments are in the correct format
+   * @param time Time of the booking offer. format is hh:mm-hh:mm. If the second half is earlier than the first, method interpretes it as rolling over to the next day
+   * @param concertName Name of the concert booking offer is connceted to
+   * @param bandName Name of the band that is to receive the booking offer
+   * @param expense Payment to the band
+   * @return Returns feedback string that is printed to user
+   */
   public String addBookingOffer(String time, String concertName, String bandName, int expense) {
     try {
       Statement stm = ConnectionManager.conn.createStatement();
       ResultSet rs;
       String strBID = String.format("SELECT idBand FROM band WHERE band.name = '%s'", bandName);
       String strCID = String.format("SELECT idconcert FROM concert WHERE concert.name = '%s'", concertName);
-
       rs = stm.executeQuery(strBID);
       if (!rs.next() ) {
         return "Bandet " + bandName + " eksisterer ikke i databasen";
@@ -230,12 +214,17 @@ public class Bookres {
       }
       String str = String.format("Insert Into bookingoffer(bandid, concertId, time, expense) Values ('%s', '%s', '%s', %d)", bandID, concID, time, expense);
       stm.executeUpdate(str);
-
     } catch (Exception e) {
       out.println(e.getMessage());
     } return "Booking tilbud opprettet";
   }
 
+  /**
+   * Validates that the time is available and is on the format hh:mm-hh:mm. If the second half is earlier than the first, method interpretes it as rolling over to the next day
+   * @param time User created string to be validated
+   * @param concertName Name of the concert the time is checked for
+   * @return returns true if on propper format and available, false otherwise
+   */
   public boolean validateDateTime(String time, String concertName) {
     List<String> timeList = new ArrayList<>();
     String[] splitDash = time.split("-");
@@ -265,17 +254,10 @@ public class Bookres {
           return false;
         }
       }}
-
     catch (Exception e) {
       System.err.println("Got an exceptionTime! ");
       System.err.println(e.getMessage());
       return false;
-    }
-    return true;
+    } return true;
   }
-  public static void main(String[]args){
-    Bookres test = new Bookres();
-    System.out.println(test.validateDateTime("10:05-10:30", "partykonsert"));
-  }
-
 }

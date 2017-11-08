@@ -32,16 +32,11 @@
 
 /*--- GENERAL ---*/
 
-/*--- INSTRUCTION_BOX ---*/
 #instructionBoxLabel {
     -fx-max-width: 250px;
     -fx-wrap-text: true;
 }
-/*--- INSTRUCTION_BOX ---*/
 
-/*--- CONTENTS ---*/
-
-//Dates
 #scrollPane {
     -fx-max-width: 500px;
     -fx-min-height: 0px;
@@ -129,20 +124,6 @@
     -fx-min-height: 0px;
 }
 
-.concertOffer0 {
-    -fx-background-color: #D9D9D9;
-    -fx-padding: 1em;
-    -fx-min-width: 500px;
-    -fx-max-width: 500px;
-}
-
-.concertOffer1 {
-    -fx-background-color: #E6E6E6;
-    -fx-padding: 1em;
-    -fx-min-width: 500px;
-    -fx-max-width: 500px;
-}
-
 #genreContainer {
     -fx-max-width: 274px;
 }
@@ -160,7 +141,6 @@
     -fx-max-width: 500px;
     -fx-min-height: 300px;
     -fx-max-height: 300px;
-
 }
 
 #searchContainer {
@@ -183,4 +163,3 @@
     -fx-min-height: 0;
     -fx-max-height: 150px;
 }
-/*--- CONTENTS ---*/

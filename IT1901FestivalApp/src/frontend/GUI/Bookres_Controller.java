@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class Bookres_Controller implements Initializable {
 
+    //Global variables
     private backend.Bookres BookingRes;
     private VBox searchContents = new VBox();
     private VBox techContents = new VBox();
@@ -31,6 +32,7 @@ public class Bookres_Controller implements Initializable {
     private ScrollPane concertsScrollPane = new ScrollPane();
     private HBox info_techContainer = new HBox();
 
+    //FXML references
     @FXML
     private VBox container;
 
@@ -46,6 +48,10 @@ public class Bookres_Controller implements Initializable {
     @FXML
     private ScrollPane genreScrollPane;
 
+    /**
+     * Method generates and shows the contents of the landing page for booking responsible. User can search for bands and look up previous concerts in a given genre.
+     * Aswell as navigating to another page where user can create a booking offer
+     */
     public void navSearch() {
         container.getChildren().clear();
         search.getChildren().clear();
@@ -76,6 +82,10 @@ public class Bookres_Controller implements Initializable {
         genreScrollPane.setContent(contents);
     }
 
+    /**
+     * Navigates to a list that shows info about concerts in the genre
+     * @param genre Genre to show info about
+     */
     public void navGenre(String genre) {
         container.getChildren().clear();
         search.getChildren().clear();
@@ -108,16 +118,17 @@ public class Bookres_Controller implements Initializable {
         container.getChildren().addAll(prevConcHeader, prevConcScrollPane);
     }
 
+    /**
+     * Navigates to a page where the user can create a booking offer
+     */
     public void navBookingOffer() {
         container.getChildren().clear();
         search.getChildren().clear();
         spacing1_2.setText(" > ");
         lvl2.setText("Boooking tilbud");
         VBox contents = new VBox();
-
         Label headerBookOffer = new Label("Booking tilbud");
         headerBookOffer.setId("headerScrollPane");
-
         Label lblTime = new Label("Klokkeslett: (tt:mm-tt:mm)");
         TextField inpTime = new TextField();
         Label lblConcert = new Label("Konsert: ");
@@ -127,10 +138,8 @@ public class Bookres_Controller implements Initializable {
         Label lblPrice = new Label("Pris: ");
         TextField inpPrice = new TextField();
         VBox inpContainer = new VBox(lblTime, inpTime, lblConcert, inpConcert, lblBand, inpBand, lblPrice, inpPrice);
-
         Label lblSearchInstruction = new Label("Huk av alternativet du vil søke etter");
         lblSearchInstruction.getStyleClass().add("margin");
-
         ToggleGroup searchVar = new ToggleGroup();
         RadioButton radConc = new RadioButton("Konserter  ");
         radConc.setSelected(true);
@@ -139,19 +148,16 @@ public class Bookres_Controller implements Initializable {
         radBand.setToggleGroup(searchVar);
         HBox radBtnContainer = new HBox(radConc, radBand);
         radBtnContainer.getStyleClass().add("leftMargin");
-
         TextField inpSearch = new TextField();
         inpSearch.setId("inpSearch");
         Button btnSearch = new Button("Søk");
         btnSearch.setId("btnSearch");
         HBox searchInpContainer = new HBox(inpSearch, btnSearch);
         searchInpContainer.getStyleClass().add("topMargin");
-
         ScrollPane searchResScrollPane = new ScrollPane();
         searchResScrollPane.setId("searchResScrollPane");
         searchResScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         searchResScrollPane.setContent(new VBox());
-
         btnSearch.setOnAction(event -> {
             List<String> contentsList = new ArrayList<>();
             VBox scrollPaneContents = new VBox();
@@ -181,32 +187,22 @@ public class Bookres_Controller implements Initializable {
                 }
             } searchResScrollPane.setContent(scrollPaneContents);
         });
-
         Label addRes = new Label("");
         addRes.getStyleClass().add("topMargin");
-
         Button btnAdd = new Button("Opprett tilbud");
         btnAdd.setOnAction(event -> {
             if (inpBand.getText().length() > 0 && inpConcert.getText().length() > 0) {
-  //              if (validateTime(inpTime.getText())) {
                 if (validatePrice(inpPrice.getText())) {
                     addRes.setText(BookingRes.addBookingOffer(inpTime.getText(), inpConcert.getText(), inpBand.getText(), Integer.parseInt(inpPrice.getText())));
                 } else {
                     addRes.setText("Pris må være et positivt heltall");
                 }
-             //else {
-               // addRes.setText("Feil format på tid");
-            //}
-        } else {
+            } else {
                 addRes.setText("Vennligst fyll inn alle feltene");
             }
-
         });
-
         VBox searchContainer = new VBox(lblSearchInstruction, radBtnContainer, searchInpContainer, searchResScrollPane);
         searchContainer.setId("searchContainer");
-
-
         AnchorPane bookingOfferContainer = new AnchorPane(inpContainer, searchContainer, btnAdd, addRes);
         bookingOfferContainer.setLeftAnchor(inpContainer, 0.0);
         bookingOfferContainer.setTopAnchor(inpContainer, 0.0);
@@ -218,11 +214,15 @@ public class Bookres_Controller implements Initializable {
         bookingOfferContainer.setLeftAnchor(addRes, 0.0);
         bookingOfferContainer.setBottomAnchor(addRes, 28.0);
         bookingOfferContainer.setId("bookingOfferContainer");
-
         contents.getChildren().addAll(headerBookOffer, bookingOfferContainer);
         container.getChildren().add(contents);
     }
 
+    /**
+     * Checks that price is a positive integer
+     * @param price user input, price
+     * @return returns true if price is a positive integer, false otherwise
+     */
     public boolean validatePrice(String price) {
         if (price.length() > 0) {
             for (int i = 0; i < price.length(); i++) {
@@ -231,21 +231,10 @@ public class Bookres_Controller implements Initializable {
         } return false;
     }
 
-/*    public boolean validateTime(String time) {
-        String[] splitDash = time.split("-");
-        if (splitDash.length != 2) { return false;}
-        for (int i = 0; i < 2; i++) {
-            String[] splitColon = splitDash[i].split(":");
-            if (splitColon.length != 2) { return false;}
-            for (int j = 0; j < 2; j++) { if (!Character.isDigit(splitColon[0].charAt(j)) || !Character.isDigit(splitColon[1].charAt(j))) { return false;}}
-        }
-        int h1 = Integer.parseInt(splitDash[0].substring(0,2));
-        int m1 = Integer.parseInt(splitDash[0].substring(3,5));
-        int h2 = Integer.parseInt(splitDash[1].substring(0,2));
-        int m2 = Integer.parseInt(splitDash[1].substring(3,5));
-        return (h2 > h1) || (h2 == h1 && m2 > m1);
-    }
-*/
+    /**
+     * Updates the scrollpane on the landing page, showing the search results
+     * @param bandName partial or whole band name
+     */
     public void showSearchResult(String bandName) {
         searchContents.getChildren().clear();
         container.getChildren().clear();
@@ -263,11 +252,13 @@ public class Bookres_Controller implements Initializable {
         }
         searchScrollPane = new ScrollPane();
         searchScrollPane.setContent(searchContents);
-
         container.getChildren().add(searchScrollPane);
     }
 
-
+    /**
+     * Shows info about a selected band
+     * @param band
+     */
     public void bandInfo(String band){
         container.getChildren().clear();
         info_techContainer.getChildren().clear();
@@ -293,6 +284,10 @@ public class Bookres_Controller implements Initializable {
         showPrevConcert(band);
     }
 
+    /**
+     * Shows the technical needs of a selected band
+     * @param band band name
+     */
     public void showTechNeeds(String band){
         techContents.getChildren().clear();
         ArrayList<String> techNeeds = BookingRes.getTechnicalNeeds(band);
@@ -311,6 +306,10 @@ public class Bookres_Controller implements Initializable {
         info_techContainer.getChildren().add(techNeedsContainer);
     }
 
+    /**
+     * Shows a list of previous concerts a band has played
+     * @param BandName band name
+     */
     public void showPrevConcert(String BandName){
         concContents.getChildren().clear();
         ArrayList<String> prevConcert = BookingRes.getPreviousConcerts(BandName);
@@ -350,6 +349,7 @@ public class Bookres_Controller implements Initializable {
         container.getChildren().addAll(concertsHeader, concertsScrollPane);
     }
 
+    //Runs when FXML is loaded. Initializes the page
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         BookingRes = new Bookres();
