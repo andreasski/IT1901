@@ -257,9 +257,9 @@ public class Arr_Controller implements Initializable{
   }
 
   /**
-   * Mathod validates the date. Date is passed as the argument date. Method works for all years with, and after 0AD. Method takes leapyears into account. Date format is dd.mm.yyyy
-   * @param date
-   * @return
+   * Mathod validates the date. Date is passed as the argument date. Method works for all years with, and after 0AD. Method takes leapyears into account.
+   * @param date Date format is dd.mm.yyyy
+   * @return true if valid date, false if invalid date
    */
   public boolean validateDate(String date) {
     int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};

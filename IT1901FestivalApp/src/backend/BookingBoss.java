@@ -22,14 +22,11 @@ public class BookingBoss {
      */
     public List<String> getConcerts() {
         List<String> ls = new ArrayList<String>();
-
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-
             String str = String.format("SELECT DISTINCT concert.idconcert, concert.name AS cname, concert.date, stage.name AS sname FROM bookingoffer INNER JOIN concert ON concert.idconcert = bookingoffer.concertid INNER JOIN stage ON concert.stageid = stage.idstage WHERE bookingoffer.accepted > 1 ORDER BY concert.date");
             rs = stm.executeQuery(str);
-
             while (rs.next()) {
                 String date = rs.getString("date");
                 String[] datearr = date.split("\\.");
@@ -37,22 +34,15 @@ public class BookingBoss {
                 int yr = Integer.parseInt(datearr[0]);
                 int mn = Integer.parseInt(datearr[1]);
                 int dy = Integer.parseInt(datearr[2]);
-                //System.out.print(yr + " " + mn + " " + dy);
                 if (yr < lt.getYear() || mn < lt.getMonthValue() || dy < lt.getDayOfMonth()) {
-                    System.out.print(" Added! \n");
                     String strm = String.format("%s;%s;%s;%s", rs.getString("idconcert"), rs.getString("cname"), date, rs.getString("sname"));
                     ls.add(strm);
-                }
-                else {
-                    //System.out.print(" not Added! \n");
                 }
             }
         } catch (Exception e) {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
-        }
-
-        return ls;
+        } return ls;
     }
 
     /**
@@ -63,24 +53,19 @@ public class BookingBoss {
      */
     public String getConcert(int concertId) {
         String res = "";
-
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-
             String str = String.format("SELECT concert.name, concert.sales, concert.price, (concert.expenses + ( SELECT SUM(bookingoffer.expense) FROM bookingoffer WHERE bookingoffer.accepted > 1 AND bookingoffer.concertid = concert.idconcert )) AS totalexpenses, (concert.sales * concert.price - (concert.expenses + ( SELECT SUM(bookingoffer.expense) FROM bookingoffer WHERE bookingoffer.accepted > 1 AND bookingoffer.concertid = concert.idconcert ))) AS earnings FROM concert WHERE concert.idconcert = %d", concertId);
             rs = stm.executeQuery(str);
-
             while (rs.next()) {
                 String strm = String.format("%s;%s;%s;%s;%s", rs.getString("name"), rs.getString("sales"), rs.getString("price"), rs.getString("totalexpenses"), rs.getString("earnings"));
                 res = strm;
-
             }
         } catch (Exception e) {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
-        }
-        return  res;
+        } return  res;
     }
 
     /**
@@ -91,30 +76,24 @@ public class BookingBoss {
      */
     public int generateTicketPrice(int concertId) {
         int price = 0;
-
         int expectedSales = 0;
         double expectedatt = 0.1;
         int totalexpenses = 0;
         int extraPrice = 1;
-
         int cexp = 0;
         int cap = 0;
         ArrayList<Integer> bexp = new ArrayList<Integer>();
         ArrayList<Integer> bpop = new ArrayList<Integer>();
         ArrayList<Integer> balb = new ArrayList<Integer>();
         ArrayList<Integer> bcon = new ArrayList<Integer>();
-
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-
             String str = String.format("SELECT concert.expenses AS exp, stage.capacity AS cap, bookingoffer.expense AS bexpense, band.popularity, band.salesalbum, band.salesconcerts FROM concert INNER JOIN stage ON stage.idstage = concert.stageid INNER JOIN bookingoffer ON bookingoffer.concertid = concert.idconcert INNER JOIN band ON band.idBand = bookingoffer.bandid WHERE bookingoffer.accepted > 1 AND concert.idconcert = %d", concertId);
             rs = stm.executeQuery(str);
-
             while (rs.next()) {
                 cexp = rs.getInt("exp");
                 cap = rs.getInt("cap");
-
                 bexp.add(rs.getInt("bexpense"));
                 bpop.add(rs.getInt("popularity"));
                 balb.add(rs.getInt("salesalbum"));
@@ -124,24 +103,18 @@ public class BookingBoss {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
         }
-
         totalexpenses = cexp;
         for (int i = 0; i < bexp.size(); i++) {
             totalexpenses += bexp.get(i);
             expectedSales += Math.round(bpop.get(i) * expectedatt);
         }
-
-
         int attendance = expectedSales;
         if (attendance > cap) {
             attendance = cap;
-
             extraPrice = expectedSales / cap;
         }
-
         price = Math.round(totalexpenses / attendance);
         price = Math.round(price * extraPrice);
-
         return  price;
     }
 
@@ -153,7 +126,6 @@ public class BookingBoss {
      */
     public int getConcertId (String concertName) {
         int res = 0;
-
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
@@ -166,8 +138,7 @@ public class BookingBoss {
         } catch (Exception e) {
             System.err.println("Got an exception123! ");
             System.err.println(e.getMessage());
-        }
-        return res;
+        } return res;
     }
 
     /**
@@ -195,14 +166,11 @@ public class BookingBoss {
      */
     public List<String> getOffers() {
         List<String> ls = new ArrayList<String>();
-
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-
             String str = String.format("SELECT bookingoffer.idbookingoffer, band.name AS bname, concert.name AS cname, stage.name AS sname, concert.date, bookingoffer.time, bookingoffer.accepted FROM bookingoffer INNER JOIN band ON band.idBand = bookingoffer.bandid INNER JOIN concert on concert.idconcert = bookingoffer.concertid INNER JOIN stage on stage.idstage = concert.stageid WHERE bookingoffer.accepted = 0");
             rs = stm.executeQuery(str);
-
             while (rs.next()) {
                 String strm = String.format("%s;%s;%s;%s;%s;%s;%s", rs.getString("idbookingoffer"), rs.getString("bname"),rs.getString("cname"), rs.getString("sname"), rs.getString("date"), rs.getString("time"), rs.getString("accepted"));
                 ls.add(strm);
@@ -210,9 +178,7 @@ public class BookingBoss {
         } catch (Exception e) {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
-        }
-
-        return ls;
+        } return ls;
     }
 
     /**
@@ -232,6 +198,7 @@ public class BookingBoss {
             System.out.println(e.getMessage());
         }
     }
+
     /**
      List<String> getConcertDates
      * @param: String startDate
@@ -241,76 +208,23 @@ public class BookingBoss {
      */
     public String getConcertDates() {
         String strres= "%s%s%s";
-
         try {
             Statement stm = ConnectionManager.conn.createStatement();
             ResultSet rs;
-
             String str = String.format("SELECT (SELECT COUNT(DISTINCT concert.date) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 2) AS booked, (SELECT COUNT(DISTINCT bookingoffer.idbookingoffer) FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted = 1) AS sent, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date LIMIT 1) AS sdate, (SELECT concert.date FROM bookingoffer INNER JOIN concert ON bookingoffer.concertid = concert.idconcert WHERE bookingoffer.accepted > 0 ORDER BY concert.date DESC LIMIT 1) AS edate");
             rs = stm.executeQuery(str);
-
             while (rs.next()) {
-
                 String[] spl = rs.getString("sdate").split("\\.");
                 String[] epl = rs.getString("edate").split("\\.");
-
-
                 LocalDate sd = LocalDate.of(Integer.parseInt(spl[2]), Integer.parseInt(spl[1]), Integer.parseInt(spl[0]));
                 LocalDate ed = LocalDate.of(Integer.parseInt(epl[2]), Integer.parseInt(epl[1]), Integer.parseInt(epl[0]));
-
                 int booked =  Integer.parseInt(rs.getString("booked"));
                 int sent =  Integer.parseInt(rs.getString("sent"));
-
                 strres = String.format("%d;%d;%d", booked, sent, ChronoUnit.DAYS.between(sd, ed) - booked);
             }
         } catch (Exception e) {
             System.err.println("Got an exception2! ");
             System.err.println(e.getMessage());
-        }
-
-        return strres;
-    }
-
-    public static void main(String[] args)
-    {
-
-        LocalDateTime lt = LocalDateTime.now();
-
-        String sr = String.format("%s.%s.%s", lt.getYear(), lt.getMonthValue(), lt.getDayOfMonth());
-
-
-        //System.out.println(lt.toString());
-        //System.out.println(sr);
-
-
-        BookingBoss bb = new BookingBoss();
-        bb.getConcertId("Musikkkonsert");
-
-
-        List<String> ls = bb.getConcerts();
-        Iterator<String> its = ls.iterator();
-
-        while (its.hasNext())
-        {
-            System.out.println(its.next());
-        }
-
-        System.out.println(bb.getConcert(4));
-        System.out.println("ticket price 4: " + bb.generateTicketPrice(4));
-        System.out.println("ticket price 5: " + bb.generateTicketPrice(5));
-        System.out.println("ticket price 6: " + bb.generateTicketPrice(6));
-
-        System.out.println();
-
-
-        bb.updateOffer(2, 1);
-        its = bb.getOffers().iterator();
-        while (its.hasNext())
-        {
-            System.out.println(its.next());
-        }
-
-        System.out.println(bb.getConcertDates());
-
+        } return strres;
     }
 }

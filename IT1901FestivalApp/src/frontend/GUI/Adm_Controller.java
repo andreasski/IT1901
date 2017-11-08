@@ -70,8 +70,6 @@ public class Adm_Controller implements Initializable{
 
   /**
    * Method is called once the FXML is loaded. Calls navLanding()
-   * @param location
-   * @param resources
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
