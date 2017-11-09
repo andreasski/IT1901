@@ -1,3 +1,5 @@
+
+/* CSS file that helps design the login, registration and navigation window. Enables change of text, margins and color with the use of simple id-calls */
 #body {
     -fx-background-color: #E6E6E6;
 }
