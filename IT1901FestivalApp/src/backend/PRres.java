@@ -35,7 +35,6 @@ public class PRres {
      return bookedBands;
     }
     public String getBandDetails(int bandID, int concertID) {
-       // ArrayList<String> bandDetails = new ArrayList<>();
         String bandDetail = "";
         try {
             Statement stmt = ConnectionManager.conn.createStatement();

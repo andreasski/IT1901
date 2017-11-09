@@ -82,6 +82,7 @@ public class PRres_Controller implements Initializable {
     //Creates a Borderpane with all the info requested
     public BorderPane addBandDetail(int bandid, int concertid){
         String details = prres.getBandDetails(bandid, concertid);
+
         List <String> detailsList = new ArrayList<>(Arrays.asList(details.split(";"))); //bandname, phone, email, sales, bio, link
 
         Text bandName = new Text();
@@ -107,7 +108,7 @@ public class PRres_Controller implements Initializable {
         BorderPane concertDetail = new BorderPane();
         concertDetail.setTop(bandName);
         concertDetail.setLeft(bandContactinfo);
-        //concertDetail.setCenter(bandConcertTime);
+
         concertDetail.setRight(bandConcertTicketSale);
         concertDetail.setBottom(review);
 
@@ -123,4 +124,7 @@ public class PRres_Controller implements Initializable {
 
     }
 
+    public static void main(String[] args) {
+        PRres pr = new PRres();
+    }
 }
