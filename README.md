@@ -24,3 +24,4 @@ Create an user or use username xxxxxxxx with password xxxxxxxx
 - IntelliJ IDEA community 2017.2
 
 # Acknowledgments
+- Alvin Alexander https://alvinalexander.com/java/edu/pj/jdbc/jdbc0003
