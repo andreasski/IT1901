@@ -7,12 +7,11 @@ import java.util.ArrayList;
 
 public class Technician {
 
-
-
     public  static void init(){
         ConnectionManager.connect();
     }
-    /*
+
+   /**
    ArrayList<String> getWork
    * @param: int techId
    *

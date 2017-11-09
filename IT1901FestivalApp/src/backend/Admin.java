@@ -1,4 +1,8 @@
 package backend;
+/**
+ * Admin class
+ * @author: Andreas Skifjeld
+ */
 
 import java.sql.ResultSet;
 import java.sql.Statement;

@@ -1,5 +1,9 @@
 package backend;
-
+/**
+ * BookingBoss class establish a connection to the database via the ConnectionManager class.
+ * Using queries to get data from the database and returns it to the GUI.
+ * @author: ??
+ */
 
 import java.sql.ResultSet;
 import java.sql.Statement;

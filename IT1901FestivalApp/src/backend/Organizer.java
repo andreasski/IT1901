@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 public class Organizer {
 
-    /*
+    /**
     void init
     *
     * Initiates the required variables and such.
@@ -21,7 +21,7 @@ public class Organizer {
         ConnectionManager.connect();
     }
 
-    /*
+    /**
     List<String> getDate
     *
     * Gets the dates from the database.
@@ -46,6 +46,7 @@ public class Organizer {
         dates = radixSort(dates);
         return dates;
     }
+
 
     public static List<String> radixSort(List<String> dates) {
         String[] pos =  {"0.2", "3.5", "6.10"};
@@ -81,6 +82,13 @@ public class Organizer {
         } return dates;
     }
 
+    /**
+     * addConcert
+     * @param concertName
+     * @param date
+     * @param stageName
+     * @return
+     */
     public static String addConcert(String concertName, String date, String stageName) {
         try {
             Statement stm = ConnectionManager.conn.createStatement();
@@ -104,6 +112,11 @@ public class Organizer {
         } return "Konsert opprettet";
     }
 
+    /**
+     * getStage
+     * @param stage
+     * @return List of stages
+     */
     public static List<String> getStage(String stage) {
         List<String> stages = new ArrayList();
         try {
@@ -126,7 +139,7 @@ public class Organizer {
     List<String> getConcerts
     * @param: String date
     *
-    * Gets the concerts on the data.
+    * Gets the concerts on the date in the input.
     */
     public static List<String> getConcerts(String date){
         List<String> concerts = new ArrayList<>();
@@ -170,6 +183,11 @@ public class Organizer {
         } return techs;
     }
 
+    /**
+     * getTechnicalNeeds
+     * @param concertName
+     * @return a list of technical needs for the concert in the input.
+     */
     public static ArrayList<String> getTechnicalNeeds(String concertName) {
         Set<String> needsSet = new HashSet<>();
         ArrayList<String> needs = new ArrayList<>();
@@ -189,6 +207,11 @@ public class Organizer {
         } return needs;
     }
 
+    /**
+     * getBookingOffers
+     * @param concertName
+     * @return a list with name og band and time of the concert
+     */
     public static List<String> getBookingOffers(String concertName) {
         List<String> bookingOffers = new ArrayList<>();
         try {
