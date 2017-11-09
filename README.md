@@ -2,11 +2,11 @@
 Prosjektarbeid i faget IT1901 ved NTNU
 
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ### Prerequisites
 - IntelliJ IDE
-- Java runtime
+- Java Runtime Environment
 
 ### Installing
 Clone the project into your folder. Setup your project structure as follows:
@@ -18,7 +18,7 @@ Clone the project into your folder. Setup your project structure as follows:
 path to mysql connecter: IT1901 -> mysql-connector-java-5.1.44 -> mysql-connector-java-5.1.44-bin.jar
 
 Run src -> frontend -> GUI -> login main to start the program.
-Create an user or use username xxxxxxxx with password xxxxxxxx
+Create an user or use username flint with password flintflint. If you create a new user, user admin to accept it. username mradmin with password admin
 
 ## Buildt with
 - IntelliJ IDEA community 2017.2
