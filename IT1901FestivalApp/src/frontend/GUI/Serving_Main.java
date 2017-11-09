@@ -12,7 +12,7 @@ public class Serving_Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/serving_landing.fxml"));
         primaryStage.setTitle("FestivalArrangør  | Servering");
-        Scene scene = new Scene(root, 500, 400);
+        Scene scene = new Scene(root, 1000, 1000);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

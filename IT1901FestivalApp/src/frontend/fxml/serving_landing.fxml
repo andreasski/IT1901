@@ -3,10 +3,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<BorderPane fx:id="body" fx:controller="frontend.GUI.Serving_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/serving.css">
+<BorderPane fx:id="body" fx:controller="frontend.GUI.Serving_Controller" xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/arr.css">
 
     <top>
-        <fx:include source="serving_header.fxml"/>
+        <fx:include source="arr_header.fxml"/>
     </top>
 
     <left>

@@ -17,11 +17,11 @@ public class Serving_Controller implements Initializable {
 
     @FXML
     private VBox container;
-    private ComboBox<String> comboBoxDates = null;
+    private ComboBox<String> comboBoxDates;
     private ObservableList<String> allDates = FXCollections.observableArrayList();
     private Serving serving;
-    private ArrayList<String> concerts = null;
-    private List<Button> buttons = null;
+    private ArrayList<String> concerts;
+    private List<Button> buttons;
 
     public void handleConcerts(String date) {
         concerts = serving.getConcerts(date);
@@ -104,7 +104,7 @@ public class Serving_Controller implements Initializable {
 
         container.getChildren().addAll(title, showTime, showGenre, showCapacity, showBooze, back);
 
-        back.setOnMouseClicked(event -> navServing());
+        //back.setOnMouseClicked(event -> navServing());
     }
 
 
@@ -116,7 +116,8 @@ public class Serving_Controller implements Initializable {
         Label dato = new Label("Velg en dato:");
 
         ArrayList<String> addDates = serving.getAllDates();
-        allDates.addAll(addDates);
+        allDates = FXCollections.observableArrayList(addDates);
+        System.out.print(allDates);
         comboBoxDates.setItems(allDates);
 
         /*comboBoxDates.setCellFactory((comboBox) -> {
@@ -165,10 +166,9 @@ public class Serving_Controller implements Initializable {
 
 
 
-    @java.lang.Override
+    @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         serving = new Serving();
         navServing();
-
     }
 }

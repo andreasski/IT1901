@@ -13,10 +13,10 @@ public class Serving {
     public Serving() { ConnectionManager.connect(); }
 
     //private String date;
-    private ArrayList<String> allDates = null;
-    private ArrayList<String> concerts = null;
-    private ArrayList<String> time = null;
-    private ArrayList<Integer> popularity = null;
+    //private ArrayList<String> allDates;
+    private ArrayList<String> concerts;
+    private ArrayList<String> time;
+    private ArrayList<Integer> popularity;
     private HashMap<String, ArrayList<String>> genre = new HashMap<>();
     private int estAudience;
     private int capacity;
@@ -41,11 +41,13 @@ public class Serving {
 
     public ArrayList<String> getAllDates() {
 
+        ArrayList<String> allDates = new ArrayList<>();
         try{
             Statement stmt = ConnectionManager.conn.createStatement();
             ResultSet rs;
 
             rs = stmt.executeQuery("SELECT date FROM concert;");
+
 
             while (rs.next()) {
                 allDates.add(rs.getString("concert.date"));
