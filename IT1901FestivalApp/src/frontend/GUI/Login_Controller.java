@@ -283,18 +283,30 @@ public class Login_Controller implements Initializable {
         // Clears the window to make room for new content
         container.getChildren().clear();
 
-        
+
         Map<String, String> fxmlRoleRef = new HashMap<>();
         for (int j = 0; j < fxmlRef.length; j++) { fxmlRoleRef.put(roleRef[j], fxmlRef[j]);}
+
+        // Creates labels that welcomes the user and tells the user where to log out
         Label lblWelcome = new Label("Velkommen " + login.getUsername());
         Label lblLogout = new Label("Logg ut");
         lblLogout.getStyleClass().add("underline");
+
+        // When label lblLogout is clicked function navLogin is called which transports the user back to the login window
         lblLogout.setOnMouseClicked(event ->  navLogin());
+
+        // Creates an AnchorPane containing the labels of "welcome" and "log out" and decides where they should be placed
         AnchorPane topBar = new AnchorPane(lblWelcome, lblLogout);
         topBar.setLeftAnchor(lblWelcome, 0.0);
         topBar.setRightAnchor(lblLogout, 28.0);
+
+        // Adds the topBar to the container
         container.getChildren().add(topBar);
+
+        // Acquires the list of the role-names assigned to the user from the backend function getRoles
         List<String> roles = login.getRoles();
+
+        // Creates a navigation hub that loops through all the roles the user haves. When the user clicks on a role a new window is created that calls upon the functions of that role
         for (int i = 0; i < roles.size(); i++) {
             if (fxmlRoleRef.containsKey(roles.get(i))) {
                 final int ROLE_INDEX = i;
