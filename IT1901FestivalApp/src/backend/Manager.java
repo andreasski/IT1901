@@ -168,21 +168,4 @@ public class Manager {
             System.out.println(e.getMessage());
         }
     }
-
-    public  static  void main(String[] args)
-    {
-        Manager mg = new Manager(1);
-
-        mg.updateOffer(1, 1);
-
-        List<String> ls = mg.getOffers();
-        Iterator<String> its = ls.iterator();
-        while (its.hasNext())
-        {
-            System.out.println(its.next());
-        }
-
-        //System.out.println(mg.getOffers());
-    }
-
 }
