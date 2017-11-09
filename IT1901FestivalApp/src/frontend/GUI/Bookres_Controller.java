@@ -326,7 +326,7 @@ public class Bookres_Controller implements Initializable {
             Label expenses = new Label("Utgifter: " + concertDetails[5] + ",-");
             Label revenue = new Label("Overskudd: " + ((Integer.parseInt(concertDetails[4]) * Integer.parseInt(concertDetails[3])) - Integer.parseInt(concertDetails[5])) + ",-");
             concertContainer.getChildren().addAll(concertName, stageName, date, audience, ticPrice, expenses, revenue);
-            concertContainer.getStyleClass().add("concertOffer" + ((i + 1) % 2));
+            concertContainer.getStyleClass().add("listItem" + ((i + 1) % 2));
             concertContainer.setTopAnchor(concertName, 0.0);
             concertContainer.setLeftAnchor(concertName, 0.0);
             concertContainer.setTopAnchor(stageName, 14.0);
