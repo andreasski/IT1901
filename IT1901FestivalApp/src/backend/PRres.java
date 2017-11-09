@@ -1,5 +1,11 @@
 package backend;
 
+/**
+ * @author Magnus Eriksson, Heidi Brække
+ *
+ * @see backend.ConnectionManager
+ */
+
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -15,7 +21,11 @@ public class PRres {
         bookedBands = new ArrayList<>();
     }
 
-
+    /**
+     * This method gets all the booked bands for the concert matching param concertid.
+     * @param concertId
+     * @return an ArrayList containg all booked bands for the concert.
+     */
     public ArrayList<Integer> getBookedBands(int concertId){
         try {
             Statement stmt = ConnectionManager.conn.createStatement();
@@ -34,6 +44,13 @@ public class PRres {
         }
      return bookedBands;
     }
+
+    /**
+     * This method get details of a band from the database which match param bandid and concertid.
+     * @param bandID
+     * @param concertID
+     * @return String containing band details
+     */
     public String getBandDetails(int bandID, int concertID) {
         String bandDetail = "";
         try {
@@ -53,13 +70,19 @@ public class PRres {
 
     }
 
+    /**
+     * This method creates a String to use as part of the link in frontend
+     * @param bandname
+     * @return String to use in frontend
+     */
+
     public String addLink(String bandname){
         String link = "";
-        String[] linker;
+        String[] links;
         if (bandname.contains(" ")){
-            linker = bandname.split(" ");
-            for(int i = 0; i< linker.length;i++){
-                link += linker[i];
+            links = bandname.split(" ");
+            for(int i = 0; i< links.length;i++){
+                link += links[i];
             }
         }
         else{
@@ -67,6 +90,11 @@ public class PRres {
         }
         return link;
     }
+
+    /**
+     * This method gets all the concertid for the concert which have been accepted from bookingBoss and manager(accepted=2)
+     * @return ArrayList containing id for all booked concerts
+     */
 
     public ArrayList<Integer> getConcertIdBooked(){
         ArrayList<Integer> concertsBooked = new ArrayList<>();
@@ -87,6 +115,12 @@ public class PRres {
         return concertsBooked;
     }
 
+
+    /**
+     * This method get the Concerts name based on its id.
+     * @param concertId
+     * @return concertname
+     */
     public String getConcertName(int concertId){
         String name ="";
         try {
@@ -102,15 +136,6 @@ public class PRres {
             System.err.println(e.getMessage());
         }
         return name;
-    }
-
-    public static void main(String[] args){
-        PRres p = new PRres();
-
-        String detail = p.getBandDetails(5,6);
-
-        List <String> detailsList = new ArrayList<String>(Arrays.asList(detail.split(";"))); //bandname, phone, email, sales, bio, link
-        System.out.println(detailsList);
     }
 
 }
