@@ -8,18 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.LightBase;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import org.omg.CORBA.CODESET_INCOMPATIBLE;
 
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -247,7 +243,7 @@ public class Login_Controller implements Initializable {
                 Label lblRole = new Label(roles.get(i));
                 lblRole.setOnMouseClicked(event -> {
                     Stage stage = new Stage();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/" + fxmlRoleRef.get(roles.get(ROLE_INDEX)) + ".fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("frontend/fxml/" + fxmlRoleRef.get(roles.get(ROLE_INDEX)) + ".fxml"));
                     Parent root = null;
                     try {
                         root = (Parent) fxmlLoader.load();
@@ -255,37 +251,37 @@ public class Login_Controller implements Initializable {
                         e.printStackTrace();
                     }
                     if (roles.get(ROLE_INDEX).equals("Tekniker")) {
-                        Tec_Controller controller = fxmlLoader.<Tec_Controller>getController();
+                        frontend.GUI.Tec_Controller controller = fxmlLoader.<frontend.GUI.Tec_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                         controller.init(Integer.parseInt(login.getPersonId()));
                     } else if (roles.get(ROLE_INDEX).equals("Booking ansvarlig")) {
-                        Bookres_Controller controller = fxmlLoader.<Bookres_Controller>getController();
+                        frontend.GUI.Bookres_Controller controller = fxmlLoader.<Bookres_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     } else if (roles.get(ROLE_INDEX).equals("Manager")) {
-                        Man_Controller controller = fxmlLoader.<Man_Controller>getController();
+                        frontend.GUI.Man_Controller controller = fxmlLoader.<frontend.GUI.Man_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                         controller.init(Integer.parseInt(login.getPersonId()));
                     } else if (roles.get(ROLE_INDEX).equals("Arrangør")) {
-                        Arr_Controller controller = fxmlLoader.<Arr_Controller>getController();
+                        frontend.GUI.Arr_Controller controller = fxmlLoader.<frontend.GUI.Arr_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     } else if (roles.get(ROLE_INDEX).equals("Booking sjef")) {
-                        BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
+                        frontend.GUI.BoB_Controller controller = fxmlLoader.<frontend.GUI.BoB_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     } else if (roles.get(ROLE_INDEX).equals("PR manager")) {
-                        PRres_Controller controller = fxmlLoader.<PRres_Controller>getController();
+                        frontend.GUI.PRres_Controller controller = fxmlLoader.<frontend.GUI.PRres_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     } else if (roles.get(ROLE_INDEX).equals("Servering")) {
-                        BoB_Controller controller = fxmlLoader.<BoB_Controller>getController();
+                        frontend.GUI.BoB_Controller controller = fxmlLoader.<frontend.GUI.BoB_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     } else if (roles.get(ROLE_INDEX).equals("Admin")) {
-                        Adm_Controller controller = fxmlLoader.<Adm_Controller>getController();
+                        frontend.GUI.Adm_Controller controller = fxmlLoader.<frontend.GUI.Adm_Controller>getController();
                         Scene scene = new Scene(root, 800, 600);
                         stage.setScene(scene);
                     }

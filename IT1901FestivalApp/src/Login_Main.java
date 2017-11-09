@@ -1,4 +1,3 @@
-package frontend.GUI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,7 @@ public class Login_Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/login_landing.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("frontend/fxml/login_landing.fxml"));
         primaryStage.setTitle("FestivalArrangør  | Logg inn");
         Scene scene = new Scene(root, 500, 400);
         primaryStage.setScene(scene);
