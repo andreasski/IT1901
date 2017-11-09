@@ -17,7 +17,7 @@ Clone the project into your folder. Setup your project structure as follows:
 - Project structure -> Libraries -> add(+) mysql-connector-java-5.1.44-bin. 
 path to mysql connecter: IT1901 -> mysql-connector-java-5.1.44 -> mysql-connector-java-5.1.44-bin.jar
 
-Run src -> frontend -> GUI -> login main to start the program
+Run src -> frontend -> GUI -> login main to start the program.
 Create an user or use username xxxxxxxx with password xxxxxxxx
 
 ## Buildt with
