@@ -1,5 +1,12 @@
 package frontend.GUI;
 
+/**
+ * PRres_Controller handles user interaction with the GUI.
+ * @author Magnus Eriksson
+ * @version 1.0
+ * @since 28.10.2017
+ */
+
 import backend.PRres;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,8 +34,6 @@ public class PRres_Controller implements Initializable {
     @FXML
     private VBox instructionBoxContainer;
 
-    private backend.PRres prres;
-
     @FXML
     private VBox container;
 
@@ -38,12 +43,16 @@ public class PRres_Controller implements Initializable {
 
     private VBox contents = new VBox();
 
-    /**
-     * container - scrollpane - anchorpane - VBox(contents) - VBox(concert) -
-     * for each band in concert: Borderpane with a Label (date and name)
-     * For each borderpane: Text(Band) Text(Time) Text(contactinfo) Text(Sales) text(Link) text(review)
-     */
+    private backend.PRres prres;
 
+    /**
+     * Calls backend.PRres.getConcertIdBooked to get id for the booked concerts.
+     * Creates a Vbox for each booked concert, calls addBandDetail to create a BorderPane with
+     * information about each band for the concert. Calls getBookedBands(int) to get bandid for all the booked bands
+     * @see #addBandDetail(int, int)
+     * @see backend.PRres#getBookedBands(int)
+     * @see backend.PRres#getConcertName(int)
+     */
     public void getConcertDetails(){
 
         container.getChildren().clear();
@@ -52,14 +61,10 @@ public class PRres_Controller implements Initializable {
         instructionBoxLbl.setId("instructionBoxLabel");
         instructionBoxContainer.getChildren().add(instructionBoxLbl);
 
-
         // A ArrayList containing concertID of all booked Concert
         ArrayList<Integer> bookedConcerts = prres.getConcertIdBooked();
 
-
-        // For each booked concert, create a VBox with Id = concertId, label it with concertname and add it to contents
-
-
+        // For each booked concert, create a VBox with Id = concertId, label it with concertname. Cre and add it to contents
         for(int concert : bookedConcerts){
             VBox vb = new VBox();
             Label concertName = new Label(prres.getConcertName(concert));
@@ -70,7 +75,7 @@ public class PRres_Controller implements Initializable {
             for(int band : bookedBands){
                 vb.getChildren().add(addBandDetail(band, concert));
             }
-            bookedBands.clear(); //rett pos
+            bookedBands.clear();
             contents.getChildren().add(vb);
         }
 
@@ -79,7 +84,13 @@ public class PRres_Controller implements Initializable {
         container.getChildren().add(prScrollPane);
     }
 
-    //Creates a Borderpane with all the info requested
+    /**
+     *  This method creates a BorderPane with information of bandname, phone, email, sales, bio, link which match the bandid and concertid
+     * @param bandid band id
+     * @param concertid concert id
+     * @return BorderPane concertDetail
+     * @see backend.PRres#getBandDetails(int, int)
+     */
     public BorderPane addBandDetail(int bandid, int concertid){
         String details = prres.getBandDetails(bandid, concertid);
 
@@ -122,9 +133,5 @@ public class PRres_Controller implements Initializable {
         prres = new PRres();
         getConcertDetails();
 
-    }
-
-    public static void main(String[] args) {
-        PRres pr = new PRres();
     }
 }
