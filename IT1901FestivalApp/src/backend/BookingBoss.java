@@ -2,7 +2,7 @@ package backend;
 /**
  * BookingBoss class establish a connection to the database via the ConnectionManager class.
  * Using queries to get data from the database and returns it to the GUI.
- * @author: ??
+ * @author: John Gullaksen
  */
 
 import java.sql.ResultSet;
@@ -23,6 +23,7 @@ public class BookingBoss {
      List<String> getConcerts
      *
      * Returns a list of concerts, with id, concert name, date and stage name.
+     * @return Returns a list of concerts, with id, concert name, date and stage name.
      */
     public List<String> getConcerts() {
         List<String> ls = new ArrayList<String>();
@@ -53,7 +54,7 @@ public class BookingBoss {
      String getConcert
      * @param: int concertId
      *
-     * Returns information of the concert specifiedl
+     * @return Returns information of the concert specified.
      */
     public String getConcert(int concertId) {
         String res = "";
@@ -76,7 +77,7 @@ public class BookingBoss {
      int generateTicketPrice
      * @param: int concertId
      *
-     * Returns a generated ticket price for the specified concert. Takes into consideration expenses.
+     * @return Returns a generated ticket price for the specified concert. Takes into consideration expenses.
      */
     public int generateTicketPrice(int concertId) {
         int price = 0;
@@ -126,7 +127,7 @@ public class BookingBoss {
      int getConcertId
      * @param: String concertName
      *
-     * Returns the id of the specified concert.
+     * @return Returns the id of the specified concert.
      */
     public int getConcertId (String concertName) {
         int res = 0;
@@ -166,7 +167,7 @@ public class BookingBoss {
     /**
      List<String> getOffers
      *
-     * Returns a list of bookingoffers for the booking boss to accept.
+     * @return Returns a list of bookingoffers for the booking boss to accept.
      */
     public List<String> getOffers() {
         List<String> ls = new ArrayList<String>();
@@ -208,7 +209,7 @@ public class BookingBoss {
      * @param: String startDate
      * @param: String endDate
      *
-     * Returns a list of dates and if the date is booked or not. The first element of the list is the amount of booked dates, sent but not booked and free days.
+     * @return Returns a list of dates and if the date is booked or not. The first element of the list is the amount of booked dates, sent but not booked and free days.
      */
     public String getConcertDates() {
         String strres= "%s%s%s";
