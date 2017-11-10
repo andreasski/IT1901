@@ -20,7 +20,7 @@ path to mysql connecter: IT1901 -> mysql-connector-java-5.1.44 -> mysql-connecto
 Run src -> frontend -> GUI -> login main to start the program.
 Create an user or use username flint with password flintflint. If you create a new user, user admin to accept it. username mradmin with password admin
 
-## Buildt with
+## Built with
 - IntelliJ IDEA community 2017.2
 
 # Acknowledgments
