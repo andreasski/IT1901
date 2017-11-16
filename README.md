@@ -1,5 +1,5 @@
 # IT1901
-Prosjektarbeid i faget IT1901 ved NTNU
+Project for the course IT1901 at NTNU
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
